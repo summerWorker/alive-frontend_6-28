@@ -128,7 +128,7 @@ const HeightCard = ({ isLoading }) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="https://oc.sjtu.edu.cn/?login_success=1" color={'#fff'}>
+                    <Link href="/data/height" color={'#fff'}>
                       详细数据>>
                     </Link>
                   </Grid>

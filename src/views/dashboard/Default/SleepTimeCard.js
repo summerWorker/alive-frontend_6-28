@@ -122,7 +122,7 @@ const SleepTimeCard = ({ isLoading }) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="https://oc.sjtu.edu.cn/?login_success=1" color={'#fff'}>
+                    <Link href="/data/sleepTime" color={'#fff'}>
                       详细数据>>
                     </Link>
                   </Grid>

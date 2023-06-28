@@ -15,6 +15,8 @@ const bloodSugar = 70;
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
+  backgroundColor: '#E6CB47',
+  color: '#fff',
   overflow: 'hidden',
   position: 'relative',
   '&:after': {
