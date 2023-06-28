@@ -18,7 +18,6 @@ const DBP = 84; // 舒张压
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#FEF24F',
-  color: '#fff',
   overflow: 'hidden',
   position: 'relative',
   '&:after': {

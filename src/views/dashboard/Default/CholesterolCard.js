@@ -16,7 +16,6 @@ const cholesterol = 120;
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#E6AB47',
-  color: '#fff',
   overflow: 'hidden',
   position: 'relative',
   '&:after': {
