@@ -10,27 +10,26 @@ const icons = {
 
 const pages = {
   id: 'pages',
-  title: 'Pages',
-  caption: 'Pages Caption',
+  title: '账户',
   type: 'group',
   children: [
     {
       id: 'authentication',
-      title: 'Authentication',
+      title: '账户',
       type: 'collapse',
       icon: icons.IconKey,
 
       children: [
         {
           id: 'login3',
-          title: 'Login',
+          title: '登录',
           type: 'item',
           url: '/pages/login/login3',
           target: true
         },
         {
           id: 'register3',
-          title: 'Register',
+          title: '注册',
           type: 'item',
           url: '/pages/register/register3',
           target: true
