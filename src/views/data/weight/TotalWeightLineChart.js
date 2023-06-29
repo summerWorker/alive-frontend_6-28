@@ -1,43 +1,21 @@
-// import { useState } from 'react';
-// import { useSelector } from 'react-redux';
-
 // material-ui
-// import { useTheme } from '@mui/material/styles';
 import { Button, CardContent, Grid, Typography } from '@mui/material';
 
-// third-party
-// import ApexCharts from 'apexcharts';
-// import Chart from 'react-apexcharts';
+import Chart from 'react-apexcharts';
+import getWeekChartData from './chart-data/weight-week-chart';
+import getMonthChartData from './chart-data/weight-month-chart';
+import getYearChartData from './chart-data/weight-year-chart';
+
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import { gridSpacing } from '../../../store/constant';
 import { useState } from 'react';
 
-// chart data
-// import chartData from '../chart-data/weight-chart';
-import WeightChart from './WeightChart';
-
-// const status = [
-//   {
-//     value: 'week',
-//     label: 'This Week'
-//   },
-//   {
-//     value: 'month',
-//     label: 'This Month'
-//   }
-// ];
-
-const TotalWeightLineChart = () => {
-  // const [value, setValue] = useState('week');
-  //
-  // const handleChangeTime = (event, newValue) => {
-  //   setValue(newValue);
-  // };
-  //
-  // const theme = useTheme();
-  const [timeValue, setTimeValue] = useState(false);
+const TotalWeightLineChart = (props) => {
+  // week month year data
+  // week: 0, month: 1, year: 2
+  const [timeValue, setTimeValue] = useState(0);
   const handleChangeTime = (event, newValue) => {
     setTimeValue(newValue);
   };
@@ -51,47 +29,58 @@ const TotalWeightLineChart = () => {
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Current</Typography>
+                    <Typography variant="subtitle2">当前体重</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">{props.currentW}KG</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Goal</Typography>
+                    <Typography variant="subtitle2">目标体重</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">{props.goal}KG</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Button
                   disableElevation
-                  variant={timeValue ? 'contained' : 'text'}
+                  variant={(timeValue === 0) ? 'contained' : 'text'}
                   size="small"
                   sx={{ color: 'success[200]' }}
-                  onClick={(e) => handleChangeTime(e, true)}
+                  onClick={(e) => handleChangeTime(e, 0)}
                 >
-                  Week
+                  周
                 </Button>
                 <Button
                   disableElevation
-                  variant={!timeValue ? 'contained' : 'text'}
+                  variant={(timeValue === 1) ? 'contained' : 'text'}
                   size="small"
                   sx={{ color: 'success[200]' }}
-                  onClick={(e) => handleChangeTime(e, false)}
+                  onClick={(e) => handleChangeTime(e, 1)}
                 >
-                  Month
+                  月
+                </Button>
+                <Button
+                    disableElevation
+                    variant={(timeValue === 2) ? 'contained' : 'text'}
+                    size="small"
+                    sx={{ color: 'success[200]' }}
+                    onClick={(e) => handleChangeTime(e, 2)}
+                >
+                  年
                 </Button>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ pt: '16px !important' }}>
-            <WeightChart />
+          <Grid item xs={12} sx={{ pt: '16px !important' }} style={{marginRight: "2.5%"}}>
+            {timeValue === 0 ? <Chart {...getWeekChartData(props.weekWeight, props.goal)} /> :
+                (timeValue === 1 ? <Chart {...getMonthChartData(props.monthWeight, props.goal)} /> :
+                    <Chart {...getYearChartData(props.yearWeight, props.goal)} />)}
           </Grid>
         </Grid>
       </CardContent>
