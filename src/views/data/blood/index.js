@@ -5,10 +5,10 @@ import {useEffect, useState} from "react";
 import {endpoint} from "../../../utils/endpoint";
 import * as bloodPressureService from "../../../services/bloodPressureService";
 import BloodPressureCard from "./bloodPressureCard";
+import BloodSugarChartCard from "./bloodSugarChartCard";
 
 
 const DataBlood = () => {
-
     const [weekPressureData, setWeekPressureData] = useState([[140, 90], [130, 87], [135, 91], [141, 87], [138,83], [153, 85], [139, 91]]);
     const [monthPressureData, setMonthPressureData] = useState([]);
 
@@ -62,7 +62,7 @@ const DataBlood = () => {
         <Grid item lg={6} xs={12}>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
-
+              <BloodSugarChartCard />
             </Grid>
             <Grid item xs={12}>
 

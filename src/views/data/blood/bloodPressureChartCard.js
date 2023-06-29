@@ -30,12 +30,6 @@ const BloodPressureChartCard = (props) => {
   }
 
 
-
-
-
-
-
-
    return (
      <MainCard content={false}>
        <CardContent>
