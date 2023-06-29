@@ -6,7 +6,7 @@ import { SleepGoalCard } from './sleepGoalCard';
 import { SleepGoalNextCard } from './sleepGoalNextCard';
 import { SleepAbout } from './sleepAbout';
 
-export function DataSleepTime() {
+function DataSleepTime() {
   return (
     <div>
       <Grid container spacing={gridSpacing}>
@@ -42,3 +42,5 @@ export function DataSleepTime() {
     </div>
   );
 }
+
+export default DataSleepTime;

@@ -9,7 +9,7 @@ import analytics from './analytics';
 
 const menuItems = {
   // items: [home, data, analytics, pages, utilities, other]
-  items: [home, data, analytics, pages, other]
+  items: [home, data, analytics, pages]
 };
 
 export default menuItems;

@@ -10,76 +10,69 @@ const data = {
   type: 'group',
   children: [
     {
-      id: 'height',
-      title: '身高',
-      type: 'item',
-      url: '/data/height',
+      id: 'healthData',
+      title: '健康数据',
+      type: 'collapse',
       icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'weight',
-      title: '体重',
-      type: 'item',
-      url: '/data/weight',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'steps',
-      title: '运动步数',
-      type: 'item',
-      url: '/data/steps',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'sleepTime',
-      title: '睡眠时间',
-      type: 'item',
-      url: '/data/sleepTime',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'heartRate',
-      title: '心率',
-      type: 'item',
-      url: '/data/heartRate',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'bloodPressure',
-      title: '血压',
-      type: 'item',
-      url: '/data/bloodPressure',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'bloodSugar',
-      title: '血糖',
-      type: 'item',
-      url: '/data/bloodSugar',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'cholesterol',
-      title: '胆固醇',
-      type: 'item',
-      url: '/data/cholesterol',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
-    },
-    {
-      id: 'calories',
-      title: '饮食',
-      type: 'item',
-      url: '/data/calories',
-      icon: icons.IconScaleOutline,
-      breadcrumbs: false
+
+      children: [
+        {
+          id: 'height',
+          title: '身高',
+          type: 'item',
+          url: '/data/height',
+          breadcrumbs: false
+        },
+        {
+          id: 'weight',
+          title: '体重',
+          type: 'item',
+          url: '/data/weight',
+          breadcrumbs: false
+        },
+        {
+          id: 'steps',
+          title: '运动步数',
+          type: 'item',
+          url: '/data/steps',
+          breadcrumbs: false
+        },
+        {
+          id: 'sleepTime',
+          title: '睡眠时间',
+          type: 'item',
+          url: '/data/sleepTime',
+          breadcrumbs: false
+        },
+        {
+          id: 'heartRate',
+          title: '心率',
+          type: 'item',
+          url: '/data/heartRate',
+          breadcrumbs: false
+        },
+        {
+          id: 'blood',
+          title: '血压',
+          type: 'item',
+          url: '/data/blood',
+          breadcrumbs: false
+        },
+        {
+          id: 'bloodSugar',
+          title: '血糖',
+          type: 'item',
+          url: '/data/bloodSugar',
+          breadcrumbs: false
+        },
+        {
+          id: 'calories',
+          title: '饮食',
+          type: 'item',
+          url: '/data/calories',
+          breadcrumbs: false
+        }
+      ]
     }
   ]
 };

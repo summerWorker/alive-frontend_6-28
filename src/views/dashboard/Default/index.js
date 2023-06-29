@@ -16,6 +16,7 @@ import BloodSugarCard from './BloodSugarCard';
 import HeartRateCard from './HeartRateCard';
 import CholesterolCard from './CholesterolCard';
 import DataInfoChart from './DataInfoChart';
+import { useNavigate } from 'react-router';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(false);
   }, []);
-
+  const navigate = useNavigate();
   function handleClickHeight() {
     setInfoData('height');
   }
@@ -38,6 +39,19 @@ const Dashboard = () => {
   function handleClickSleepTime() {
     setInfoData('sleepTime');
   }
+  function handleClickBloodPressure() {
+    navigate('/data/bloodPressure');
+  }
+  function handleClickBloodSugar() {
+    navigate('/data/bloodSugar');
+  }
+  function handleClickHeartRate() {
+    navigate('/data/heartRate');
+  }
+  function handleClickCholesterol() {
+    navigate('/data/cholesterol');
+  }
+
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
@@ -79,18 +93,27 @@ const Dashboard = () => {
           <Grid item lg={4} md={12} sm={12} xs={12}>
             <Grid container spacing={gridSpacing}>
               <Grid item lg={12} md={6} sm={6} xs={12}>
-                <BloodPressureCard isLoading={isLoading} />
+                <CardActionArea onClick={handleClickBloodPressure}>
+                  <BloodPressureCard isLoading={isLoading} />
+                </CardActionArea>
                 {/*TotalIncomeDarkCard*/}
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>
-                <BloodSugarCard isLoading={isLoading} />
+                <CardActionArea onClick={handleClickBloodSugar}>
+                  <BloodSugarCard isLoading={isLoading} />
+                </CardActionArea>
+
                 {/*TotalIncomeLightCard*/}
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>
-                <HeartRateCard isLoading={isLoading} />
+                <CardActionArea onClick={handleClickHeartRate}>
+                  <HeartRateCard isLoading={isLoading} />
+                </CardActionArea>
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>
-                <CholesterolCard isLoading={isLoading} />
+                <CardActionArea onClick={handleClickCholesterol}>
+                  <CholesterolCard isLoading={isLoading} />
+                </CardActionArea>
               </Grid>
             </Grid>
           </Grid>
