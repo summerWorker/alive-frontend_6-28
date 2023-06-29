@@ -46,7 +46,7 @@ const DataWeight = () => {
   const [weekData, setWeekData] = useState([51, 52, 51.2, null, 51.0, 50.9, 51.1]);
   const [monthData, setMonthData] = useState([51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1]);
 
-  useEffect(date => {
+  useEffect(() => {
     // get week data
     const today = new Date();
     const past_day = new Date().setDate(today.getDate() - 7);

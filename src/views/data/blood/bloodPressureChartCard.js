@@ -5,12 +5,36 @@ import {useState} from "react";
 import getBloodPressureChartData from "./chart-data/blood-pressure-chart";
 import Chart from "react-apexcharts";
 
-const BloodPressureChartCard = () => {
+const BloodPressureChartCard = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [timeValue, setTimeValue] = useState(false);
+  // week: true; month: false
+  const [timeValue, setTimeValue] = useState(true);
   const handleChangeTime = (event, newValue) => {
     setTimeValue(newValue);
   };
+
+  // week / month category
+  let weekCate = [], monthCate = [];
+  let week_data = [[], []], month_data = [[], []];
+  const today = new Date();
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  for(let i = 0; i < 7; ++i){
+    weekCate[6 - i] = weekDays[(today.getDay() - i + 7) % 7];
+    week_data[0].push(props.weekData[i][0]);
+    week_data[1].push(props.weekData[i][1]);
+  }
+  for(let i = 0; i < 30; ++i){
+    monthCate[29 - i] = today.getDate() - i;
+    // month_data[0].push(props.monthData[i][0]);
+    // month_data[1].push(props.monthData[i][1]);
+  }
+
+
+
+
+
+
+
 
    return (
      <MainCard content={false}>
@@ -61,11 +85,7 @@ const BloodPressureChartCard = () => {
              </Grid>
            </Grid>
            <Grid item xs={12} sx={{ pt: '16px !important'}}>
-             <Card>
-              <Grid item>
-                <Chart {...getBloodPressureChartData}  />
-              </Grid>
-             </Card>
+             {timeValue ? <Chart {...getBloodPressureChartData(weekCate, week_data)} /> : <Chart {...getBloodPressureChartData(monthCate, month_data)} /> }
            </Grid>
          </Grid>
        </CardContent>
