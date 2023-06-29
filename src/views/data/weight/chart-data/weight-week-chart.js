@@ -1,4 +1,6 @@
 const getWeekChartData = (seriesData, goal) => {
+  const filteredData = seriesData.filter(value => value !== null);
+
   const chartData = {
     type: 'line',
     height: 270,
@@ -58,8 +60,8 @@ const getWeekChartData = (seriesData, goal) => {
         }
       },
       yaxis: {
-        min: Math.min(...seriesData, goal) - 1,
-        max: Math.max(...seriesData, goal) + 1
+        min: Math.min(...filteredData, goal) - 1,
+        max: Math.max(...filteredData, goal) + 1
       },
       tooltip: {
         theme: 'dark',

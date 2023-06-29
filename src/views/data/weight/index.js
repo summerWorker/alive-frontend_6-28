@@ -16,6 +16,7 @@ import { endpoint } from "../../../utils/endpoint";
 import * as weightService from "../../../services/weightService";
 import Chart from "react-apexcharts";
 import MainCard from "../../../ui-component/cards/MainCard";
+import {getWeekWeight} from "../../../services/weightService";
 
 
 const DataWeight = () => {
@@ -42,23 +43,44 @@ const DataWeight = () => {
   }, []);
 
 
-  const [weekData, setWeekData] = useState([51, 52, 51.2, 52.1, 51.0, 50.9, 51.1]);
+  const [weekData, setWeekData] = useState([51, 52, 51.2, null, 51.0, 50.9, 51.1]);
   const [monthData, setMonthData] = useState([51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1]);
-  useEffect(() => {
-    // get week, month data
+
+  useEffect(date => {
+    // get week data
     const today = new Date();
-    const data = {user_id: 1, date: today };
-    const url_week = endpoint + "/api/weight/month";
+    const past_day = new Date().setDate(today.getDate() - 7);
+    const data = {user_id: 1, start_date: past_day, end_date: today};
+    const url_week = endpoint + "/api/weight/week";
     const callback = (data) => {
       if(data.status >= 0){
-        setWeekData(data.data.slice(0, 7));
+        // let week_data = [];
+        // for(let i = 0; i < 7; ++i){
+        //
+        // }
+        setWeekData(data.data);
+      }else{
+        alert(data.msg);
+      }
+    }
+    weightService.getWeekWeight(url_week, data, callback).then();
+  }, []);
+
+  useEffect(() => {
+    //get month data
+    const today = new Date();
+    const past_day = new Date().setDate(today.getDate() - 30);
+    const data = {user_id: 1, start_date: past_day, end_date: today};
+    const url_month = endpoint + "/api/weight/month";
+    const callback = (data) => {
+      if(data.status >= 0){
         setMonthData(data.data);
       }else{
         alert(data.msg);
       }
     }
-    weightService.getWeightByDate(url_week, data, callback).then();
-  }, []);
+    weightService.getWeightByMonth(url_month, data, callback).then();
+  })
 
 
   const [yearData, setYearData] = useState([51.0, 51.2, 50.8, 50.3, 50.4, 50.2, 50.2, 50.3, 51.0, 51.2, 50.8, 50.3]);
@@ -66,7 +88,7 @@ const DataWeight = () => {
     //get year data
     const currentMonth = new Date().getMonth();
     const data = {user_id: 1, date: currentMonth};
-    const url = endpoint + "/api/weight/month";
+    const url = endpoint + "/api/weight/year";
     const callback = (data) => {
       if(data.status >= 0){
         setYearData(data.data);
