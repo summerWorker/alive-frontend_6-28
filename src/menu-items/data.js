@@ -52,10 +52,10 @@ const data = {
           breadcrumbs: false
         },
         {
-          id: 'bloodPressure',
+          id: 'blood',
           title: '血压',
           type: 'item',
-          url: '/data/bloodPressure',
+          url: '/data/blood',
           breadcrumbs: false
         },
         {
@@ -63,13 +63,6 @@ const data = {
           title: '血糖',
           type: 'item',
           url: '/data/bloodSugar',
-          breadcrumbs: false
-        },
-        {
-          id: 'cholesterol',
-          title: '胆固醇',
-          type: 'item',
-          url: '/data/cholesterol',
           breadcrumbs: false
         },
         {
