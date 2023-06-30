@@ -5,7 +5,7 @@ import {useState} from "react";
 import {getBloodSugarChartData} from "./chart-data/blood-sugar-chart";
 import Chart from "react-apexcharts";
 
-const BloodSugarChartCard = () => {
+const BloodSugarChartCard = (props) => {
   // week: true; month: false
   const [timeValue, setTimeValue] = useState(true);
   const handleChangeTime = (event, newValue) => {
@@ -52,7 +52,7 @@ const BloodSugarChartCard = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} sx={{ pt: '16px !important'}}>
-            <Chart {...getBloodSugarChartData()} />
+            {timeValue ? <Chart {...getBloodSugarChartData(props.weekData)} /> : <Chart {...getBloodSugarChartData(props.monthData)} />}
           </Grid>
         </Grid>
       </CardContent>
