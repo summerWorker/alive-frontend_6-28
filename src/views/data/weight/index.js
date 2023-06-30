@@ -16,7 +16,7 @@ import { endpoint } from "../../../utils/endpoint";
 import * as weightService from "../../../services/weightService";
 import Chart from "react-apexcharts";
 import MainCard from "../../../ui-component/cards/MainCard";
-import {getWeekWeight} from "../../../services/weightService";
+import {getWeekWeight, getWeight} from "../../../services/weightService";
 
 
 const DataWeight = () => {
@@ -43,60 +43,61 @@ const DataWeight = () => {
   }, []);
 
 
-  const [weekData, setWeekData] = useState([51, 52, 51.2, null, 51.0, 50.9, 51.1]);
+  const [weekData, setWeekData] = useState([]);
   const [monthData, setMonthData] = useState([51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1]);
 
-  useEffect(() => {
+  useEffect(date => {
     // get week data
     const today = new Date();
-    const past_day = new Date().setDate(today.getDate() - 7);
-    const data = {user_id: 1, start_date: past_day, end_date: today};
-    const url_week = endpoint + "/api/weight/week";
+    const cur_year = today.getFullYear();
+    const cur_month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const cur_day = today.getDate().toString().padStart(2, '0');
+    const format_today = `${cur_year}-${cur_month}-${cur_day}`;
+
+    let past_day = new Date().setDate(today.getDate() - 7);
+    const temp_day = new Date(past_day); // 创建 Date 对象
+    const year = temp_day.getFullYear(); // 获取年份
+    const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
+    const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
+    const formattedDate = `${year}-${month}-${day}`;
+    const data = {user_id: 1, start_date: formattedDate, end_date: format_today};
+    const url_week = endpoint + "/weight";
     const callback = (data) => {
       if(data.status >= 0){
-        // let week_data = [];
-        // for(let i = 0; i < 7; ++i){
-        //
-        // }
-        setWeekData(data.data);
+        const items = data.data.weight[0].detailValue;
+        setWeekData(items['item']);
       }else{
         alert(data.msg);
       }
     }
-    weightService.getWeekWeight(url_week, data, callback).then();
+    weightService.getWeight(url_week, data, callback).then();
   }, []);
 
   useEffect(() => {
     //get month data
     const today = new Date();
-    const past_day = new Date().setDate(today.getDate() - 30);
-    const data = {user_id: 1, start_date: past_day, end_date: today};
-    const url_month = endpoint + "/api/weight/month";
+    const cur_year = today.getFullYear();
+    const cur_month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const cur_day = today.getDate().toString().padStart(2, '0');
+    const format_today = `${cur_year}-${cur_month}-${cur_day}`;
+
+    let past_day = new Date().setDate(today.getDate() - 30);
+    const temp_day = new Date(past_day); // 创建 Date 对象
+    const year = temp_day.getFullYear(); // 获取年份
+    const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
+    const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
+    const formattedDate = `${year}-${month}-${day}`;
+    const data = {user_id: 1, start_date: formattedDate, end_date: format_today};
+    const url_month = endpoint + "/weight";
     const callback = (data) => {
       if(data.status >= 0){
-        setMonthData(data.data);
+        const items = data.data.weight[0].detailValue;
+        setMonthData(items['item']);
       }else{
         alert(data.msg);
       }
     }
-    weightService.getWeightByMonth(url_month, data, callback).then();
-  })
-
-
-  const [yearData, setYearData] = useState([51.0, 51.2, 50.8, 50.3, 50.4, 50.2, 50.2, 50.3, 51.0, 51.2, 50.8, 50.3]);
-  useEffect(() => {
-    //get year data
-    const currentMonth = new Date().getMonth();
-    const data = {user_id: 1, date: currentMonth};
-    const url = endpoint + "/api/weight/year";
-    const callback = (data) => {
-      if(data.status >= 0){
-        setYearData(data.data);
-      }else{
-        alert(data.msg);
-      }
-    }
-    weightService.getWeightByMonth(url, data, callback).then();
+    weightService.getWeight(url_month, data, callback).then();
   }, []);
 
 
@@ -117,7 +118,6 @@ const DataWeight = () => {
                                   currentW={currentWeight}
                                   weekWeight={weekData}
                                   monthWeight={monthData}
-                                  yearWeight={yearData}
             />
           </Grid>
           <Grid item xs={12}>

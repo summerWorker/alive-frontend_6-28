@@ -1,4 +1,4 @@
-const getWeekChartData = (seriesData, goal) => {
+const getWeekChartData = (seriesData, goal, category) => {
   const filteredData = seriesData.filter(value => value !== null);
 
   const chartData = {
@@ -38,7 +38,7 @@ const getWeekChartData = (seriesData, goal) => {
       },
       xaxis: {
         type: 'category',
-        categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
+        categories: category
       },
       legend: {
         show: true,

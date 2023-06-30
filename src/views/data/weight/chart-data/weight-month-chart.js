@@ -1,4 +1,6 @@
-const getMonthChartData = (seriesData, goal) => {
+const getMonthChartData = (seriesData, goal, category) => {
+    const filteredData = seriesData.filter(value => value !== null);
+
     const chartData = {
         type: 'line',
         height: 270,
@@ -35,7 +37,8 @@ const getMonthChartData = (seriesData, goal) => {
             },
             xaxis: {
                 type: 'category',
-                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
+                categories: category,
+                tickAmount: 10
             },
             legend: {
                 show: true,
@@ -57,8 +60,9 @@ const getMonthChartData = (seriesData, goal) => {
                 }
             },
             yaxis: {
-              min: Math.min(...seriesData, goal) - 1,
-              max: Math.max(...seriesData, goal) + 1
+              min: Math.min(...filteredData, goal) - 1,
+              max: Math.max(...filteredData, goal) + 1,
+              tickAmount: 7
             },
             tooltip: {
                 theme: 'dark',
