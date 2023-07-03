@@ -16,7 +16,7 @@ const WeightConditionCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h4">Your Condition: Health</Typography>}
+              primary={<Typography variant="h4">您的健康状况: 健康</Typography>}
             />
           </ListItem>
         </List>

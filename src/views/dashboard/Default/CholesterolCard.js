@@ -9,8 +9,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
-
+import { BloodtypeTwoTone } from '@mui/icons-material';
 const cholesterol = 120;
 
 // styles
@@ -64,7 +63,7 @@ const BloodSugarCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <StorefrontTwoToneIcon fontSize="inherit" />
+                    <BloodtypeTwoTone />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

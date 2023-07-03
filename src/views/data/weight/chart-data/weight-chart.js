@@ -34,7 +34,7 @@ const chartData = {
     },
     xaxis: {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
+      categories: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
     },
     legend: {
       show: true,
@@ -85,7 +85,7 @@ const chartData = {
               color: '#fff',
               background: '#00E396'
             },
-            text: 'Goal'
+            text: '目标'
           }
         }
       ]
@@ -93,7 +93,7 @@ const chartData = {
   },
   series: [
     {
-      name: 'Weight',
+      name: '体重',
       data: [30, 40, 25, 50, 49, 21, 30]
     }
   ]

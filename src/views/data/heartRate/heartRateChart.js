@@ -16,7 +16,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 
 // chart data
-import { heightData, weightData, stepsData, sleepTimeData } from './chart-data/total-growth-bar-chart';
+import { heartRateData } from './chart-data/total-growth-bar-chart';
 
 const status = [
   {
@@ -35,9 +35,8 @@ const status = [
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
-const DataInfoChart = ({ isLoading, infoData }) => {
+const HeartRateChart = ({ isLoading }) => {
   const [value, setValue] = useState('today');
-  const [chartData, setChartData] = useState(heightData);
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
 
@@ -47,15 +46,9 @@ const DataInfoChart = ({ isLoading, infoData }) => {
   const grey200 = theme.palette.grey[200];
   const grey500 = theme.palette.grey[500];
 
-  const primary200 = theme.palette.primary[200];
-  const primaryDark = theme.palette.primary.dark;
-  const secondaryMain = theme.palette.secondary.main;
-  const secondaryLight = theme.palette.secondary.light;
-
   useEffect(() => {
     const newChartData = {
-      ...chartData.options,
-      colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+      ...heartRateData.options,
       xaxis: {
         labels: {
           style: {
@@ -88,72 +81,9 @@ const DataInfoChart = ({ isLoading, infoData }) => {
 
     // do not load chart when loading
     if (!isLoading) {
-      ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
+      ApexCharts.exec(`heartRate-chart`, 'updateOptions', newChartData);
     }
-  }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
-  useEffect(() => {
-    let newChartData;
-    switch (infoData) {
-      case 'height':
-        newChartData = {
-          series: heightData.series,
-          options: {
-            ...chartData.options,
-            title: heightData.options.title,
-            dataLabels: heightData.options.dataLabels
-          }
-        };
-        break;
-      case 'weight':
-        newChartData = {
-          series: weightData.series,
-          options: {
-            ...chartData.options,
-            title: weightData.options.title,
-            dataLabels: weightData.options.dataLabels
-          }
-        };
-        break;
-      case 'steps':
-        newChartData = {
-          series: stepsData.series,
-          options: {
-            ...chartData.options,
-            title: stepsData.options.title,
-            dataLabels: stepsData.options.dataLabels
-          }
-        };
-        break;
-      case 'sleepTime':
-        newChartData = {
-          series: sleepTimeData.series,
-          options: {
-            ...chartData.options,
-            title: sleepTimeData.options.title,
-            dataLabels: sleepTimeData.options.dataLabels
-          }
-        };
-        break;
-      default:
-        newChartData = {
-          series: heightData.series,
-          options: {
-            ...chartData.options,
-            title: heightData.options.title,
-            dataLabels: heightData.options.dataLabels
-          }
-        };
-    }
-    // 不在加载过程中时才更新图表数据
-    if (!isLoading) {
-      setChartData({
-        ...chartData,
-        series: newChartData.series,
-        options: newChartData.options
-      });
-    }
-  }, [infoData]);
-
+  }, [navType, primary, darkLight, grey200, isLoading, grey500]);
   return (
     <>
       {isLoading ? (
@@ -175,7 +105,7 @@ const DataInfoChart = ({ isLoading, infoData }) => {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Chart {...chartData} />
+              <Chart {...heartRateData} />
             </Grid>
           </Grid>
         </MainCard>
@@ -184,9 +114,8 @@ const DataInfoChart = ({ isLoading, infoData }) => {
   );
 };
 
-DataInfoChart.propTypes = {
-  isLoading: PropTypes.bool,
-  infoData: PropTypes.string
+HeartRateChart.propTypes = {
+  isLoading: PropTypes.bool
 };
 
-export default DataInfoChart;
+export default HeartRateChart;

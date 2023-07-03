@@ -5,19 +5,14 @@ import { Grid } from '@mui/material';
 
 // project imports
 import { gridSpacing } from 'store/constant';
-// import TotalOrderLineChartCard from '../dashboard/Default/TotalOrderLineChartCard';
-// import TotalGrowthBarChart from '../dashboard/Default/TotalGrowthBarChart';
-// import TotalWeightLineChartCard from "./TotalWeightLineChartCard";
-// import TotalSleepLineChartCard from "./TotalSleepLineChartCard";
-// import PopularCard from "../dashboard/Default/PopularCard";
-import AdviceCard from "./adviceCard";
-import SleepChart from "./SleepChart";
-import WeightCard from "./weightCard";
-import HeightCard from "./heightCard";
+import AdviceCard from './adviceCard';
+import SleepChart from './SleepChart';
+import WeightCard from './weightCard';
+import HeightCard from './heightCard';
 // import StepCard from "./stepCard";
-import HeartRateCard from "./heartRateCard";
-import CircleCard from "./circleCard";
-import StepChartCard from "./stepChartCard";
+import HeartRateCard from './heartRateCard';
+import CircleCard from './circleCard';
+import StepChartCard from './stepChartCard';
 
 // ==============================|| DATA ANALYTICS ||============================== //
 

@@ -51,20 +51,20 @@ const TotalWeightLineChart = () => {
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Current</Typography>
+                    <Typography variant="subtitle2">当前</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Goal</Typography>
+                    <Typography variant="subtitle2">目标</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -76,7 +76,7 @@ const TotalWeightLineChart = () => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, true)}
                 >
-                  Week
+                  当周
                 </Button>
                 <Button
                   disableElevation
@@ -85,7 +85,7 @@ const TotalWeightLineChart = () => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, false)}
                 >
-                  Month
+                  当月
                 </Button>
               </Grid>
             </Grid>

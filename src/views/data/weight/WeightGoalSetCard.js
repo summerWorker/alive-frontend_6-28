@@ -11,8 +11,8 @@ const WeightGoalSetCard = () => {
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{marginLeft: "3%"}}>
-            <ListItemAvatar style={{marginRight: "5%"}}>
+          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginLeft: '3%' }}>
+            <ListItemAvatar style={{ marginRight: '5%' }}>
               <Avatar
                 variant="rounded"
                 sx={{
@@ -31,19 +31,21 @@ const WeightGoalSetCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h3">Set Your Goal!</Typography>}
+              primary={<Typography variant="h3">设置您的目标</Typography>}
             />
           </ListItem>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{marginTop: "3%"}}>
+          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginTop: '3%' }}>
             <TextField
-              label="set your goal here"
+              label="在此设置您的目标"
               id="outlined-start-adornment"
-              sx={{ m: 1, width: '65%'}}
+              sx={{ m: 1, width: '65%' }}
               InputProps={{
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>
               }}
             />
-            <Button variant="outlined" style={{height: "6ch", borderColor: "#ffe57f", borderRadius: "10px", color: "#ffc107"}}>Confirm</Button>
+            <Button variant="outlined" style={{ height: '6ch', borderColor: '#ffe57f', borderRadius: '10px', color: '#ffc107' }}>
+              确认
+            </Button>
           </ListItem>
         </List>
       </Box>

@@ -1,40 +1,37 @@
+/**
+ * 运动心率卡片
+ */
+
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Link, Typography } from '@mui/material';
-
-// third-party
-import Chart from 'react-apexcharts';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
-
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
 
 // assets
-import { DirectionsWalk } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
+import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
+import Chart from 'react-apexcharts';
+const exerciseHeartRate = 122;
+const exerciseHeartRateMin = 110;
+const exerciseHeartRateMax = 135;
 
-const steps = 12345;
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-  backgroundColor: '#4681DB',
+  backgroundColor: '#9CE82E',
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
-  '&>div': {
-    position: 'relative',
-    zIndex: 5
-  },
   '&:after': {
     content: '""',
     position: 'absolute',
     width: 210,
     height: 210,
-    background: theme.palette.primary[800],
+    background: '#94D14B',
     borderRadius: '50%',
-    zIndex: 1,
     top: -85,
     right: -95,
     [theme.breakpoints.down('sm')]: {
@@ -45,10 +42,9 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   '&:before': {
     content: '""',
     position: 'absolute',
-    zIndex: 1,
     width: 210,
     height: 210,
-    background: theme.palette.primary[800],
+    background: '#94D14B',
     borderRadius: '50%',
     top: -125,
     right: -15,
@@ -60,16 +56,15 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
+const ChartContainer = styled('div')({
+  position: 'relative',
+  zIndex: 1
+});
 
-const StepsCard = ({ isLoading }) => {
+// ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
+
+const ExerciseHeartRateCard = ({ isLoading }) => {
   const theme = useTheme();
-
-  const [timeValue, setTimeValue] = useState(false);
-  const handleChangeTime = (event, newValue) => {
-    setTimeValue(newValue);
-  };
-
   return (
     <>
       {isLoading ? (
@@ -93,21 +88,31 @@ const StepsCard = ({ isLoading }) => {
                             mt: 1
                           }}
                         >
-                          <DirectionsWalk />
+                          <Favorite />
                         </Avatar>
                       </Grid>
                       <Grid item>
-                        <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>{steps}</Typography>
+                        <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                          {exerciseHeartRate + '/min'}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <Chart {...ChartDataMonth} />
-                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item sx={{ mb: 1.25 }}>
-                <Grid container justifyContent="space-between">
+              <Grid item>
+                <Typography
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    color: '#fff'
+                  }}
+                >
+                  运动心率
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Grid container justifyContent={'space-between'}>
                   <Grid item>
                     <Typography
                       sx={{
@@ -116,13 +121,19 @@ const StepsCard = ({ isLoading }) => {
                         color: '#fff'
                       }}
                     >
-                      运动步数
+                      {'最低心率：' + exerciseHeartRateMin + '/min'}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="/data/steps" color={'#fff'}>
-                      详细数据>>
-                    </Link>
+                    <Typography
+                      sx={{
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        color: '#fff'
+                      }}
+                    >
+                      {'最高心率：' + exerciseHeartRateMax + '/min'}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -134,8 +145,8 @@ const StepsCard = ({ isLoading }) => {
   );
 };
 
-StepsCard.propTypes = {
+ExerciseHeartRateCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default StepsCard;
+export default ExerciseHeartRateCard;

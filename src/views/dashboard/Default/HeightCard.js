@@ -7,16 +7,15 @@ import { useState } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, Button, Grid, Link, Menu, MenuItem, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Link, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
+import { ManOutlined } from '@mui/icons-material';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import Chart from 'react-apexcharts';
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 const height = 173;
@@ -95,11 +94,12 @@ const HeightCard = ({ isLoading }) => {
                           sx={{
                             ...theme.typography.commonAvatar,
                             ...theme.typography.largeAvatar,
-                            backgroundColor: theme.palette.secondary[800],
+                            backgroundColor: theme.palette.primary[800],
+                            color: '#fff',
                             mt: 1
                           }}
                         >
-                          <img src={EarningIcon} alt="Notification" />
+                          <ManOutlined />
                         </Avatar>
                       </Grid>
                       <Grid item>

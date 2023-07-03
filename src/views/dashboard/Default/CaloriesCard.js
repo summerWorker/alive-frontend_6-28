@@ -1,4 +1,3 @@
-// export default BloodPressureCard;
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -10,13 +9,10 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import { Bloodtype } from '@mui/icons-material';
-const SBP = 122; // 收缩压
-const DBP = 84; // 舒张压
-
+import { LocalDining } from '@mui/icons-material';
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-  backgroundColor: '#FEF24F',
+  backgroundColor: '#FCD15B',
   overflow: 'hidden',
   position: 'relative',
   '&:after': {
@@ -43,7 +39,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const BloodSugarCard = ({ isLoading }) => {
+const CaloriesCard = ({ isLoading }) => {
   const theme = useTheme();
 
   return (
@@ -65,7 +61,7 @@ const BloodSugarCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <Bloodtype />
+                    <LocalDining />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -74,7 +70,7 @@ const BloodSugarCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">{SBP + '/' + DBP + 'mmHg'}</Typography>}
+                  primary={<Typography variant="h4"> </Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"
@@ -83,7 +79,7 @@ const BloodSugarCard = ({ isLoading }) => {
                         mt: 0.5
                       }}
                     >
-                      血压
+                      饮食
                     </Typography>
                   }
                 />
@@ -96,8 +92,8 @@ const BloodSugarCard = ({ isLoading }) => {
   );
 };
 
-BloodSugarCard.propTypes = {
+CaloriesCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default BloodSugarCard;
+export default CaloriesCard;
