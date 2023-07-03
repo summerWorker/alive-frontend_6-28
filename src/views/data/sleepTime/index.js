@@ -1,4 +1,4 @@
-import { SleepTimeRangeBarChart } from './sleepTimeRangeBarChart';
+import { SleepTimeChart } from './sleepTimeChart';
 import { Grid } from '@mui/material';
 import { gridSpacing } from 'store/constant';
 import { SleepTips } from './sleepTips';
@@ -13,7 +13,7 @@ function DataSleepTime() {
         <Grid item lg={8} sm={12}>
           <Grid container direction={'column'} spacing={gridSpacing}>
             <Grid item>
-              <SleepTimeRangeBarChart />
+              <SleepTimeChart />
             </Grid>
             <Grid item>
               <Grid container spacing={gridSpacing}>

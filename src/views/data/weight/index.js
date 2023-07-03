@@ -28,10 +28,10 @@ const DataWeight = () => {
           <Grid item xs={12}>
             <Grid container spacing={gridSpacing}>
               <Grid item lg={6} xs={12}>
-                <BmiCard />
+                <BmiCard/>
               </Grid>
               <Grid item lg={6} xs={12}>
-                <WeightLossCard />
+                <WeightLossCard/>
               </Grid>
             </Grid>
           </Grid>
