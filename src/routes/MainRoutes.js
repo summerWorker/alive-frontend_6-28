@@ -11,6 +11,7 @@ const Analytics = Loadable(lazy(() => import('views/analytics')));
 const DataWeight = Loadable(lazy(() => import('views/data/weight')));
 const DataSleepTime = Loadable(lazy(() => import('views/data/sleepTime')));
 const DataCalories = Loadable(lazy(() => import('views/data/calories')));
+const DataBlood = Loadable(lazy(() => import('views/data/blood')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -56,8 +57,13 @@ const MainRoutes = {
           element: <DataSleepTime />
         },
         {
+<<<<<<< HEAD
           path: 'heartRate',
           element: <DataHeartRate />
+=======
+          path: 'blood',
+          element: <DataBlood />
+>>>>>>> 6e61c33a79fce5fb30c47afe1d67059fa564a2a5
         }
       ]
     }

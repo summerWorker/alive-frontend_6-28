@@ -78,10 +78,6 @@ const chartData = {
       name: 'Dream Time',
       data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.00]
     },
-    // {
-    //   name: 'Maintenance',
-    //   data: [0, 0, 75, 0, 0, 115, 0]
-    // }
   ]
 };
 export default chartData;
