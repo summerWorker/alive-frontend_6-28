@@ -13,7 +13,7 @@ const SmallTipCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h3">Three things you need to know</Typography>}
+              primary={<Typography variant="h3">您可能需要知道的三件事：</Typography>}
             ></ListItemText>
           </ListItem>
         </List>

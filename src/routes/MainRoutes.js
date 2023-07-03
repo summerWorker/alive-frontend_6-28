@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import DataHeartRate from '../views/data/heartRate';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -11,6 +12,7 @@ const DataWeight = Loadable(lazy(() => import('views/data/weight')));
 const DataSleepTime = Loadable(lazy(() => import('views/data/sleepTime')));
 const DataCalories = Loadable(lazy(() => import('views/data/calories')));
 const DataSteps = Loadable(lazy(() => import('views/data/steps')));
+const DataBlood = Loadable(lazy(() => import('views/data/blood')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -58,6 +60,14 @@ const MainRoutes = {
         {
           path: 'steps',
           element: <DataSteps />
+        },
+        {
+          path: 'heartRate',
+          element: <DataHeartRate />
+        },
+        {
+          path: 'blood',
+          element: <DataBlood />
         }
       ]
     }

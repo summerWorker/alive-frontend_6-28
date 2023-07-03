@@ -9,8 +9,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
-
+import { Favorite } from '@mui/icons-material';
 const heartRate = 75;
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -63,7 +62,7 @@ const HeartRateCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <StorefrontTwoToneIcon fontSize="inherit" />
+                    <Favorite />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

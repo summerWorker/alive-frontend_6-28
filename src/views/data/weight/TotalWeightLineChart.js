@@ -1,46 +1,54 @@
-// import { useState } from 'react';
-// import { useSelector } from 'react-redux';
-
 // material-ui
-// import { useTheme } from '@mui/material/styles';
 import { Button, CardContent, Grid, Typography } from '@mui/material';
 
-// third-party
-// import ApexCharts from 'apexcharts';
-// import Chart from 'react-apexcharts';
+import Chart from 'react-apexcharts';
+import getWeekChartData from './chart-data/weight-week-chart';
+import getMonthChartData from './chart-data/weight-month-chart';
+import getYearChartData from './chart-data/weight-year-chart';
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import { gridSpacing } from '../../../store/constant';
 import { useState } from 'react';
 
-// chart data
-// import chartData from '../chart-data/weight-chart';
-import WeightChart from './WeightChart';
-
-// const status = [
-//   {
-//     value: 'week',
-//     label: 'This Week'
-//   },
-//   {
-//     value: 'month',
-//     label: 'This Month'
-//   }
-// ];
-
-const TotalWeightLineChart = () => {
-  // const [value, setValue] = useState('week');
-  //
-  // const handleChangeTime = (event, newValue) => {
-  //   setValue(newValue);
-  // };
-  //
-  // const theme = useTheme();
-  const [timeValue, setTimeValue] = useState(false);
+const TotalWeightLineChart = (props) => {
+  // week month year data
+  // week: 0, month: 1, year: 2
+  const [timeValue, setTimeValue] = useState(1);
   const handleChangeTime = (event, newValue) => {
     setTimeValue(newValue);
   };
+
+  let weekCate = [],
+    monthCate = [];
+  let weekData = Array(7).fill(null),
+    monthData = Array(30).fill(null);
+  const today = new Date();
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  for (let i = 0; i < 7; ++i) {
+    weekCate[6 - i] = weekDays[(today.getDay() - i + 7) % 7];
+  }
+  let temp_week = props.weekWeight;
+  for (let i = 0; i < temp_week.length; ++i) {
+    const cur_date = new Date(temp_week[i].date);
+    const day_of_week = cur_date.getDay() - today.getDay() + 6;
+    const cur_weight = temp_week[i].value;
+    weekData[day_of_week] = cur_weight;
+  }
+
+  for (let i = 0; i < 30; ++i) {
+    const cur_month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const cur_day = today.getDate().toString().padStart(2, '0');
+    monthCate[29 - i] = `${cur_month}-${cur_day}`;
+  }
+  console.log(monthCate);
+  let temp_month = props.monthWeight;
+  for (let i = 0; i < temp_month.length; ++i) {
+    const cur_date = new Date(temp_month[i].date);
+    const day_of_month = cur_date.getDate() - today.getDate() + 29;
+    const cur_weight = temp_month[i].value;
+    monthData[day_of_month] = cur_weight;
+  }
 
   return (
     <MainCard content={false}>
@@ -51,47 +59,51 @@ const TotalWeightLineChart = () => {
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Current</Typography>
+                    <Typography variant="subtitle2">当前</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Goal</Typography>
+                    <Typography variant="subtitle2">目标</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">KG</Typography>
+                    <Typography variant="h3">kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Button
                   disableElevation
-                  variant={timeValue ? 'contained' : 'text'}
+                  variant={timeValue === 0 ? 'contained' : 'text'}
                   size="small"
                   sx={{ color: 'success[200]' }}
-                  onClick={(e) => handleChangeTime(e, true)}
+                  onClick={(e) => handleChangeTime(e, 0)}
                 >
-                  Week
+                  周
                 </Button>
                 <Button
                   disableElevation
-                  variant={!timeValue ? 'contained' : 'text'}
+                  variant={timeValue === 1 ? 'contained' : 'text'}
                   size="small"
                   sx={{ color: 'success[200]' }}
-                  onClick={(e) => handleChangeTime(e, false)}
+                  onClick={(e) => handleChangeTime(e, 1)}
                 >
-                  Month
+                  月
                 </Button>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ pt: '16px !important' }}>
-            <WeightChart />
+          <Grid item xs={12} sx={{ pt: '16px !important' }} style={{ marginRight: '2.5%' }}>
+            {timeValue === 0 ? (
+              <Chart {...getWeekChartData(weekData, props.goal, weekCate)} />
+            ) : (
+              <Chart {...getMonthChartData(monthData, props.goal, monthCate)} />
+            )}
           </Grid>
         </Grid>
       </CardContent>

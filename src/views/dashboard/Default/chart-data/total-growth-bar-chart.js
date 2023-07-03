@@ -70,7 +70,7 @@ const heightData = {
   ...chartConfig,
   series: [
     {
-      name: 'height',
+      name: '身高',
       data: [173, 170, 172, 172, 171, 173, 173, 171, 171, 170, 170, 172]
     }
   ],
@@ -99,7 +99,7 @@ const weightData = {
   ...chartConfig,
   series: [
     {
-      name: 'weight',
+      name: '体重',
       data: [70, 71, 69, 68, 67, 69, 68, 70, 71, 72, 70, 69]
     }
   ],
@@ -128,7 +128,7 @@ const stepsData = {
   ...chartConfig,
   series: [
     {
-      name: 'steps',
+      name: '运动步数',
       data: [8000, 9000, 7000, 6000, 7500, 8500, 7000, 8000, 9000, 10000, 8500, 8000]
     }
   ],
@@ -157,7 +157,7 @@ const sleepTimeData = {
   ...chartConfig,
   series: [
     {
-      name: 'sleepTime',
+      name: '睡眠时间',
       data: [7, 7.5, 8, 7.5, 8, 7.5, 7.5, 8, 8.5, 7, 7.5, 8]
     }
   ],

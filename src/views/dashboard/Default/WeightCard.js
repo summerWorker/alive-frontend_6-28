@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Avatar, Box, Button, Grid, Link, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Link, Typography } from '@mui/material';
 
 // third-party
 import Chart from 'react-apexcharts';
@@ -13,11 +13,9 @@ import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
 
 // assets
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Scale } from '@mui/icons-material';
 
 const weight = 60;
 
@@ -96,7 +94,7 @@ const WeightCard = ({ isLoading }) => {
                             mt: 1
                           }}
                         >
-                          <LocalMallOutlinedIcon fontSize="inherit" />
+                          <Scale />
                         </Avatar>
                       </Grid>
                       <Grid item>

@@ -10,7 +10,7 @@ import MainCard from 'ui-component/cards/MainCard';
 
 // assets
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import { Bedtime } from '@mui/icons-material';
 import Chart from 'react-apexcharts';
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 
@@ -93,7 +93,7 @@ const SleepTimeCard = ({ isLoading }) => {
                             mt: 1
                           }}
                         >
-                          <LocalMallOutlinedIcon />
+                          <Bedtime />
                         </Avatar>
                       </Grid>
                       <Grid item>
