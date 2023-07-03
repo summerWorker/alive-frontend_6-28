@@ -15,7 +15,6 @@ const heartRate = 75;
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#FCD15B',
-  color: '#fff',
   overflow: 'hidden',
   position: 'relative',
   '&:after': {
