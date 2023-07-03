@@ -1,11 +1,27 @@
+import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import MainCard from '../../../ui-component/cards/MainCard';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, TextField, Button } from '@mui/material';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
 
-const WeightGoalSetCard = () => {
+const WeightGoalSetCard = (props) => {
   const theme = useTheme();
+
+  const [curGoal, setCurGoal] = useState(props.goal);
+
+  function handleChange(e){
+      const {name, value} = e.target;
+      // props.goalChange(value);
+      // console.log(name, value);
+      setCurGoal(value);
+  }
+
+  function handleGoalChange(e){
+      e.preventDefault();
+      props.updateGoal(curGoal);
+  }
+
 
   return (
     <MainCard border={false} content={false}>
@@ -42,8 +58,14 @@ const WeightGoalSetCard = () => {
               InputProps={{
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>
               }}
+              name="goal"
+              value={curGoal}
+              onChange={handleChange}
             />
-            <Button variant="outlined" style={{height: "6ch", borderColor: "#ffe57f", borderRadius: "10px", color: "#ffc107"}}>Confirm</Button>
+            <Button variant="outlined"
+                    style={{height: "6ch", borderColor: "#ffe57f", borderRadius: "10px", color: "#ffc107"}}
+                    onClick={handleGoalChange}
+            >Confirm</Button>
           </ListItem>
         </List>
       </Box>
