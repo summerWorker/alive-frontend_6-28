@@ -40,7 +40,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 }));
 
 export function StepsGoal() {
-  const [stepsGoal, setStepsGoal] = useState(1);
+  const [stepsGoal, setStepsGoal] = useState(10000);
   const [steps, setSteps] = useState(1212);
   return (
     <>

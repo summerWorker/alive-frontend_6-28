@@ -13,10 +13,10 @@ import getBmiChart from './chart-data/bmi-chart';
 import WeightLossCard from './WeightLossCard';
 import SmallTipCard from './smallTipCard';
 import { endpoint } from '../../../utils/endpoint';
-import * as weightService from '../../../services/weightService';
+import * as weightService from '../../../service/dataService/weightService';
 import Chart from 'react-apexcharts';
 import MainCard from '../../../ui-component/cards/MainCard';
-import { getWeekWeight, getWeight } from '../../../services/weightService';
+import { getWeekWeight, getWeight } from '../../../service/dataService/weightService';
 
 const DataWeight = () => {
   const [isLoading, setLoading] = useState(true);
@@ -66,7 +66,7 @@ const DataWeight = () => {
     const callback = (data) => {
       if (data.status >= 0) {
         const items = data.data.weight[0].detailValue;
-        setWeekData(items['item']);
+        setWeekData(items['items']);
       } else {
         alert(data.msg);
       }
@@ -91,9 +91,10 @@ const DataWeight = () => {
     const data = { user_id: 1, start_date: formattedDate, end_date: format_today };
     const url_month = endpoint + '/weight';
     const callback = (data) => {
+      console.log(data);
       if (data.status >= 0) {
         const items = data.data.weight[0].detailValue;
-        setMonthData(items['item']);
+        setMonthData(items['items']);
       } else {
         alert(data.msg);
       }
@@ -106,6 +107,8 @@ const DataWeight = () => {
     setGoal(value);
     // console.log(goal);
   }
+
+  console.log(weekData);
 
   return (
     <Grid container spacing={gridSpacing}>

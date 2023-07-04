@@ -12,6 +12,7 @@ import { gridSpacing } from '../../../store/constant';
 import { useState } from 'react';
 
 const TotalWeightLineChart = (props) => {
+  console.log(props);
   // week month year data
   // week: 0, month: 1, year: 2
   const [timeValue, setTimeValue] = useState(1);

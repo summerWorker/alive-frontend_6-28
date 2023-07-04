@@ -9,6 +9,9 @@ import { AllDistance } from './allDistance';
 import { DatePicker, Segmented } from 'antd';
 import dayjs from 'dayjs';
 const { RangePicker } = DatePicker;
+const dateFormat = 'MM-DD';
+const weekFormat = 'MM-DD';
+const monthFormat = 'YYYY-MM-DD';
 
 function DataSteps() {
   const [chooseState, setChooseState] = useState('day');
@@ -20,11 +23,11 @@ function DataSteps() {
 
   useEffect(() => {
     setChooseState('day');
-    setNowDate(dayjs().format('MM-DD'));
-    setStartWeekDate(dayjs().add(-7, 'd').format('MM-DD'));
-    setEndWeekDate(dayjs().format('MM-DD'));
-    setStartMonthDate(dayjs().startOf('month').format('MM-DD'));
-    setEndMonthDate(dayjs().format('MM-DD'));
+    setNowDate(dayjs().format(dateFormat));
+    setStartWeekDate(dayjs().add(-7, 'd').format(weekFormat));
+    setEndWeekDate(dayjs().format(weekFormat));
+    setStartMonthDate(dayjs().add(-30, 'd').format(monthFormat));
+    setEndMonthDate(dayjs().format(monthFormat));
   }, []);
 
   return (
@@ -54,6 +57,8 @@ function DataSteps() {
               <Grid item>
                 {chooseState === 'day' && (
                   <DatePicker
+                    value={dayjs(nowDate)}
+                    format={dateFormat}
                     presets={[
                       { label: '昨天', value: dayjs().add(-1, 'd') },
                       { label: '上周', value: dayjs().add(-7, 'd') },
@@ -64,26 +69,31 @@ function DataSteps() {
                         <div style={{ textAlign: 'center' }}>选一个叭 ^_^</div>
                       </>
                     )}
+                    onChange={(date) => {
+                      setNowDate(date.format(dateFormat));
+                    }}
                   />
                 )}
                 {chooseState === 'week' && (
                   <RangePicker
-                    preset={[
-                      { label: '上周', value: [dayjs().add(-7, 'd'), dayjs()] },
-                      { label: '4周前', value: [dayjs().add(-28, 'd'), dayjs().add(-21, 'd')] }
-                    ]}
+                    value={[dayjs(startWeekDate), dayjs(endWeekDate)]}
+                    format={weekFormat}
+                    disabled={[true, false]}
+                    onChange={(date) => {
+                      setStartWeekDate(date[1].add(-7, 'd').format(weekFormat));
+                      setEndWeekDate(date[1].format(weekFormat));
+                    }}
                   />
                 )}
                 {chooseState === 'month' && (
                   <RangePicker
-                    preset={[
-                      {
-                        label: '本月',
-                        value: [dayjs().startOf('month'), dayjs()]
-                      },
-                      { label: '上月', value: [dayjs().add(-1, 'month').startOf('month'), dayjs().add(-1, 'month').endOf('month')] },
-                      { label: '3月前', value: [dayjs().add(-3, 'month').startOf('month'), dayjs().add(-3, 'month').endOf('month')] }
-                    ]}
+                    value={[dayjs(startMonthDate), dayjs(endMonthDate)]}
+                    format={monthFormat}
+                    disabled={[true, false]}
+                    onChange={(date) => {
+                      setStartMonthDate(date[1].add(-30, 'day').format(monthFormat));
+                      setEndMonthDate(date[1].format(monthFormat));
+                    }}
                   />
                 )}
               </Grid>
@@ -103,27 +113,29 @@ function DataSteps() {
               </Grid>
             </Grid>
           )}
-          {chooseState === ('week' || 'month') && (
-            <Grid container spacing={3} direction={'column'}>
-              <Grid item>
-                <StepsTrend
-                  startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                  endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                />
+          {(chooseState === 'month' || chooseState === 'week') && (
+            <>
+              <Grid container spacing={3} direction={'column'}>
+                <Grid item>
+                  <StepsTrend
+                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
+                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
+                  />
+                </Grid>
+                <Grid item>
+                  <ReachGoalCondition
+                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
+                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
+                  />
+                </Grid>
+                <Grid item>
+                  <AllDistance
+                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
+                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
+                  />
+                </Grid>
               </Grid>
-              <Grid item>
-                <ReachGoalCondition
-                  startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                  endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                />
-              </Grid>
-              <Grid item>
-                <AllDistance
-                  startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                  endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                />
-              </Grid>
-            </Grid>
+            </>
           )}
         </Grid>
       </Grid>
