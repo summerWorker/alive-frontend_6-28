@@ -8,7 +8,107 @@ const grey500 = '#9E9E9E';
 const darkLight = '#BDBDBD';
 const secondaryMain = '#026E81';
 
-export const getDayChartData = () => {
+export const getDayChartData = (chartData) => {
+  let seriesData = [];
+
+  let isDataReady = false;
+
+  if (chartData.length === 1) {
+    isDataReady = true;
+  }
+
+  if (isDataReady) {
+    seriesData = chartData[0].detailValue.items.map((item) => {
+      let name;
+      let color;
+      switch (item.state) {
+        case 1:
+          name = '深度睡眠';
+          color = primary200;
+          break;
+        case 2:
+          name = '眼动';
+          color = primaryDark;
+          break;
+        case 3:
+          name = '浅度睡眠';
+          color = darkLight;
+          break;
+        case 4:
+          name = '清醒';
+          color = secondaryMain;
+          break;
+        default:
+          name = '未知';
+          color = grey200;
+      }
+
+      return {
+        x: name,
+        y: [new Date(item.start_time * 1000).getTime(), new Date(item.end_time * 1000).getTime()],
+        fillColor: color
+      };
+    });
+  } else {
+    seriesData = [
+      {
+        x: '深度睡眠',
+        y: [new Date('2023-06-25T09:00:00').getTime(), new Date('2023-06-25T10:30:00').getTime()],
+        fillColor: primary200
+      },
+      {
+        x: '深度睡眠',
+        y: [new Date('2023-06-25T10:30:00').getTime(), new Date('2023-06-25T11:00:00').getTime()],
+        fillColor: primary200
+      },
+      {
+        x: '眼动',
+        y: [new Date('2023-06-25T11:00:00').getTime(), new Date('2023-06-25T11:30:00').getTime()],
+        fillColor: primaryDark
+      },
+      {
+        x: '眼动',
+        y: [new Date('2023-06-25T11:30:00').getTime(), new Date('2023-06-25T12:00:00').getTime()],
+        fillColor: primaryDark
+      },
+      {
+        x: '深度睡眠',
+        y: [new Date('2023-06-25T12:00:00').getTime(), new Date('2023-06-25T12:45:00').getTime()],
+        fillColor: primary200
+      },
+      {
+        x: '浅度睡眠',
+        y: [new Date('2023-06-25T12:45:00').getTime(), new Date('2023-06-25T13:30:00').getTime()],
+        fillColor: darkLight
+      },
+      {
+        x: '眼动',
+        y: [new Date('2023-06-25T13:30:00').getTime(), new Date('2023-06-25T14:15:00').getTime()],
+        fillColor: primaryDark
+      },
+      {
+        x: '清醒',
+        y: [new Date('2023-06-25T14:15:00').getTime(), new Date('2023-06-25T14:30:00').getTime()],
+        fillColor: secondaryMain
+      },
+      {
+        x: '浅度睡眠',
+        y: [new Date('2023-06-25T14:30:00').getTime(), new Date('2023-06-25T15:00:00').getTime()],
+        fillColor: darkLight
+      },
+      {
+        x: '浅度睡眠',
+        y: [new Date('2023-06-25T15:00:00').getTime(), new Date('2023-06-25T15:45:00').getTime()],
+        fillColor: darkLight
+      },
+      {
+        x: '眼动',
+        y: [new Date('2023-06-25T15:45:00').getTime(), new Date('2023-06-25T16:30:00').getTime()],
+        fillColor: primaryDark
+      }
+    ];
+  }
+
   const dayChartData = {
     type: 'rangeBar',
     height: 350,
@@ -26,21 +126,6 @@ export const getDayChartData = () => {
           // borderRadius: 5 // 设置条的边框圆角
         }
       },
-      xaxis: {
-        labels: {
-          style: {
-            colors: [primary]
-          }
-        },
-        type: 'datetime'
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: [primary]
-          }
-        }
-      },
       grid: {
         borderColor: grey200,
         padding: {
@@ -49,77 +134,26 @@ export const getDayChartData = () => {
         }
       },
       tooltip: {
-        theme: 'light'
-      },
-      legend: {
-        labels: {
-          colors: grey500
+        x: {
+          formatter: function (val) {
+            var date = new Date(val);
+            return date.getHours() + ':' + date.getMinutes();
+          }
         }
       },
-      dataLabels: {
-        enabled: false // 不显示数据标签
+      xaxis: {
+        labels: {
+          formatter: function (val) {
+            var date = new Date(val);
+            return date.getHours() + ':' + date.getMinutes();
+          }
+        }
       }
     },
     series: [
       {
-        name: '日睡眠时间',
-        data: [
-          {
-            x: '深度睡眠',
-            y: [new Date('2023-06-25T09:00:00').getTime(), new Date('2023-06-25T10:30:00').getTime()],
-            fillColor: primary200
-          },
-          {
-            x: '深度睡眠',
-            y: [new Date('2023-06-25T10:30:00').getTime(), new Date('2023-06-25T11:00:00').getTime()],
-            fillColor: primary200
-          },
-          {
-            x: '眼动',
-            y: [new Date('2023-06-25T11:00:00').getTime(), new Date('2023-06-25T11:30:00').getTime()],
-            fillColor: primaryDark
-          },
-          {
-            x: '眼动',
-            y: [new Date('2023-06-25T11:30:00').getTime(), new Date('2023-06-25T12:00:00').getTime()],
-            fillColor: primaryDark
-          },
-          {
-            x: '深度睡眠',
-            y: [new Date('2023-06-25T12:00:00').getTime(), new Date('2023-06-25T12:45:00').getTime()],
-            fillColor: primary200
-          },
-          {
-            x: '浅度睡眠',
-            y: [new Date('2023-06-25T12:45:00').getTime(), new Date('2023-06-25T13:30:00').getTime()],
-            fillColor: darkLight
-          },
-          {
-            x: '眼动',
-            y: [new Date('2023-06-25T13:30:00').getTime(), new Date('2023-06-25T14:15:00').getTime()],
-            fillColor: primaryDark
-          },
-          {
-            x: '清醒',
-            y: [new Date('2023-06-25T14:15:00').getTime(), new Date('2023-06-25T14:30:00').getTime()],
-            fillColor: secondaryMain
-          },
-          {
-            x: '浅度睡眠',
-            y: [new Date('2023-06-25T14:30:00').getTime(), new Date('2023-06-25T15:00:00').getTime()],
-            fillColor: darkLight
-          },
-          {
-            x: '浅度睡眠',
-            y: [new Date('2023-06-25T15:00:00').getTime(), new Date('2023-06-25T15:45:00').getTime()],
-            fillColor: darkLight
-          },
-          {
-            x: '眼动',
-            y: [new Date('2023-06-25T15:45:00').getTime(), new Date('2023-06-25T16:30:00').getTime()],
-            fillColor: primaryDark
-          }
-        ]
+        name: '睡眠时间',
+        data: seriesData
       }
     ]
   };

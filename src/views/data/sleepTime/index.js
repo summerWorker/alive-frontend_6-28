@@ -107,7 +107,7 @@ function DataSleepTime() {
         <Grid item lg={4} sm={12}>
           <Grid container spacing={gridSpacing}>
             <Grid item lg={12} sm={6}>
-              <SleepTips />
+              {chooseState === 0 && <SleepTips startTime={startTime} endTime={endTime} />}
             </Grid>
             <Grid item lg={12} sm={6}>
               <SleepAbout />

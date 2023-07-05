@@ -8,7 +8,7 @@ import DataHeartRate from '../views/data/heartRate';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 const Analytics = Loadable(lazy(() => import('views/analytics')));
-const DataWeight = Loadable(lazy(() => import('views/data/weight')));
+const DataWeightAndHeight = Loadable(lazy(() => import('views/data/weight')));
 const DataSleepTime = Loadable(lazy(() => import('views/data/sleepTime')));
 const DataCalories = Loadable(lazy(() => import('views/data/calories')));
 const DataSteps = Loadable(lazy(() => import('views/data/steps')));
@@ -47,7 +47,7 @@ const MainRoutes = {
       children: [
         {
           path: 'weight',
-          element: <DataWeight />
+          element: <DataWeightAndHeight />
         },
         {
           path: 'calories',

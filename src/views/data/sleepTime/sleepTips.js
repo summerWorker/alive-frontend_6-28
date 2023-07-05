@@ -38,7 +38,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-export function SleepTips() {
+export function SleepTips(props) {
   return (
     <>
       <CardWrapper border={false} content={false}>
@@ -64,7 +64,7 @@ export function SleepTips() {
           <hr style={{ border: 'none', borderTop: '1px solid #CACACA', margin: '15px 0 ' }} />
           <Grid container>
             <Grid item xs={12}>
-              <SleepTimeBarChart></SleepTimeBarChart>
+              <SleepTimeBarChart startTime={props.startTime} endTime={props.endTime}></SleepTimeBarChart>
             </Grid>
           </Grid>
         </Box>

@@ -16,9 +16,8 @@ import { endpoint } from '../../../utils/endpoint';
 import * as weightService from '../../../service/dataService/weightService';
 import Chart from 'react-apexcharts';
 import MainCard from '../../../ui-component/cards/MainCard';
-import { getWeekWeight, getWeight } from '../../../service/dataService/weightService';
 
-const DataWeight = () => {
+const DataWeightAndHeight = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);

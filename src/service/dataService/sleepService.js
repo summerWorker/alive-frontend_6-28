@@ -1,6 +1,7 @@
 import { preUrl } from '../constant.js';
 
 export async function getSleepData(userId, startTime, endTime) {
+  console.log('getSleepData', userId, startTime, endTime);
   return await fetch(preUrl + '/day_sleep', {
     method: 'POST',
     headers: {
