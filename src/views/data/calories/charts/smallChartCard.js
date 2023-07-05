@@ -4,7 +4,7 @@ import { Card, Grid, Typography } from '@mui/material';
 
 // project imports
 import LineChart from './lineChart';
-import ChartType from './chart-data/chartType';
+import ChartType from '../chart-data/chartType';
 import HeatMap from './heatMap';
 import PieChart from './pieChart';
 

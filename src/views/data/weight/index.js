@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // material-ui
-import {Card, Grid, List, ListItem, ListItemText, Typography} from '@mui/material';
+import { Card, Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 // project imports
 import { gridSpacing } from 'store/constant';
@@ -9,17 +9,15 @@ import TotalWeightLineChart from './TotalWeightLineChart';
 import WeightGoalSetCard from './WeightGoalSetCard';
 import WeightConditionCard from './WeightConditionCard';
 // import BmiCard from "./bmiCard";
-import getBmiChart from "./chart-data/bmi-chart";
-import WeightLossCard from "./WeightLossCard";
-import SmallTipCard from "./smallTipCard";
-import { endpoint } from "../../../utils/endpoint";
-import * as weightService from "../../../services/weightService";
-import Chart from "react-apexcharts";
-import MainCard from "../../../ui-component/cards/MainCard";
-import {getWeekWeight, getWeight} from "../../../services/weightService";
+import getBmiChart from './chart-data/bmi-chart';
+import WeightLossCard from './WeightLossCard';
+import SmallTipCard from './smallTipCard';
+import { endpoint } from '../../../utils/endpoint';
+import * as weightService from '../../../service/dataService/weightService';
+import Chart from 'react-apexcharts';
+import MainCard from '../../../ui-component/cards/MainCard';
 
-
-const DataWeight = () => {
+const DataWeightAndHeight = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
@@ -29,24 +27,26 @@ const DataWeight = () => {
   const [currentWeight, setCurrentWeight] = useState(50);
   useEffect(() => {
     // get current weight & goal
-    const userData = {user_id: 1};
-    const url1 = endpoint + "/api/weight/getWeightGoal";
+    const userData = { user_id: 1 };
+    const url1 = endpoint + '/api/weight/getWeightGoal';
     const callback1 = (data) => {
-      if(data.status >= 0){
+      if (data.status >= 0) {
         setGoal(data.data.goal);
         setCurrentWeight(data.data.currentWeight);
-      }else{
+      } else {
         alert(data.msg);
       }
-    }
+    };
     weightService.getWeightandGoal(url1, userData, callback1).then();
   }, []);
 
-
   const [weekData, setWeekData] = useState([]);
-  const [monthData, setMonthData] = useState([51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1]);
+  const [monthData, setMonthData] = useState([
+    51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1,
+    51.0, 50.9, 51.1
+  ]);
 
-  useEffect(date => {
+  useEffect((date) => {
     // get week data
     const today = new Date();
     const cur_year = today.getFullYear();
@@ -60,16 +60,16 @@ const DataWeight = () => {
     const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
     const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
     const formattedDate = `${year}-${month}-${day}`;
-    const data = {user_id: 1, start_date: formattedDate, end_date: format_today};
-    const url_week = endpoint + "/weight";
+    const data = { user_id: 1, start_date: formattedDate, end_date: format_today };
+    const url_week = endpoint + '/weight';
     const callback = (data) => {
-      if(data.status >= 0){
+      if (data.status >= 0) {
         const items = data.data.weight[0].detailValue;
-        setWeekData(items['item']);
-      }else{
+        setWeekData(items['items']);
+      } else {
         alert(data.msg);
       }
-    }
+    };
     weightService.getWeight(url_week, data, callback).then();
   }, []);
 
@@ -87,57 +87,58 @@ const DataWeight = () => {
     const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
     const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
     const formattedDate = `${year}-${month}-${day}`;
-    const data = {user_id: 1, start_date: formattedDate, end_date: format_today};
-    const url_month = endpoint + "/weight";
+    const data = { user_id: 1, start_date: formattedDate, end_date: format_today };
+    const url_month = endpoint + '/weight';
     const callback = (data) => {
-      if(data.status >= 0){
+      console.log(data);
+      if (data.status >= 0) {
         const items = data.data.weight[0].detailValue;
-        setMonthData(items['item']);
-      }else{
+        setMonthData(items['items']);
+      } else {
         alert(data.msg);
       }
-    }
+    };
     weightService.getWeight(url_month, data, callback).then();
   }, []);
 
-
   // goal
-  function updateGoal(value){
+  function updateGoal(value) {
     setGoal(value);
     // console.log(goal);
   }
 
+  console.log(weekData);
 
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item lg={8} xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12}>
-            <TotalWeightLineChart isLoading={isLoading}
-                                  goal={goal}
-                                  currentW={currentWeight}
-                                  weekWeight={weekData}
-                                  monthWeight={monthData}
+            <TotalWeightLineChart
+              isLoading={isLoading}
+              goal={goal}
+              currentW={currentWeight}
+              weekWeight={weekData}
+              monthWeight={monthData}
             />
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={gridSpacing}>
               <Grid item lg={6} xs={12}>
                 <MainCard border={false} content={false}>
-                  <List sx={{ py: 0 }} style={{marginTop: "5%", marginLeft: "5%"}}>
+                  <List sx={{ py: 0 }} style={{ marginTop: '5%', marginLeft: '5%' }}>
                     <ListItem alignItems="center" disableGutter sx={{ py: 0 }}>
                       <ListItemText
-                          sx={{
-                            py: 0,
-                            mt: 0.45,
-                            mb: 0.45
-                          }}
-                          primary={<Typography variant="h4">Your BMI</Typography>}
-                      >
-                      </ListItemText>
+                        sx={{
+                          py: 0,
+                          mt: 0.45,
+                          mb: 0.45
+                        }}
+                        primary={<Typography variant="h4">Your BMI</Typography>}
+                      ></ListItemText>
                     </ListItem>
                   </List>
-                  <List sx={{py: 0}} style={{marginRight: "5%"}}>
+                  <List sx={{ py: 0 }} style={{ marginRight: '5%' }}>
                     <Chart {...getBmiChart(17.0)} />
                   </List>
                 </MainCard>
@@ -155,7 +156,7 @@ const DataWeight = () => {
             <WeightConditionCard />
           </Grid>
           <Grid item xs={12}>
-            <WeightGoalSetCard goal={goal} updateGoal={updateGoal}/>
+            <WeightGoalSetCard goal={goal} updateGoal={updateGoal} />
           </Grid>
           <Grid item xs={12}>
             <SmallTipCard />
