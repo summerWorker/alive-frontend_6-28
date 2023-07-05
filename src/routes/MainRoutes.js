@@ -57,13 +57,12 @@ const MainRoutes = {
           element: <DataSleepTime />
         },
         {
-<<<<<<< HEAD
           path: 'heartRate',
           element: <DataHeartRate />
-=======
+        },
+        {
           path: 'blood',
           element: <DataBlood />
->>>>>>> 6e61c33a79fce5fb30c47afe1d67059fa564a2a5
         }
       ]
     }
