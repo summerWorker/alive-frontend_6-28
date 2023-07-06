@@ -10,7 +10,7 @@ const WeightLossCard = () => {
     <MainCard border={false} content={false} style={{ height: '180px' }}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" disableGutter sx={{ py: 0 }}>
+          <ListItem alignItems="center" sx={{ py: 0 }}>
             <ListItemAvatar style={{ marginRight: '3%' }}>
               <Avatar
                 variant="rounded"
@@ -33,7 +33,7 @@ const WeightLossCard = () => {
               primary={<Typography variant="h5">你离目标更近了！</Typography>}
             ></ListItemText>
           </ListItem>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginTop: '15%', marginLeft: '5%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '15%', marginLeft: '5%' }}>
             <ListItemText
               sx={{
                 py: 0,

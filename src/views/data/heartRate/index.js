@@ -14,20 +14,20 @@ const DataHeartRate = () => {
     setLoading(false);
   }, []);
   return (
-    <Grid container>
-      <Grid item xs={8}>
-        <Grid container direction={'column'}>
+    <Grid container spacing={3}>
+      <Grid item lg={8} md={12} xs={12}>
+        <Grid container direction={'column'} spacing={3}>
           <Grid item>
             <HeartRateChart isLoading={isLoading} />
           </Grid>
           <Grid item>
             <MainCard>
               <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>今日心率</Typography>
-              <Grid container>
-                <Grid item xs={6}>
+              <Grid container spacing={3}>
+                <Grid item lg={6} md={12} xs={12}>
                   <RestingHeartRateCard isLoading={isLoading} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item lg={6} md={12} xs={12}>
                   <ExerciseHeartRateCard isLoading={isLoading} />
                 </Grid>
               </Grid>
@@ -35,9 +35,15 @@ const DataHeartRate = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <HeartRateGoalCard />
-        <InputCard />
+      <Grid item lg={4} md={12} xs={12}>
+        <Grid container direction={'column'} spacing={3}>
+          <Grid item>
+            <HeartRateGoalCard />
+          </Grid>
+          <Grid item>
+            <InputCard />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

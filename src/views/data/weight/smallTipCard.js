@@ -6,7 +6,7 @@ const SmallTipCard = () => {
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginleft: '3%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginleft: '3%' }}>
             <ListItemText
               sx={{
                 py: 0,

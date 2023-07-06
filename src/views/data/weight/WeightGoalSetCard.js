@@ -26,7 +26,7 @@ const WeightGoalSetCard = (props) => {
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginLeft: '3%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginLeft: '3%' }}>
             <ListItemAvatar style={{ marginRight: '5%' }}>
               <Avatar
                 variant="rounded"
@@ -49,7 +49,7 @@ const WeightGoalSetCard = (props) => {
               primary={<Typography variant="h3">设置您的目标</Typography>}
             />
           </ListItem>
-          <ListItem alignItems="center" disableGutters sx={{ py: 0 }} style={{ marginTop: '3%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '3%' }}>
             <TextField
               label="在此设置您的目标"
               id="outlined-start-adornment"

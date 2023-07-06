@@ -9,7 +9,7 @@ const WeightConditionCard = () => {
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" disableGutter sx={{ py: 0 }}>
+          <ListItem alignItems="center" sx={{ py: 0 }}>
             <ListItemText
               sx={{
                 py: 0,

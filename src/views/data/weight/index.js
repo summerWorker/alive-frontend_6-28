@@ -127,7 +127,7 @@ const DataWeightAndHeight = () => {
               <Grid item lg={6} xs={12}>
                 <MainCard border={false} content={false}>
                   <List sx={{ py: 0 }} style={{ marginTop: '5%', marginLeft: '5%' }}>
-                    <ListItem alignItems="center" disableGutter sx={{ py: 0 }}>
+                    <ListItem alignItems="center" sx={{ py: 0 }}>
                       <ListItemText
                         sx={{
                           py: 0,
@@ -167,4 +167,4 @@ const DataWeightAndHeight = () => {
   );
 };
 
-export default DataWeight;
+export default DataWeightAndHeight;
