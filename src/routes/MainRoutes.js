@@ -58,10 +58,13 @@ const MainRoutes = {
           element: <DataSleepTime />
         },
         {
+<<<<<<< HEAD
+=======
           path: 'steps',
           element: <DataSteps />
         },
         {
+>>>>>>> c748133d2d1d7da3c29f8ea0acb480ccb9447181
           path: 'heartRate',
           element: <DataHeartRate />
         },
