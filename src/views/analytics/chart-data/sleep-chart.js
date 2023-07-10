@@ -34,7 +34,7 @@ const chartData = {
     },
     xaxis: {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
+      categories: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
     },
     legend: {
       show: true,
@@ -67,17 +67,21 @@ const chartData = {
   },
   series: [
     {
-      name: 'Deep Sleep',
+      name: '深度睡眠',
       data: [1.5, 1.25, 1.5, 1.5, 1.5, 1.0, 1.5]
     },
     {
-      name: 'Light Sleep',
+      name: '浅度睡眠',
       data: [3.5, 4.5, 4.5, 3.5, 3.5, 4.0, 4.0]
     },
     {
-      name: 'Dream Time',
-      data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.00]
+      name: '眼动',
+      data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.0]
     },
+    {
+      name: '清醒',
+      data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.0]
+    }
   ]
 };
 export default chartData;

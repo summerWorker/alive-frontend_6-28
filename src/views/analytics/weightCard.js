@@ -9,10 +9,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import MonitorWeightOutlinedIcon from '@mui/icons-material/MonitorWeightOutlined';
-// import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
-
-
+import { Scale } from '@mui/icons-material';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -64,7 +61,7 @@ const WeightCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <MonitorWeightOutlinedIcon fontSize="inherit" />
+                    <Scale fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -73,7 +70,7 @@ const WeightCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">180</Typography>}
+                  primary={<Typography variant="h4">60kg</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"
@@ -82,7 +79,7 @@ const WeightCard = ({ isLoading }) => {
                         mt: 0.5
                       }}
                     >
-                      Weight
+                      体重
                     </Typography>
                   }
                 />

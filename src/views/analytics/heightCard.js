@@ -9,9 +9,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import HeightOutlinedIcon from '@mui/icons-material/HeightOutlined';
-// import MonitorWeightOutlinedIcon from '@mui/icons-material/MonitorWeightOutlined';
-// import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import ManIcon from '@mui/icons-material/Man';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -63,7 +61,7 @@ const HeightCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <HeightOutlinedIcon fontSize="inherit" />
+                    <ManIcon fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -81,7 +79,7 @@ const HeightCard = ({ isLoading }) => {
                         mt: 0.5
                       }}
                     >
-                      Height
+                      身高
                     </Typography>
                   }
                 />

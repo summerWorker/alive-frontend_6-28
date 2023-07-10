@@ -30,7 +30,7 @@ const WeightLossCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h5">你离目标更近了！</Typography>}
+              primary={<Typography variant="h5">您离目标更近了！</Typography>}
             ></ListItemText>
           </ListItem>
           <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '15%', marginLeft: '5%' }}>

@@ -14,7 +14,7 @@ import { gridSpacing } from 'store/constant';
 import MainCard from '../../ui-component/cards/MainCard';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 // import SleepChartCard from './SleepChartCard';
-import StepChart from "./StepChart";
+import StepChart from './StepChart';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
@@ -52,7 +52,7 @@ const StepChartCard = () => {
           <Grid item xs={12}>
             <Grid container alignContent="center" justifyContent="space-between">
               <Grid item>
-                <Typography variant="h4">Steps</Typography>
+                <Typography variant="h4">运动步数</Typography>
               </Grid>
               <Grid item>
                 <MoreHorizOutlinedIcon
@@ -81,8 +81,8 @@ const StepChartCard = () => {
                     horizontal: 'right'
                   }}
                 >
-                  <MenuItem onClick={handleClose}> Today</MenuItem>
-                  <MenuItem onClick={handleClose}> This Month</MenuItem>
+                  <MenuItem onClick={handleClose}> 本日</MenuItem>
+                  <MenuItem onClick={handleClose}> 本月</MenuItem>
                 </Menu>
               </Grid>
             </Grid>
