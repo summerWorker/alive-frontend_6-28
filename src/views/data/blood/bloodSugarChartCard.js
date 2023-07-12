@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { getBloodSugarChartData } from './chart-data/blood-sugar-chart';
 import Chart from 'react-apexcharts';
 
-import {DatePicker} from 'antd';
-import dayjs from "dayjs";
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
 
@@ -17,10 +17,10 @@ const BloodSugarChartCard = (props) => {
   const [timeValue, setTimeValue] = useState(true);
   const handleChangeTime = (event, newValue) => {
     const date = [dayjs(props.startTime), dayjs(props.endTime)];
-    if(newValue === true) {
+    if (newValue === true) {
       props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
-    }else{
-        props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
+    } else {
+      props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
     }
     setTimeValue(newValue);
   };
@@ -36,9 +36,10 @@ const BloodSugarChartCard = (props) => {
   // console.log(weekCate);
 
   //week / month category
-  let weekData = [], monthData = [];
+  let weekData = [],
+    monthData = [];
   let tmp_week = props.weekData;
-  for(let i = 0; i < tmp_week.length; ++i){
+  for (let i = 0; i < tmp_week.length; ++i) {
     const date = new Date(tmp_week[i].date.time);
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // 月份从 0 开始，需要加 1
@@ -53,7 +54,7 @@ const BloodSugarChartCard = (props) => {
     weekData.push([formattedDate, sugar]);
   }
   let tmp_month = props.monthData;
-  for(let i = 0; i < tmp_month.length; ++i){
+  for (let i = 0; i < tmp_month.length; ++i) {
     const date = new Date(tmp_month[i].date.time);
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // 月份从 0 开始，需要加 1
@@ -68,7 +69,6 @@ const BloodSugarChartCard = (props) => {
     monthData.push([formattedDate, sugar]);
   }
   // console.log(tmp_month);
-
 
   return (
     <MainCard content={false}>
@@ -95,29 +95,33 @@ const BloodSugarChartCard = (props) => {
                 >
                   本月
                 </Button>
-                </div>
+
                 <div>
                   <RangePicker
-                      bordered={false}
-                      disabled={[true, false]}
-                      value={[dayjs((timeValue === true) ? props.startTime : props.monthStartTime), dayjs(props.endTime)]}
-                      onChange={(date) => {
-                        if(timeValue === true) {
-                          props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
-                          props.updateMonthData(timeValue);
-                        }else {
-                          props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
-                          props.updateMonthData(timeValue);
-                        }
-                        props.setEndTime(date[1].format(infoFormat));
-                      }}
+                    bordered={false}
+                    disabled={[true, false]}
+                    value={[dayjs(timeValue === true ? props.startTime : props.monthStartTime), dayjs(props.endTime)]}
+                    onChange={(date) => {
+                      if (timeValue === true) {
+                        props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
+                        props.updateMonthData(timeValue);
+                      } else {
+                        props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
+                        props.updateMonthData(timeValue);
+                      }
+                      props.setEndTime(date[1].format(infoFormat));
+                    }}
                   />
                 </div>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ pt: '16px !important'}}>
-            {timeValue ? <Chart {...getBloodSugarChartData(weekData, props.startTime, props.endTime)} /> : <Chart {...getBloodSugarChartData(monthData, props.monthStartTime, props.endTime)} />}
+          <Grid item xs={12} sx={{ pt: '16px !important' }}>
+            {timeValue ? (
+              <Chart {...getBloodSugarChartData(weekData, props.startTime, props.endTime)} />
+            ) : (
+              <Chart {...getBloodSugarChartData(monthData, props.monthStartTime, props.endTime)} />
+            )}
           </Grid>
         </Grid>
       </CardContent>
