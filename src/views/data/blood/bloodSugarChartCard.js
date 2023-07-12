@@ -67,7 +67,7 @@ const BloodSugarChartCard = (props) => {
     const sugar = tmp_month[i].bloodSugar;
     monthData.push([formattedDate, sugar]);
   }
-  console.log(tmp_month);
+  // console.log(tmp_month);
 
 
 

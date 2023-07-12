@@ -10,6 +10,7 @@ import BloodSugarCard from './bloodSugarCard';
 import dayjs from "dayjs";
 import {getBloodPressure} from "../../../service/dataService/bloodService";
 import PressureAddCard from "./pressureAddCard";
+import SugarAddCard from "./sugarAddCard";
 
 const infoFormat = 'YYYY-MM-DD';
 const timeFormat = "HH:mm";
@@ -147,12 +148,12 @@ const DataBlood = () => {
     const [addPressureDiastolic, setAddPressureDiastolic] = useState();
 
     function addPressure(){
-      if(addPressureSystolic === undefined || addPressureDiastolic === undefined || addPressureDate === undefined){
+      if(addPressureSystolic === undefined || addPressureSystolic === null || addPressureDiastolic === undefined || addPressureDiastolic === null || addPressureDate === undefined){
         alert("Please enter the data");
       }else{
         function callback(data){
           if(data.status >= 0){
-            alert("Add weight successfully!");
+            alert("Add successfully!");
             window.location.reload();
           }else{
             alert(data.msg);
@@ -167,7 +168,39 @@ const DataBlood = () => {
         const targetDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
         const data = {user_id: 1, date: targetDateString, systolic: Number(addPressureSystolic), diastolic: Number(addPressureDiastolic)};
         bloodService.addBloodPressure(url, data, callback).then();
-        // bloodService.getBloodPressure(endpoint + '/blood_pressure', {user_id: 1, start_date: startDatePressure, end_date: endDatePressure}, pressure_callback).then();
+      }
+    }
+
+    const [addSugarDate, setAddSugarDate] = useState(dayjs().format(infoFormat));
+    const [addSugarTime, setAddSugarTime] = useState(dayjs().format(timeFormat));
+    const [addSugarValue, setAddSugarValue] = useState();
+
+    function addSugar(){
+      if(addSugarValue === undefined || addSugarValue === null || addSugarDate === undefined || addSugarTime === undefined) {
+        alert("Please enter the data");
+      }else{
+        function callback(data){
+          if(data.status >= 0){
+            alert("Add successfully!");
+            window.location.reload();
+          }else{
+            alert(data.msg);
+          }
+        }
+        const url = endpoint + '/add_blood_sugar';
+        const date = new Date(addSugarDate);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 月份从0开始，需要加1
+        const day = date.getDate();
+        const targetDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const tt = new Date(addSugarTime);
+        // console.log(addSugarTime);
+        const hour = tt.getHours();
+        const minute = tt.getMinutes();
+        const targetTimeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        const time = `${targetDateString} ` + `${addSugarTime}`;
+        // console.log(time);
+        bloodService.addBloodSugar(url, {user_id: 1, blood_sugar: Number(addSugarValue), date: time}, callback).then();
       }
     }
 
@@ -215,7 +248,11 @@ const DataBlood = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <BloodSugarCard />
+            <SugarAddCard date={addSugarDate} setDate={(date) => setAddSugarDate(date)}
+                                time={addSugarTime} setTime={(value) => setAddSugarTime(value)}
+                                value={addSugarValue} setValue={(value) => setAddSugarValue(value)}
+                                addSugar={addSugar}
+            />
           </Grid>
         </Grid>
       </Grid>
