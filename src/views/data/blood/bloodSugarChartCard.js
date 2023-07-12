@@ -95,7 +95,6 @@ const BloodSugarChartCard = (props) => {
                 >
                   本月
                 </Button>
-                </div>
                 <div>
                   <RangePicker
                       bordered={false}

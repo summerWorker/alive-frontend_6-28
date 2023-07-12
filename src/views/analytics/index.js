@@ -13,13 +13,37 @@ import HeightCard from './heightCard';
 import HeartRateCard from './heartRateCard';
 import CircleCard from './circleCard';
 import StepChartCard from './stepChartCard';
+import dayjs from "dayjs";
+import * as stepsService from "../../service/dataService/stepsService";
 
 // ==============================|| DATA ANALYTICS ||============================== //
+
+const weekFormat = 'YYYY-MM-DD';
 
 const Analytics = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
+  }, []);
+
+  const [startTime, setStartTime] = useState(dayjs().subtract(6, 'day').format(weekFormat));
+  const [endTime, setEndTime] = useState(dayjs().format(weekFormat));
+  const [stepData, setStepData] = useState([]);
+  const [sleepData, setSleepData] = useState([]);
+
+  useEffect(() => {
+    stepsService.getStepsData(1, startTime, endTime).then((data) => {
+          if (data.status >= 0) {
+            if (data.data.steps.length === 0) {
+              setStepData([]);
+            } else {
+              setStepData(data.data.steps);
+            }
+          } else {
+            alert(data.msg);
+          }
+        }
+    )
   }, []);
 
   return (
@@ -46,7 +70,7 @@ const Analytics = () => {
             <SleepChart isLoading={isLoading} />
           </Grid>
           <Grid item xs={12}>
-            <StepChartCard isLoading={isLoading} />
+            <StepChartCard isLoading={isLoading} data={stepData} />
           </Grid>
         </Grid>
       </Grid>
