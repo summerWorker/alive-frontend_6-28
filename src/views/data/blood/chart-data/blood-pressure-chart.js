@@ -3,11 +3,49 @@ const getBloodPressureChartData = (category, seriesData) => {
         type: 'line',
         options: {
             xaxis: {
-                categories: category
+                type: 'category',
+                categories: category,
+                tickAmount: 10
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: false
+                },
+                y: {
+                    title: 'Steps'
+                },
+                marker: {
+                    show: true
+                }
             },
             dataLabels: {
-                enabled: true
-            }
+                enabled: false
+            },
+            markers: {
+                size: 6,
+                strokeWidth: 0,
+                hover: {
+                    size: 9
+                }
+            },
+            grid: {
+                show: true,
+                padding: {
+                    bottom: 0
+                }
+            },
+            fill: {
+                type: 'solid',
+                opacity: 1
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2
+            },
         },
         color: ['#008FFB', '#00E396'],
         stroke: {

@@ -1,15 +1,65 @@
-export const getWeekBloodPressure = async (endpoint, data, callback) => {
-
+export const getBloodPressure = async (endpoint, data, callback) => {
+    let opts = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+        },
+        origin: 'http://localhost:3000',
+    }
+    await fetch(endpoint, opts)
+        .then((response) => {
+            return response.json();
+        })
+        .then((ret) => {
+            callback(ret);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
-export const getMonthBloodPressure = async (endpoint, data, callback) => {
-
+export const addBloodPressure = async (endpoint, data, callback) => {
+    let opts = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+        },
+        origin: 'http://localhost:3000',
+    }
+    await fetch(endpoint, opts)
+        .then((response) => {
+            return response.json();
+        })
+        .then((ret) => {
+            callback(ret);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
-export const getWeekBloodSugar = async (endpoint, data, callback) => {
-
-}
-
-export const getMonthBloodSugar = async (endpoint, data, callback) => {
-
+export const getBloodSugar = async (endpoint, data, callback) => {
+    let opts = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+        },
+        origin: 'http://localhost:3000',
+    }
+    await fetch(endpoint, opts)
+        .then((response) => {
+            return response.json();
+        })
+        .then((ret) => {
+            callback(ret);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }

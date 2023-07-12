@@ -59,7 +59,8 @@ const TotalWeightLineChart = (props) => {
   for (let i = 0; i < temp_week.length; ++i) {
     const cur_date = new Date(temp_week[i].date);
     const today = new Date(props.endTime);
-    const day_of_week = cur_date.getDay() - today.getDay() + 6;
+    // const day_of_week = cur_date.getDay() - today.getDay() + 6;
+    const day_of_week = 6 - (today.getTime() - cur_date.getTime())/(24*60*60*1000);
     const cur_weight = temp_week[i].weight;
     weekData[day_of_week] = cur_weight;
   }
