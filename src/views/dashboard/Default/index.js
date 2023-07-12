@@ -41,10 +41,10 @@ const Dashboard = () => {
     setInfoData('sleepTime');
   }
   function handleClickBloodPressure() {
-    navigate('/data/bloodPressure');
+    navigate('/data/blood');
   }
   function handleClickBloodSugar() {
-    navigate('/data/bloodSugar');
+    navigate('/data/blood');
   }
   function handleClickHeartRate() {
     navigate('/data/heartRate');
@@ -65,7 +65,7 @@ const Dashboard = () => {
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
                   <CardActionArea onClick={handleClickHeight}>
-                    <HeightCard isLoading={isLoading} />
+                    <HeightCard isLoading={isLoading}/>
                   </CardActionArea>
                 </Card>
               </Grid>
@@ -107,11 +107,6 @@ const Dashboard = () => {
               <Grid item lg={12} md={6} sm={6} xs={12}>
                 <CardActionArea onClick={handleClickBloodSugar}>
                   <BloodSugarCard isLoading={isLoading} />
-                </CardActionArea>
-              </Grid>
-              <Grid item lg={12} md={6} sm={6} xs={12}>
-                <CardActionArea onClick={handleClickCholesterol}>
-                  <CholesterolCard isLoading={isLoading} />
                 </CardActionArea>
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>

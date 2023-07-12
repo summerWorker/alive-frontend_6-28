@@ -37,7 +37,7 @@ const chartData = {
       }
     },
     colors: ['#1ab7ea', '#0084ff', '#39539E'],
-    labels: ['Steps', 'Cal', 'test'],
+    labels: ['运动步数', '卡路里', '睡眠时间'],
     legend: {
       show: true,
       floating: true,
@@ -52,7 +52,7 @@ const chartData = {
         size: 0
       },
       formatter: function (seriesName, opts) {
-        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+        return seriesName + ':  ' + opts.w.globals.series[opts.seriesIndex];
       },
       itemMargin: {
         vertical: 3

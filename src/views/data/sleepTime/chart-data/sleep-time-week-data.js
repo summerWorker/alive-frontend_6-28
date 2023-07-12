@@ -78,7 +78,7 @@ export const getWeekChartData = (chartData, startTime, endTime) => {
     ];
   }
 
-  var daysOfWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  var daysOfWeek = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 
   const weekChartData = {
     type: 'bar',

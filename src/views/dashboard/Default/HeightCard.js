@@ -13,12 +13,54 @@ import { Avatar, Box, Grid, Link, Typography } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 
 // assets
-import EarningIcon from 'assets/images/icons/earning.svg';
 import { ManOutlined } from '@mui/icons-material';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
 import Chart from 'react-apexcharts';
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
 const height = 173;
+const chartData = {
+  type: 'line',
+  height: 90,
+  options: {
+    chart: {
+      sparkline: {
+        enabled: true
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#fff'],
+    fill: {
+      type: 'solid',
+      opacity: 1
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    tooltip: {
+      theme: 'dark',
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: 'Total Order'
+      },
+      marker: {
+        show: false
+      }
+    }
+  },
+  series: [
+    {
+      name: '身高',
+      data: [170, 170, 170, 171, 172, 173, 173]
+    }
+  ]
+};
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#7B4DDC',
@@ -109,7 +151,7 @@ const HeightCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item xs={6}>
                     <ChartContainer>
-                      <Chart {...ChartDataMonth} />
+                      <Chart {...chartData} />
                     </ChartContainer>
                   </Grid>
                 </Grid>
