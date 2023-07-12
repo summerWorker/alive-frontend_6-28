@@ -18,7 +18,7 @@ const BloodPressureChartCard = (props) => {
   let week_data = [[], []],
     month_data = [[], []];
   const today = new Date();
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   for (let i = 0; i < 7; ++i) {
     weekCate[6 - i] = weekDays[(today.getDay() - i + 7) % 7];
     week_data[0].push(props.weekData[i][0]);
@@ -39,7 +39,7 @@ const BloodPressureChartCard = (props) => {
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Avg. Systolic</Typography>
+                    <Typography variant="subtitle2">平均收缩压</Typography>
                   </Grid>
                   <Grid item>
                     <Typography variant="h3">mmHg</Typography>
@@ -49,7 +49,7 @@ const BloodPressureChartCard = (props) => {
               <Grid item>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
-                    <Typography variant="subtitle2">Avg. Diastolic</Typography>
+                    <Typography variant="subtitle2">平均舒张压</Typography>
                   </Grid>
                   <Grid item>
                     <Typography variant="h3">mmHg</Typography>
@@ -64,7 +64,7 @@ const BloodPressureChartCard = (props) => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, true)}
                 >
-                  Week
+                  本周
                 </Button>
                 <Button
                   disableElevation
@@ -73,7 +73,7 @@ const BloodPressureChartCard = (props) => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, false)}
                 >
-                  Month
+                  本月
                 </Button>
               </Grid>
             </Grid>

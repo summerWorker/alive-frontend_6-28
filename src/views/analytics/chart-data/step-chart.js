@@ -34,7 +34,7 @@ const chartData = {
     },
     xaxis: {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
+      categories: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
     },
     legend: {
       show: true,
@@ -78,7 +78,7 @@ const chartData = {
   series: [
     {
       name: 'steps',
-      data: [45, 66, 41, 89, 25, 44, 9]
+      data: [12345, 10086, 12315, 95110, 34567, 45678, 56789]
     }
   ]
 };

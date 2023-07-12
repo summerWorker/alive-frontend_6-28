@@ -32,9 +32,6 @@ const Analytics = () => {
           <Grid item xs={12}>
             <HeightCard isLoading={isLoading} />
           </Grid>
-          {/*<Grid item xs={12}>*/}
-          {/*  <StepCard isLoading={isLoading} />*/}
-          {/*</Grid>*/}
           <Grid item xs={12}>
             <HeartRateCard isLoading={isLoading} />
           </Grid>

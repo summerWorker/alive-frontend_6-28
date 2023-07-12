@@ -21,15 +21,15 @@ import { heartRateData } from './chart-data/total-growth-bar-chart';
 const status = [
   {
     value: 'today',
-    label: '今日'
+    label: '本周'
   },
   {
     value: 'month',
-    label: '今月'
+    label: '本月'
   },
   {
     value: 'year',
-    label: '今年'
+    label: '本年'
   }
 ];
 
