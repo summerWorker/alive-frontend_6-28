@@ -8,27 +8,53 @@ import { ReachGoalCondition } from './reachGoalCondition';
 import { AllDistance } from './allDistance';
 import { DatePicker, Segmented } from 'antd';
 import dayjs from 'dayjs';
+import { getStepsData } from '../../../service/dataService/stepsService';
 const { RangePicker } = DatePicker;
 const dateFormat = 'MM-DD';
 const weekFormat = 'MM-DD';
 const monthFormat = 'YYYY-MM-DD';
+const infoFormat = 'YYYY-MM-DD';
 
 function DataSteps() {
   const [chooseState, setChooseState] = useState('day');
-  const [nowDate, setNowDate] = useState();
-  const [startWeekDate, setStartWeekDate] = useState();
-  const [endWeekDate, setEndWeekDate] = useState();
-  const [startMonthDate, setStartMonthDate] = useState();
-  const [endMonthDate, setEndMonthDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+  const [data, setData] = useState();
 
   useEffect(() => {
     setChooseState('day');
-    setNowDate(dayjs().format(dateFormat));
-    setStartWeekDate(dayjs().add(-7, 'd').format(weekFormat));
-    setEndWeekDate(dayjs().format(weekFormat));
-    setStartMonthDate(dayjs().add(-30, 'd').format(monthFormat));
-    setEndMonthDate(dayjs().format(monthFormat));
+    setStartTime(dayjs().format(infoFormat));
+    setEndTime(dayjs().format(infoFormat));
+    getStepsData(1, dayjs().format(infoFormat), dayjs().format(infoFormat)).then((res) => {
+      if (res && res.status === 1) {
+        setData(res.data.steps);
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    getStepsData(1, startTime, endTime).then((res) => {
+      if (res && res.status === 1) {
+        setData(res.data.steps);
+      }
+    });
+  }, [startTime, endTime, chooseState]);
+
+  const handleStateChange = (value) => {
+    setChooseState(value);
+    if (value === 'day') {
+      setStartTime(dayjs().format(infoFormat));
+      setEndTime(dayjs().format(infoFormat));
+    }
+    if (value === 'week') {
+      setStartTime(dayjs().add(-7, 'd').format(infoFormat));
+      setEndTime(dayjs().format(infoFormat));
+    }
+    if (value === 'month') {
+      setStartTime(dayjs().add(-1, 'month').format(infoFormat));
+      setEndTime(dayjs().format(infoFormat));
+    }
+  };
 
   return (
     <>
@@ -46,7 +72,7 @@ function DataSteps() {
                     { label: '月', value: 'month' }
                   ]}
                   onChange={(value) => {
-                    setChooseState(value);
+                    handleStateChange(value);
                   }}
                 ></Segmented>
               </Grid>
@@ -57,8 +83,7 @@ function DataSteps() {
               <Grid item>
                 {chooseState === 'day' && (
                   <DatePicker
-                    value={dayjs(nowDate)}
-                    format={dateFormat}
+                    value={dayjs(startTime)}
                     presets={[
                       { label: '昨天', value: dayjs().add(-1, 'd') },
                       { label: '上周', value: dayjs().add(-7, 'd') },
@@ -70,29 +95,28 @@ function DataSteps() {
                       </>
                     )}
                     onChange={(date) => {
-                      setNowDate(date.format(dateFormat));
+                      setStartTime(date.format(infoFormat));
+                      setEndTime(date.format(infoFormat));
                     }}
                   />
                 )}
                 {chooseState === 'week' && (
                   <RangePicker
-                    value={[dayjs(startWeekDate), dayjs(endWeekDate)]}
-                    format={weekFormat}
+                    value={[dayjs(startTime), dayjs(endTime)]}
                     disabled={[true, false]}
                     onChange={(date) => {
-                      setStartWeekDate(date[1].add(-7, 'd').format(weekFormat));
-                      setEndWeekDate(date[1].format(weekFormat));
+                      setStartTime(date[1].add(-7, 'd').format(infoFormat));
+                      setEndTime(date[1].format(infoFormat));
                     }}
                   />
                 )}
                 {chooseState === 'month' && (
                   <RangePicker
-                    value={[dayjs(startMonthDate), dayjs(endMonthDate)]}
-                    format={monthFormat}
+                    value={[dayjs(startTime), dayjs(endTime)]}
                     disabled={[true, false]}
                     onChange={(date) => {
-                      setStartMonthDate(date[1].add(-30, 'day').format(monthFormat));
-                      setEndMonthDate(date[1].format(monthFormat));
+                      setStartTime(date[1].add(-30, 'day').format(infoFormat));
+                      setEndTime(date[1].format(infoFormat));
                     }}
                   />
                 )}
@@ -100,16 +124,22 @@ function DataSteps() {
               <Grid item></Grid>
             </Grid>
           </div>
-          <StepsCharts chooseState={chooseState} setChooseState={(state) => setChooseState(state)} />
+          <StepsCharts
+            chooseState={chooseState}
+            setChooseState={(state) => setChooseState(state)}
+            startTime={startTime}
+            endTime={endTime}
+            data={data}
+          />
         </Grid>
         <Grid item lg={4}>
           {chooseState === 'day' && (
             <Grid container spacing={3} direction={'column'}>
               <Grid item>
-                <StepsGoal />
+                <StepsGoal data={data} />
               </Grid>
               <Grid item>
-                <StepsDetails />
+                <StepsDetails data={data} />
               </Grid>
             </Grid>
           )}
@@ -117,22 +147,13 @@ function DataSteps() {
             <>
               <Grid container spacing={3} direction={'column'}>
                 <Grid item>
-                  <StepsTrend
-                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                  />
+                  <StepsTrend startTime={startTime} endTime={endTime} data={data} />
                 </Grid>
                 <Grid item>
-                  <ReachGoalCondition
-                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                  />
+                  <ReachGoalCondition startTime={startTime} endTime={endTime} data={data} />
                 </Grid>
                 <Grid item>
-                  <AllDistance
-                    startTime={chooseState === 'week' ? startWeekDate : startMonthDate}
-                    endTime={chooseState === 'week' ? endWeekDate : endMonthDate}
-                  />
+                  <AllDistance startTime={startTime} endTime={endTime} data={data} />
                 </Grid>
               </Grid>
             </>

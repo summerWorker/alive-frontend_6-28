@@ -2,7 +2,7 @@ import { Progress } from 'antd';
 import { styled } from '@mui/material/styles';
 import MainCard from '../../../ui-component/cards/MainCard';
 import { Box, Grid } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#348888',
@@ -39,9 +39,21 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-export function StepsGoal() {
+export function StepsGoal(porps) {
   const [stepsGoal, setStepsGoal] = useState(10000);
   const [steps, setSteps] = useState(1212);
+  const [haveGoal, setHaveGoal] = useState(false);
+
+  useEffect(() => {
+    if (porps.data && porps.data.length === 1) {
+      setSteps(porps.data[0].step);
+      if (porps.data[0].goal !== 0) {
+        setStepsGoal(porps.data[0].goal);
+        setHaveGoal(true);
+      }
+    }
+  }, [porps.data]);
+
   return (
     <>
       <CardWrapper border={false} content={false}>
@@ -51,15 +63,21 @@ export function StepsGoal() {
               <h1>目标打卡</h1>
             </Grid>
             <Grid item>
-              {stepsGoal - steps > 0 ? (
-                <>
-                  <h4>还差{stepsGoal - steps}步，加油！</h4>
-                  <Progress percent={((steps * 100) / stepsGoal).toFixed(2)} style={{ width: '95%' }} />
-                </>
+              {haveGoal ? (
+                stepsGoal - steps > 0 ? (
+                  <>
+                    <h4>还差{stepsGoal - steps}步，加油！</h4>
+                    <Progress percent={((steps * 100) / stepsGoal).toFixed(2)} style={{ width: '95%' }} />
+                  </>
+                ) : (
+                  <>
+                    <h4>恭喜你完成目标！</h4>
+                    <Progress percent={100} status="success" style={{ width: '95%' }} />
+                  </>
+                )
               ) : (
                 <>
-                  <h4>恭喜你完成目标！</h4>
-                  <Progress percent={100} status="success" style={{ width: '95%' }} />
+                  <h4>还没有目标哦，快去设置吧！</h4>
                 </>
               )}
             </Grid>
