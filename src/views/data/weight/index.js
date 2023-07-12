@@ -16,6 +16,12 @@ import { endpoint } from '../../../utils/endpoint';
 import * as weightService from '../../../service/dataService/weightService';
 import Chart from 'react-apexcharts';
 import MainCard from '../../../ui-component/cards/MainCard';
+import dayjs from "dayjs";
+import HeightCard from "./HeightCard";
+import WeightAddCard from "./weightAddCard";
+import {integerPropType} from "@mui/utils";
+
+const weekFormat = 'YYYY-MM-DD';
 
 const DataWeightAndHeight = () => {
   const [isLoading, setLoading] = useState(true);
@@ -41,65 +47,81 @@ const DataWeightAndHeight = () => {
   }, []);
 
   const [weekData, setWeekData] = useState([]);
-  const [monthData, setMonthData] = useState([
-    51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1, 51.0, 50.9, 51.1, 51, 52, 51.2, 52.1,
-    51.0, 50.9, 51.1
-  ]);
+  const [monthData, setMonthData] = useState([]);
+
+  const [startTime, setStartTime] = useState(dayjs().subtract(6, 'day').format(weekFormat));
+  const [endTime, setEndTime] = useState(dayjs().format(weekFormat));
+  const [monthStartTime, setMonthStartTime] = useState(dayjs().subtract(29, 'day').format(weekFormat));
+
+  const month_callback = (data) => {
+    // console.log(data);
+    if (data.status >= 0) {
+      if(data.data.weights.length === 0){
+        setMonthData([]);
+      }else {
+        // const items = data.data.weight[0].detailValue;
+        // console.log(items['items']);
+        setMonthData(data.data.weights);
+      }
+    } else {
+      alert(data.msg);
+    }
+  };
+
+  const week_callback = (data) => {
+    if (data.status >= 0) {
+      if(data.data.weights.length === 0){
+        setWeekData([]);
+      }else {
+        // const items = data.data.weight[0].detailValue;
+        // console.log(items['items']);
+        setWeekData(data.data.weights);
+      }
+    } else {
+      alert(data.msg);
+    }
+  }
 
   useEffect((date) => {
     // get week data
-    const today = new Date();
-    const cur_year = today.getFullYear();
-    const cur_month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const cur_day = today.getDate().toString().padStart(2, '0');
-    const format_today = `${cur_year}-${cur_month}-${cur_day}`;
-
-    let past_day = new Date().setDate(today.getDate() - 7);
-    const temp_day = new Date(past_day); // 创建 Date 对象
-    const year = temp_day.getFullYear(); // 获取年份
-    const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
-    const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
-    const formattedDate = `${year}-${month}-${day}`;
-    const data = { user_id: 1, start_date: formattedDate, end_date: format_today };
-    const url_week = endpoint + '/weight';
+    const data = { user_id: 1, start_date: startTime, end_date: endTime };
+    const url_week = endpoint + '/period_weight';
     const callback = (data) => {
+      // console.log(data.data.weights);
       if (data.status >= 0) {
-        const items = data.data.weight[0].detailValue;
-        setWeekData(items['items']);
+        if(data.data.weights.length === 0){
+          setWeekData([]);
+        }else {
+          // const items = data.data.weights[0].detailValue;
+          // console.log(items);
+          setWeekData(data.data.weights);
+        }
       } else {
         alert(data.msg);
       }
     };
     weightService.getWeight(url_week, data, callback).then();
-  }, []);
+  }, [startTime, endTime]);
 
   useEffect(() => {
     //get month data
-    const today = new Date();
-    const cur_year = today.getFullYear();
-    const cur_month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const cur_day = today.getDate().toString().padStart(2, '0');
-    const format_today = `${cur_year}-${cur_month}-${cur_day}`;
+    // const tmp_start = dayjs().subtract(7, 'day').format(weekFormat);
+    const data = { user_id: 1, start_date: monthStartTime, end_date: endTime };
+    const url_month = endpoint + '/period_weight';
+    weightService.getWeight(url_month, data, month_callback).then();
+  }, [monthStartTime, endTime]);
 
-    let past_day = new Date().setDate(today.getDate() - 30);
-    const temp_day = new Date(past_day); // 创建 Date 对象
-    const year = temp_day.getFullYear(); // 获取年份
-    const month = (temp_day.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（注意月份从 0 开始，需要加 1）
-    const day = temp_day.getDate().toString().padStart(2, '0'); // 获取日期
-    const formattedDate = `${year}-${month}-${day}`;
-    const data = { user_id: 1, start_date: formattedDate, end_date: format_today };
-    const url_month = endpoint + '/weight';
-    const callback = (data) => {
-      console.log(data);
-      if (data.status >= 0) {
-        const items = data.data.weight[0].detailValue;
-        setMonthData(items['items']);
-      } else {
-        alert(data.msg);
-      }
-    };
-    weightService.getWeight(url_month, data, callback).then();
-  }, []);
+  function updateMonthData(){
+    const url_month = endpoint + '/period_weight';
+    const data = { user_id: 1, start_date: startTime, end_date: endTime };
+    weightService.getWeight(url_month, data, month_callback).then();
+  }
+
+  function updateWeekData() {
+    const url_week = endpoint + '/period_weight';
+    const data = {user_id: 1, start_date: startTime, end_date: endTime};
+    weightService.getWeight(url_week, data, week_callback).then();
+  }
 
   // goal
   function updateGoal(value) {
@@ -107,7 +129,25 @@ const DataWeightAndHeight = () => {
     // console.log(goal);
   }
 
-  console.log(weekData);
+  //add weight
+  const [addWeightDate, setAddWeightDate] = useState(dayjs().format(weekFormat));
+  const [addWeight, setAddWeight] = useState();
+
+  function addWeightData(){
+    if(addWeight === undefined || addWeight === null || addWeight === ''){
+        alert("Please input weight!");
+    }else{
+      function callback(data){
+        if(data.status >= 0){
+          alert("Add weight successfully!");
+        }else{
+          alert(data.msg);
+        }
+      }
+      weightService.addWeight(endpoint + '/add_weight', {user_id: 1, weight: Number(addWeight), date: addWeightDate}, callback).then();
+    }
+  }
+
 
   return (
     <Grid container spacing={gridSpacing}>
@@ -120,6 +160,14 @@ const DataWeightAndHeight = () => {
               currentW={currentWeight}
               weekWeight={weekData}
               monthWeight={monthData}
+              startTime={startTime}
+              monthStartTime={monthStartTime}
+              endTime={endTime}
+              setStartTime={(date) => setStartTime(date)}
+              setMonthStartTime={(date) => setMonthStartTime(date)}
+              setEndTime={(date) => setEndTime(date)}
+              updateMonthData={updateMonthData}
+              updateWeekData={updateWeekData}
             />
           </Grid>
           <Grid item xs={12}>
@@ -153,7 +201,17 @@ const DataWeightAndHeight = () => {
       <Grid item lg={4} xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12}>
+            <HeightCard />
+          </Grid>
+          <Grid item xs={12}>
             <WeightConditionCard />
+          </Grid>
+          <Grid item xs={12}>
+            <WeightAddCard date={addWeightDate}
+              setDate={(date) => setAddWeightDate(date)}
+                weight={addWeight} setWeight={(weight) => setAddWeight(weight)}
+                           addWeight={addWeightData}
+            />
           </Grid>
           <Grid item xs={12}>
             <WeightGoalSetCard goal={goal} updateGoal={updateGoal} />

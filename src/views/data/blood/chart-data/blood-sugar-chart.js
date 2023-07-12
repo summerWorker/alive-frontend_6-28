@@ -1,6 +1,5 @@
-export const getBloodSugarChartData = (seriesData) => {
+export const getBloodSugarChartData = (seriesData, start, end) => {
     const chartData = {
-        // height: 350,
         type: 'scatter',
         chart: {
             zoom: {
@@ -14,22 +13,10 @@ export const getBloodSugarChartData = (seriesData) => {
         }],
         options: {
             xaxis: {
-                type: 'datetime', // 设置横坐标为日期时间类型
-                tickAmount: 10,
-                labels: {
-                    datetimeFormatter: {
-                        year: 'yyyy',
-                        month: 'MMM',
-                        day: 'dd'
-                        // hour: 'HH:mm'
-                    },
-                    formatter: function (value, timestamp) {
-                        const date = new Date(timestamp);
-                        const month = date.getMonth() + 1;
-                        const day = date.getDate();
-                        return `${month}-${day}`;
-                    }
-                }
+                type: 'datetime',
+                tickAmount: 7,
+                min: new Date(start).getTime(),
+                max: new Date(end).getTime(),
             },
             yaxis: {
                 tickAmount: 7
