@@ -16,14 +16,6 @@ const InputCard = () => {
               endAdornment: <InputAdornment position="end">/min</InputAdornment>
             }}
           />
-          <TextField
-            label="运动心率"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: '65%' }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">/min</InputAdornment>
-            }}
-          />
         </Grid>
         <Grid item xs={2}>
           <Button variant={'outlined'} style={{ height: '6ch', borderColor: '#ffe57f', borderRadius: '10px', color: '#ffc107' }}>

@@ -14,9 +14,9 @@ import MainCard from 'ui-component/cards/MainCard';
 // assets
 import { Favorite } from '@mui/icons-material';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
-const restingHeartRate = 78;
-const restingHeartRateMin = 65;
-const restingHeartRateMax = 82;
+import { useEffect, useState } from 'react';
+import { getHeartRateData } from '../../../service/dataService/heartRateService';
+import dayjs from 'dayjs';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#2EE89F',
@@ -61,8 +61,23 @@ const ChartContainer = styled('div')({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const RestingHeartRateCard = ({ isLoading }) => {
+const heartRateCard = ({ isLoading }) => {
   const theme = useTheme();
+  const [heartRate, setHeartRate] = useState(-1);
+  const [heartRateMin, setHeartRateMin] = useState(-1);
+  const [heartRateMax, setHeartRateMax] = useState(-1);
+  useEffect(() => {
+    getHeartRateData(1, dayjs().format('YYYY-MM-DD'), dayjs().add(1, 'day').format('YYYY-MM-DD')).then((res) => {
+      const data = res.data.heartRates;
+      const max = Math.max(...data.map((item) => item.detailValue));
+      const min = Math.min(...data.map((item) => item.detailValue));
+      const sum = data.reduce((acc, item) => acc + parseFloat(item.detailValue), 0);
+      const average = Math.round(sum / data.length);
+      setHeartRate(average);
+      setHeartRateMax(max);
+      setHeartRateMin(min);
+    });
+  }, []);
   return (
     <>
       {isLoading ? (
@@ -91,7 +106,7 @@ const RestingHeartRateCard = ({ isLoading }) => {
                       </Grid>
                       <Grid item>
                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                          {restingHeartRate + '/min'}
+                          {heartRate < 0 ? '暂无数据' : heartRate + '/min'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -106,7 +121,7 @@ const RestingHeartRateCard = ({ isLoading }) => {
                     color: '#fff'
                   }}
                 >
-                  静止心率
+                  今日心率
                 </Typography>
               </Grid>
               <Grid item>
@@ -119,7 +134,7 @@ const RestingHeartRateCard = ({ isLoading }) => {
                         color: '#fff'
                       }}
                     >
-                      {'最低心率：' + restingHeartRateMin + '/min'}
+                      {'最低心率：' + (heartRate < 0 ? '暂无数据' : heartRateMin + '/min')}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -130,7 +145,7 @@ const RestingHeartRateCard = ({ isLoading }) => {
                         color: '#fff'
                       }}
                     >
-                      {'最高心率：' + restingHeartRateMax + '/min'}
+                      {'最高心率：' + (heartRate < 0 ? '暂无数据' : heartRateMax + '/min')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -143,8 +158,8 @@ const RestingHeartRateCard = ({ isLoading }) => {
   );
 };
 
-RestingHeartRateCard.propTypes = {
+heartRateCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default RestingHeartRateCard;
+export default heartRateCard;
