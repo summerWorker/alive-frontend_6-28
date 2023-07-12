@@ -9,10 +9,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
-// import DirectionsWalkOutlinedIcon from '@mui/icons-material/DirectionsWalkOutlined';
-// import MonitorWeightOutlinedIcon from '@mui/icons-material/MonitorWeightOutlined';
-// import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -64,7 +61,7 @@ const HeartRateCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <MonitorHeartOutlinedIcon fontSize="inherit" />
+                    <FavoriteIcon fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -82,7 +79,7 @@ const HeartRateCard = ({ isLoading }) => {
                         mt: 0.5
                       }}
                     >
-                      Heart Rate
+                      心率
                     </Typography>
                   }
                 />

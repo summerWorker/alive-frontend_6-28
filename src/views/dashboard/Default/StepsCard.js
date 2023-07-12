@@ -12,12 +12,54 @@ import Chart from 'react-apexcharts';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-
 // assets
 import { DirectionsWalk } from '@mui/icons-material';
 
 const steps = 12345;
+const chartData = {
+  type: 'line',
+  height: 90,
+  options: {
+    chart: {
+      sparkline: {
+        enabled: true
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#fff'],
+    fill: {
+      type: 'solid',
+      opacity: 1
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    tooltip: {
+      theme: 'dark',
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: 'Total Order'
+      },
+      marker: {
+        show: false
+      }
+    }
+  },
+  series: [
+    {
+      name: '运动步数',
+      data: [1000, 12345, 10086, 320, 4396, 2200, 12138]
+    }
+  ]
+};
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#4681DB',
   color: '#fff',
@@ -102,7 +144,7 @@ const StepsCard = ({ isLoading }) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
-                    <Chart {...ChartDataMonth} />
+                    <Chart {...chartData} />
                   </Grid>
                 </Grid>
               </Grid>

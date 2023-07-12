@@ -46,7 +46,7 @@ const TotalWeightLineChart = (props) => {
   let weekData = Array(7).fill(null),
     monthData = Array(30).fill(null);
   const today = new Date();
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   for (let i = 0; i < 7; ++i) {
     const cur_date = new Date(props.endTime);
     cur_date.setDate(cur_date.getDate() - i);
@@ -125,7 +125,7 @@ const TotalWeightLineChart = (props) => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, 0)}
                 >
-                  周
+                  本周
                 </Button>
                 <Button
                   disableElevation
@@ -134,7 +134,7 @@ const TotalWeightLineChart = (props) => {
                   sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, 1)}
                 >
-                  月
+                  本月
                 </Button>
               </Grid>
               <Grid item>

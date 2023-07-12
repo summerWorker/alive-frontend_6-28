@@ -1,6 +1,6 @@
 export const getDetailChartData = (intakeData, consumptionData) => {
   const netIntakeData = intakeData.map((value, index) => value - consumptionData[index]);
-  const categries = [1, 2, 3, 4, 5, 6, 7];
+  const categries = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 
   const optionData = {
     type: 'area',

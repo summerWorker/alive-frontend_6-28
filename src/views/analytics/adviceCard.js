@@ -43,7 +43,7 @@ const AdviceCard = ({ isLoading }) => {
               <Grid item xs={12}>
                 <Grid container alignContent="center" justifyContent="space-between">
                   <Grid item>
-                    <Typography variant="h2">Tips</Typography>
+                    <Typography variant="h2">建议</Typography>
                   </Grid>
                   <Grid item>
                     <MoreHorizOutlinedIcon
@@ -72,7 +72,7 @@ const AdviceCard = ({ isLoading }) => {
                         horizontal: 'right'
                       }}
                     >
-                      <MenuItem onClick={handleClose}> Download Report</MenuItem>
+                      <MenuItem onClick={handleClose}> 下载建议报告</MenuItem>
                     </Menu>
                   </Grid>
                 </Grid>
@@ -83,7 +83,7 @@ const AdviceCard = ({ isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="h4" fontWeight="300" color="inherit">
-                          💡Try to Sleep 8 hours a day
+                          💡尝试每天睡觉8小时
                         </Typography>
                       </Grid>
                     </Grid>
@@ -95,7 +95,7 @@ const AdviceCard = ({ isLoading }) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                    <Divider sx={{ my: 1.5 }} />
+                  <Divider sx={{ my: 1.5 }} />
                 </Grid>
               </Grid>
             </Grid>

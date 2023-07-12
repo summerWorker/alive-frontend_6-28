@@ -1,5 +1,4 @@
 // ===========================|| CHART CONFIG ||=========================== //
-
 const chartConfig = {
   height: 480,
   type: 'bar',
@@ -12,7 +11,11 @@ const chartConfig = {
       },
       zoom: {
         enabled: true
-      }
+      },
+      type: 'bar'
+    },
+    tooltip: {
+      theme: 'light'
     },
     responsive: [
       {
@@ -34,7 +37,12 @@ const chartConfig = {
     },
     xaxis: {
       type: 'category',
-      categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+      labels: {
+        style: {
+          fontSize: '14px'
+        }
+      },
+      categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
     },
     legend: {
       show: true,
@@ -60,6 +68,13 @@ const chartConfig = {
     },
     grid: {
       show: true
+    },
+    yaxis: {
+      labels: {
+        formatter: (value) => {
+          return Math.round(value).toString(); // 格式化为整数
+        }
+      }
     }
   }
 };
@@ -70,19 +85,12 @@ const heartRateData = {
   ...chartConfig,
   series: [
     {
-      name: '运动心率',
-      data: [120, 125, 128, 130, 135, 140, 142, 145, 148, 150, 145, 140]
-    },
-    {
-      name: '静止心率',
+      name: '心率',
       data: [70, 72, 68, 75, 74, 76, 70, 73, 71, 69, 68, 72]
     }
   ],
   options: {
     ...chartConfig.options,
-    chart: {
-      type: 'bar'
-    },
     dataLabels: {
       enabled: true, // Enable data labels
       formatter: function (value, { seriesIndex, dataPointIndex, w }) {
@@ -97,6 +105,15 @@ const heartRateData = {
         fontWeight: 'bold',
         fontFamily: `'Roboto', sans-serif`,
         color: '#333'
+      }
+    },
+    yaxis: {
+      ...chartConfig.options.yaxis,
+      max: 150,
+      labels: {
+        formatter: function (value) {
+          return Math.round(value);
+        }
       }
     }
   }

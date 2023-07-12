@@ -12,12 +12,54 @@ import Chart from 'react-apexcharts';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-
 // assets
 import { Scale } from '@mui/icons-material';
 
 const weight = 60;
+const chartData = {
+  type: 'line',
+  height: 90,
+  options: {
+    chart: {
+      sparkline: {
+        enabled: true
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#fff'],
+    fill: {
+      type: 'solid',
+      opacity: 1
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    tooltip: {
+      theme: 'dark',
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: 'Total Order'
+      },
+      marker: {
+        show: false
+      }
+    }
+  },
+  series: [
+    {
+      name: '体重',
+      data: [57, 61, 56, 63, 60, 58, 60]
+    }
+  ]
+};
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#06DB95',
@@ -103,7 +145,7 @@ const WeightCard = ({ isLoading }) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
-                    <Chart {...ChartDataMonth} />
+                    <Chart {...chartData} />
                   </Grid>
                 </Grid>
               </Grid>

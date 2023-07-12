@@ -1,15 +1,23 @@
 import { Grid } from '@mui/material';
 import { Collapse } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { RunningManImage } from './runningManImage';
 
-export function StepsDetails() {
+export function StepsDetails(porps) {
+  console.log('data', porps.data);
   const [distance, setDistance] = useState(189);
-  const [activeCollapse, setActiveCollapse] = useState(1280);
+  const [calories, setCalories] = useState(1280);
   const [climb, setClimb] = useState(2);
   const [heartRate, setHeartRate] = useState(0);
   const [cadence, setCadence] = useState(50);
+
+  useEffect(() => {
+    if (porps.data && porps.data.length === 1) {
+      setDistance(porps.data[0].distance);
+      setCalories(porps.data[0].calories);
+    }
+  }, [porps.data]);
 
   const getItems = (panelStyle) => [
     {
@@ -28,7 +36,7 @@ export function StepsDetails() {
       label: (
         <Grid container justifyContent={'space-between'}>
           <Grid item>{'活动消耗'}</Grid>
-          <Grid item>{activeCollapse}千卡</Grid>
+          <Grid item>{calories}千卡</Grid>
         </Grid>
       ),
       children: (

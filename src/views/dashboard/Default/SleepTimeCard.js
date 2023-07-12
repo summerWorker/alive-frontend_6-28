@@ -12,9 +12,52 @@ import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
 import { Bedtime } from '@mui/icons-material';
 import Chart from 'react-apexcharts';
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
 
 const sleepTime = 7.63;
+const chartData = {
+  type: 'line',
+  height: 90,
+  options: {
+    chart: {
+      sparkline: {
+        enabled: true
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#fff'],
+    fill: {
+      type: 'solid',
+      opacity: 1
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    tooltip: {
+      theme: 'dark',
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: 'Total Order'
+      },
+      marker: {
+        show: false
+      }
+    }
+  },
+  series: [
+    {
+      name: '睡眠时间',
+      data: [8.6, 7.2, 6.2, 6.5, 6.0, 7.5, 4.5]
+    }
+  ]
+};
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: 'rgb(251,198,245)',
   color: '#fff',
@@ -103,7 +146,7 @@ const SleepTimeCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item xs={6}>
                     <ChartContainer>
-                      <Chart {...ChartDataMonth} />
+                      <Chart {...chartData} />
                     </ChartContainer>
                   </Grid>
                 </Grid>

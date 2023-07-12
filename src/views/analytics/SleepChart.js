@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {CardContent, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import { CardContent, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // third-party
 import ApexCharts from 'apexcharts';
@@ -13,7 +13,7 @@ import chartData from './chart-data/bajaj-area-chart';
 import { gridSpacing } from 'store/constant';
 import MainCard from '../../ui-component/cards/MainCard';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import SleepChartCard from "./SleepChartCard";
+import SleepChartCard from './SleepChartCard';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
@@ -51,7 +51,7 @@ const SleepChart = () => {
           <Grid item xs={12}>
             <Grid container alignContent="center" justifyContent="space-between">
               <Grid item>
-                <Typography variant="h4">Sleep Time</Typography>
+                <Typography variant="h4">睡眠时间</Typography>
               </Grid>
               <Grid item>
                 <MoreHorizOutlinedIcon
@@ -80,13 +80,13 @@ const SleepChart = () => {
                     horizontal: 'right'
                   }}
                 >
-                  <MenuItem onClick={handleClose}> Today</MenuItem>
-                  <MenuItem onClick={handleClose}> This Month</MenuItem>
+                  <MenuItem onClick={handleClose}> 本日</MenuItem>
+                  <MenuItem onClick={handleClose}> 本月</MenuItem>
                 </Menu>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{pt: '16px !important'}}>
+          <Grid item xs={12} sx={{ pt: '16px !important' }}>
             <SleepChartCard />
           </Grid>
         </Grid>

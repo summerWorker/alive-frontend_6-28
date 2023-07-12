@@ -62,7 +62,7 @@ const data = {
           id: 'bloodSugar',
           title: '血糖',
           type: 'item',
-          url: '/data/bloodSugar',
+          url: '/data/blood',
           breadcrumbs: false
         },
         {

@@ -1,9 +1,9 @@
-import MainCard from "../../../ui-component/cards/MainCard";
-import {Button, CardContent, Grid, Typography} from "@mui/material";
-import {gridSpacing} from "../../../store/constant";
-import {useState} from "react";
-import {getBloodSugarChartData} from "./chart-data/blood-sugar-chart";
-import Chart from "react-apexcharts";
+import MainCard from '../../../ui-component/cards/MainCard';
+import { Button, CardContent, Grid, Typography } from '@mui/material';
+import { gridSpacing } from '../../../store/constant';
+import { useState } from 'react';
+import { getBloodSugarChartData } from './chart-data/blood-sugar-chart';
+import Chart from 'react-apexcharts';
 
 import {DatePicker} from 'antd';
 import dayjs from "dayjs";
@@ -70,7 +70,6 @@ const BloodSugarChartCard = (props) => {
   // console.log(tmp_month);
 
 
-
   return (
     <MainCard content={false}>
       <CardContent>
@@ -78,24 +77,23 @@ const BloodSugarChartCard = (props) => {
           <Grid item xs={12}>
             <Grid container alignItems="center" justifyContent="space-between">
               <Grid item>
-                <div>
                 <Button
                   disableElevation
                   variant={timeValue ? 'contained' : 'text'}
                   size="small"
-                  sx={{color: 'success[200]'}}
+                  sx={{ color: 'success[200]' }}
                   onClick={(e) => handleChangeTime(e, true)}
                 >
-                  Week
+                  本周
                 </Button>
                 <Button
-                    disableElevation
-                    variant={!timeValue ? 'contained' : 'text'}
-                    size="small"
-                    sx={{color: 'success[200]'}}
-                    onClick={(e) => handleChangeTime(e, false)}
+                  disableElevation
+                  variant={!timeValue ? 'contained' : 'text'}
+                  size="small"
+                  sx={{ color: 'success[200]' }}
+                  onClick={(e) => handleChangeTime(e, false)}
                 >
-                  Month
+                  本月
                 </Button>
                 </div>
                 <div>

@@ -56,17 +56,17 @@ const getBloodPressureChartData = (category, seriesData) => {
         },
         series: [
             {
-                name: 'Systolic',
+                name: '收缩压',
                 data: seriesData[0]
             },
             {
-                name: 'Diastolic',
+                name: '舒张压',
                 data: seriesData[1]
             }
         ]
     };
 
-    return {...chartData};
-}
+  return { ...chartData };
+};
 
 export default getBloodPressureChartData;

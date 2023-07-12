@@ -182,7 +182,7 @@ const DataWeightAndHeight = () => {
                           mt: 0.45,
                           mb: 0.45
                         }}
-                        primary={<Typography variant="h4">Your BMI</Typography>}
+                        primary={<Typography variant="h4">您的BMI</Typography>}
                       ></ListItemText>
                     </ListItem>
                   </List>
