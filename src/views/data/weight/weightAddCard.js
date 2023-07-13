@@ -20,7 +20,7 @@ const WeightAddCard = (props) => {
                                 mt: 0.45,
                                 mb: 0.45
                             }}
-                            primary={<Typography variant="h4">添加过往数据</Typography>}
+                            primary={<Typography variant="h4">添加体重数据</Typography>}
                         />
                     </ListItem>
                     <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '3%' }}>

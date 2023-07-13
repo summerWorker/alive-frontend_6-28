@@ -1,5 +1,5 @@
 // ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
-const getSleepChartData = (cate, data) => {
+const getSleepChartData = (cate, deep_sleep, light_sleep, awk_sleep, eye_move_sleep) => {
   const chartData = {
     height: 172,
     type: 'bar',
@@ -68,19 +68,19 @@ const getSleepChartData = (cate, data) => {
     series: [
       {
         name: '深度睡眠',
-        data: [1.5, 1.25, 1.5, 1.5, 1.5, 1.0, 1.5]
+        data: deep_sleep
       },
       {
         name: '浅度睡眠',
-        data: [3.5, 4.5, 4.5, 3.5, 3.5, 4.0, 4.0]
+        data: light_sleep
       },
       {
         name: '眼动',
-        data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.0]
+        data: awk_sleep
       },
       {
         name: '清醒',
-        data: [1.5, 1.45, 1.5, 1.5, 2.0, 1.05, 1.0]
+        data: eye_move_sleep
       }
     ]
   };

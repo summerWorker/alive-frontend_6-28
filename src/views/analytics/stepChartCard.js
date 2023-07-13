@@ -50,7 +50,7 @@ const StepChartCard = (props) => {
   for(let i = 0; i < tmp_data.length; ++i){
     const cur_date = new Date(tmp_data[i].date);
     const today = new Date();
-    console.log(cur_date.getDay(), today.getDay());
+    // console.log(cur_date.getDay(), today.getDay());
     const day_of_week = 6 + cur_date.getDay() - today.getDay();
     const cur_step = tmp_data[i].step;
     weekData[day_of_week] = cur_step;

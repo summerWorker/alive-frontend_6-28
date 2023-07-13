@@ -10,7 +10,7 @@ import getSleepChartData from "./chart-data/sleep-chart";
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
-const SleepChartCard = () => {
+const SleepChartCard = (props) => {
     let cate = [];
     const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
     for(let i = 0; i < 7; ++i){
@@ -18,13 +18,12 @@ const SleepChartCard = () => {
         cur.setDate(cur.getDate() - i);
         cate[6 - i] = weekDays[cur.getDay()];
     }
-    let data = [];
 
   return (
     <Card sx={{ bgcolor: 'primary.light' }}>
       <Grid container sx={{ p: 2, pb: 0, color: '#fff' }}></Grid>
       <Grid item>
-        <Chart {...getSleepChartData(cate, data)} />
+        <Chart {...getSleepChartData(cate, props.deep, props.light, props.awk, props.eyemove)} />
       </Grid>
     </Card>
   );

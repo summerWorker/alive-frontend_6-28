@@ -3,11 +3,11 @@ import MainCard from '../../../ui-component/cards/MainCard';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 
-const WeightLossCard = () => {
+const WeightLossCard = (props) => {
   const theme = useTheme();
 
   return (
-    <MainCard border={false} content={false} style={{ height: '180px' }}>
+    <MainCard border={false} content={false} style={{ height: '180px', marginBottom: "5%" }}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
           <ListItem alignItems="center" sx={{ py: 0 }}>
@@ -30,17 +30,17 @@ const WeightLossCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h5">您离目标更近了！</Typography>}
+              primary={<Typography variant="h4">健康小贴士</Typography>}
             ></ListItemText>
           </ListItem>
-          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '15%', marginLeft: '5%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '5%', marginLeft: '5%', marginRight: "5%"}}>
             <ListItemText
               sx={{
                 py: 0,
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h4">点击查看接下来一段时间的计划！</Typography>}
+              primary={<Typography variant="h5">{props.advice}</Typography>}
             ></ListItemText>
           </ListItem>
         </List>

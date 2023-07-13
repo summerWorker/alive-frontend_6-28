@@ -34,7 +34,6 @@ const TotalWeightLineChart = (props) => {
     const date = [dayjs(props.startTime), dayjs(props.endTime)];
     if(newValue === 0) {
       props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
-
     }else{
       props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
     }
@@ -103,7 +102,7 @@ const TotalWeightLineChart = (props) => {
                     <Typography variant="subtitle2">当前</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">kg</Typography>
+                    <Typography variant="h3">{props.currentW}kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -141,7 +140,7 @@ const TotalWeightLineChart = (props) => {
                 <RangePicker
                     bordered={false}
                     disabled={[true, false]}
-                    value={[dayjs(props.startTime), dayjs(props.endTime)]}
+                    value={[dayjs((timeValue === 0) ? props.startTime : props.monthStartTime), dayjs(props.endTime)]}
                     onChange={(date) => {
                       if(timeValue === 0) {
                         props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
