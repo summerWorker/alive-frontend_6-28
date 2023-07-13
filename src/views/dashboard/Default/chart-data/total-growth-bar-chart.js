@@ -66,12 +66,12 @@ const chartConfig = {
 
 // ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
 
-const heightData = {
+const heartRateData = {
   ...chartConfig,
   series: [
     {
-      name: '身高',
-      data: [173, 170, 172, 172, 171, 173, 173, 171, 171, 170, 170, 172]
+      name: '心率',
+      data: [56, 60, 73, 70, 69, 75, 72, 69, 71, 65, 59, 66]
     }
   ],
   options: {
@@ -83,7 +83,7 @@ const heightData = {
       }
     },
     title: {
-      text: '身高(cm)',
+      text: '心率(/min)',
       align: 'center',
       style: {
         fontSize: '24px',
@@ -182,4 +182,4 @@ const sleepTimeData = {
   }
 };
 
-export { heightData, weightData, stepsData, sleepTimeData };
+export { heartRateData, weightData, stepsData, sleepTimeData };

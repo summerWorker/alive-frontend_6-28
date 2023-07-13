@@ -3,7 +3,6 @@ import HeartRateChart from './heartRateChart';
 import { Grid, Typography } from '@mui/material';
 import MainCard from '../../../ui-component/cards/MainCard';
 import RestingHeartRateCard from './restingHeartRateCard';
-import ExerciseHeartRateCard from './exerciseHeartRateCard';
 import HeartRateGoalCard from './heartRateGoalCard';
 import InputCard from './inputCard';
 

@@ -7,14 +7,12 @@ import { Card, CardActionArea, Grid } from '@mui/material';
 
 import TipsCard from './TipsCard';
 import { gridSpacing } from 'store/constant';
-import HeightCard from './HeightCard';
+import HeartRateCard from './HeartRateCard';
 import WeightCard from './WeightCard';
 import SleepTimeCard from './SleepTimeCard';
 import StepsCard from './StepsCard';
 import BloodPressureCard from './BloodPressureCard';
 import BloodSugarCard from './BloodSugarCard';
-import HeartRateCard from './HeartRateCard';
-import CholesterolCard from './CholesterolCard';
 import DataInfoChart from './DataInfoChart';
 import { useNavigate } from 'react-router';
 import CaloriesCard from './CaloriesCard';
@@ -23,13 +21,13 @@ import CaloriesCard from './CaloriesCard';
 
 const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
-  const [infoData, setInfoData] = useState('height');
+  const [infoData, setInfoData] = useState('heartRate');
   useEffect(() => {
     setLoading(false);
   }, []);
   const navigate = useNavigate();
-  function handleClickHeight() {
-    setInfoData('height');
+  function handleClickHeartRate() {
+    setInfoData('heartRate');
   }
   function handleClickWeight() {
     setInfoData('weight');
@@ -46,12 +44,6 @@ const Dashboard = () => {
   function handleClickBloodSugar() {
     navigate('/data/blood');
   }
-  function handleClickHeartRate() {
-    navigate('/data/heartRate');
-  }
-  function handleClickCholesterol() {
-    navigate('/data/cholesterol');
-  }
   function handleClickDiet() {
     navigate('/data/calories');
   }
@@ -64,8 +56,8 @@ const Dashboard = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
-                  <CardActionArea onClick={handleClickHeight}>
-                    <HeightCard isLoading={isLoading}/>
+                  <CardActionArea onClick={handleClickHeartRate}>
+                    <HeartRateCard isLoading={isLoading} />
                   </CardActionArea>
                 </Card>
               </Grid>
@@ -94,11 +86,6 @@ const Dashboard = () => {
           </Grid>
           <Grid item lg={4} md={12} sm={12} xs={12}>
             <Grid container spacing={gridSpacing}>
-              <Grid item lg={12} md={6} sm={6} xs={12}>
-                <CardActionArea onClick={handleClickHeartRate}>
-                  <HeartRateCard isLoading={isLoading} />
-                </CardActionArea>
-              </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>
                 <CardActionArea onClick={handleClickBloodPressure}>
                   <BloodPressureCard isLoading={isLoading} />

@@ -106,7 +106,7 @@ const heartRateCard = ({ isLoading }) => {
                       </Grid>
                       <Grid item>
                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                          {heartRate < 0 ? '暂无数据' : heartRate + '/min'}
+                          {isNaN(heartRate) ? '暂无数据' : heartRate + '/min'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -134,7 +134,7 @@ const heartRateCard = ({ isLoading }) => {
                         color: '#fff'
                       }}
                     >
-                      {'最低心率：' + (heartRate < 0 ? '暂无数据' : heartRateMin + '/min')}
+                      {'最低心率：' + (isNaN(heartRate) ? '暂无数据' : heartRateMin + '/min')}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -145,7 +145,7 @@ const heartRateCard = ({ isLoading }) => {
                         color: '#fff'
                       }}
                     >
-                      {'最高心率：' + (heartRate < 0 ? '暂无数据' : heartRateMax + '/min')}
+                      {'最高心率：' + (isNaN(heartRate) ? '暂无数据' : heartRateMax + '/min')}
                     </Typography>
                   </Grid>
                 </Grid>

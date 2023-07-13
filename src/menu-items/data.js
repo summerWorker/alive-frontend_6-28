@@ -17,15 +17,8 @@ const data = {
 
       children: [
         {
-          id: 'height',
-          title: '身高',
-          type: 'item',
-          url: '/data/height',
-          breadcrumbs: false
-        },
-        {
           id: 'weight',
-          title: '体重',
+          title: '身高体重',
           type: 'item',
           url: '/data/weight',
           breadcrumbs: false
@@ -53,14 +46,7 @@ const data = {
         },
         {
           id: 'blood',
-          title: '血压',
-          type: 'item',
-          url: '/data/blood',
-          breadcrumbs: false
-        },
-        {
-          id: 'bloodSugar',
-          title: '血糖',
+          title: '血压血糖',
           type: 'item',
           url: '/data/blood',
           breadcrumbs: false

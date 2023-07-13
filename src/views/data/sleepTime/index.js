@@ -1,5 +1,5 @@
 import { SleepTimeChart } from './sleepTimeChart';
-import { Grid, Tab, Tabs } from '@mui/material';
+import { Grid, Tab, Tabs, IconButton } from '@mui/material';
 import { gridSpacing } from 'store/constant';
 import { SleepTips } from './sleepTips';
 import { SleepGoalCard } from './sleepGoalCard';

@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Grid, MenuItem, TextField, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // third-party
-import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 
 // project imports
@@ -22,7 +20,7 @@ const { RangePicker } = DatePicker;
 // chart data
 import { heartRateData } from './chart-data/total-growth-bar-chart';
 import { getHeartRateData } from '../../../service/dataService/heartRateService';
-import { desolveData } from '../../../utils/heartRateUtils';
+import { desolveHeartRateData } from '../../../utils/heartRateUtils';
 
 const dateFormat = 'YYYY-MM-DD';
 const weekFormat = 'YYYY-MM-DD';
@@ -32,16 +30,14 @@ const monthFormat = 'YYYY-MM-DD';
 
 const HeartRateChart = ({ isLoading }) => {
   const [chooseState, setChooseState] = useState('day');
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [chartData, setChartData] = useState(heartRateData);
   const [nowDate, setNowDate] = useState(dayjs().format(dateFormat));
   const [startWeekDate, setStartWeekDate] = useState(dayjs().add(-6, 'day').format(weekFormat));
   const [endWeekDate, setEndWeekDate] = useState(dayjs().format(weekFormat));
   const [startMonthDate, setStartMonthDate] = useState(dayjs().add(-29, 'day').format(monthFormat));
   const [endMonthDate, setEndMonthDate] = useState(dayjs().format(monthFormat));
-  const theme = useTheme();
   const customization = useSelector((state) => state.customization);
-  const { navType } = customization;
 
   useEffect(() => {
     let newData;
@@ -49,19 +45,19 @@ const HeartRateChart = ({ isLoading }) => {
       case 'day':
         getHeartRateData(1, nowDate, null).then((res) => {
           newData = res;
-          setData(desolveData(dayjs(nowDate), dayjs(nowDate).add(1, 'day'), newData.data.heartRates, 'day'));
+          setData(desolveHeartRateData(dayjs(nowDate), dayjs(nowDate).add(1, 'day'), newData.data.heartRates, 'day'));
         });
         break;
       case 'week':
         getHeartRateData(1, startWeekDate, endWeekDate).then((res) => {
           newData = res;
-          setData(desolveData(dayjs(startWeekDate), dayjs(endWeekDate), newData.data.heartRates, 'week'));
+          setData(desolveHeartRateData(dayjs(startWeekDate), dayjs(endWeekDate), newData.data.heartRates, 'week'));
         });
         break;
       case 'month':
         getHeartRateData(1, startMonthDate, endMonthDate).then((res) => {
           newData = res;
-          setData(desolveData(dayjs(startMonthDate), dayjs(endMonthDate), newData.data.heartRates, 'month'));
+          setData(desolveHeartRateData(dayjs(startMonthDate), dayjs(endMonthDate), newData.data.heartRates, 'month'));
         });
         break;
     }
