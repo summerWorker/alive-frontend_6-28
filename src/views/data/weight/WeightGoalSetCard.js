@@ -12,8 +12,6 @@ const WeightGoalSetCard = (props) => {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    // props.goalChange(value);
-    // console.log(name, value);
     setCurGoal(value);
   }
 
@@ -26,7 +24,7 @@ const WeightGoalSetCard = (props) => {
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
         <List sx={{ py: 0 }}>
-          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginLeft: '3%' }}>
+          <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginLeft: '3%', marginBottom: "5%" }}>
             <ListItemAvatar style={{ marginRight: '5%' }}>
               <Avatar
                 variant="rounded"
@@ -46,7 +44,7 @@ const WeightGoalSetCard = (props) => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h3">设置您的目标</Typography>}
+              primary={<Typography variant="h4">设置您的体重目标</Typography>}
             />
           </ListItem>
           <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '3%' }}>
@@ -61,7 +59,9 @@ const WeightGoalSetCard = (props) => {
               value={curGoal}
               onChange={handleChange}
             />
-            <Button variant="outlined" style={{ height: '6ch', borderColor: '#ffe57f', borderRadius: '10px', color: '#ffc107' }}>
+            <Button variant="outlined" style={{ height: '6ch', borderColor: '#ffe57f', borderRadius: '10px', color: '#ffc107' }}
+                onClick={handleGoalChange}
+            >
               确认
             </Button>
           </ListItem>

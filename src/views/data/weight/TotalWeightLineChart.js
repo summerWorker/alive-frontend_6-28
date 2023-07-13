@@ -112,7 +112,7 @@ const TotalWeightLineChart = (props) => {
                     <Typography variant="subtitle2">目标</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h3">kg</Typography>
+                    <Typography variant="h3">{props.goal}kg</Typography>
                   </Grid>
                 </Grid>
               </Grid>
