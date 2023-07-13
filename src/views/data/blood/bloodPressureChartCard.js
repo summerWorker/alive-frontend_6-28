@@ -4,9 +4,9 @@ import { gridSpacing } from '../../../store/constant';
 import React, { useState } from 'react';
 import getBloodPressureChartData from './chart-data/blood-pressure-chart';
 import Chart from 'react-apexcharts';
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-import {DatePicker} from 'antd';
+import { DatePicker } from 'antd';
 
 const { RangePicker } = DatePicker;
 
@@ -17,9 +17,9 @@ const BloodPressureChartCard = (props) => {
   const [timeValue, setTimeValue] = useState(true);
   const handleChangeTime = (event, newValue) => {
     const date = [dayjs(props.startTime), dayjs(props.endTime)];
-    if(newValue === true) {
+    if (newValue === true) {
       props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
-    }else{
+    } else {
       props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
     }
     setTimeValue(newValue);
@@ -28,7 +28,8 @@ const BloodPressureChartCard = (props) => {
   // week / month category
   let weekCate = [],
     monthCate = [];
-  let week_data = [[], []], month_data = [[], []];
+  let week_data = [[], []],
+    month_data = [[], []];
   week_data[0] = Array(7).fill(null);
   week_data[1] = Array(7).fill(null);
   month_data[0] = Array(30).fill(null);
@@ -41,10 +42,10 @@ const BloodPressureChartCard = (props) => {
     weekCate[6 - i] = weekDays[cur_date.getDay()];
   }
   let tmp_week = props.weekData;
-  for(let i = 0; i < tmp_week.length; ++i){
+  for (let i = 0; i < tmp_week.length; ++i) {
     const cur_date = new Date(tmp_week[i].date);
     const today = new Date(props.endTime);
-    const day_of_week = 6 - (today.getTime() - cur_date.getTime())/(24*60*60*1000);
+    const day_of_week = 6 - (today.getTime() - cur_date.getTime()) / (24 * 60 * 60 * 1000);
     // console.log(day_of_week);
     const cur_systolic = tmp_week[i].systolic;
     const cur_diastolic = tmp_week[i].diastolic;
@@ -60,7 +61,7 @@ const BloodPressureChartCard = (props) => {
     monthCate[29 - i] = `${cur_month}-${cur_day}`;
   }
   let tmp_month = props.monthData;
-  for(let i = 0; i < tmp_month.length; ++i){
+  for (let i = 0; i < tmp_month.length; ++i) {
     const cur_date = new Date(tmp_month[i].date);
     const today = new Date(props.endTime);
     const day_of_month = 29 - (today.getTime() - cur_date.getTime()) / (1000 * 60 * 60 * 24);
@@ -118,19 +119,19 @@ const BloodPressureChartCard = (props) => {
                 </Button>
                 <div>
                   <RangePicker
-                      bordered={false}
-                      disabled={[true, false]}
-                      value={[dayjs((timeValue === true) ? props.startTime : props.monthStartTime), dayjs(props.endTime)]}
-                      onChange={(date) => {
-                        if(timeValue === true) {
-                          props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
-                          props.updateMonthData(timeValue);
-                        }else {
-                          props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
-                          props.updateMonthData(timeValue);
-                        }
-                        props.setEndTime(date[1].format(infoFormat));
-                      }}
+                    bordered={false}
+                    disabled={[true, false]}
+                    value={[dayjs(timeValue === true ? props.startTime : props.monthStartTime), dayjs(props.endTime)]}
+                    onChange={(date) => {
+                      if (timeValue === true) {
+                        props.setStartTime(date[1].add(-6, 'd').format(infoFormat));
+                        props.updateMonthData(timeValue);
+                      } else {
+                        props.setMonthStartTime(date[1].add(-29, 'd').format(infoFormat));
+                        props.updateMonthData(timeValue);
+                      }
+                      props.setEndTime(date[1].format(infoFormat));
+                    }}
                   />
                 </div>
               </Grid>
