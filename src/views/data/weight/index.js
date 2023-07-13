@@ -20,6 +20,12 @@ import dayjs from "dayjs";
 import HeightCard from "./HeightCard";
 import WeightAddCard from "./weightAddCard";
 import {integerPropType} from "@mui/utils";
+import {getBMI, setWeightGoal} from "../../../service/dataService/weightService";
+import {getMainRecord} from "../../../service/dataService/mainRecordService";
+import * as mainRecordService from "../../../service/dataService/mainRecordService";
+import * as goalService from "../../../service/dataService/goalService";
+import HeightAddCard from "./heightAddCard";
+import * as heightService from "../../../service/dataService/heightService";
 
 const weekFormat = 'YYYY-MM-DD';
 
@@ -27,23 +33,6 @@ const DataWeightAndHeight = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
-  }, []);
-
-  const [goal, setGoal] = useState(50);
-  const [currentWeight, setCurrentWeight] = useState(50);
-  useEffect(() => {
-    // get current weight & goal
-    const userData = { user_id: 1 };
-    const url1 = endpoint + '/api/weight/getWeightGoal';
-    const callback1 = (data) => {
-      if (data.status >= 0) {
-        setGoal(data.data.goal);
-        setCurrentWeight(data.data.currentWeight);
-      } else {
-        alert(data.msg);
-      }
-    };
-    weightService.getWeightandGoal(url1, userData, callback1).then();
   }, []);
 
   const [weekData, setWeekData] = useState([]);
@@ -123,10 +112,54 @@ const DataWeightAndHeight = () => {
     weightService.getWeight(url_week, data, week_callback).then();
   }
 
-  // goal
+  // height
+  const [height, setHeight] = useState();
+  const [cur_weight, setCurWeight] = useState();
+  useEffect(() => {
+    const url = endpoint + '/main_record';
+    const data = { user_id: 1};
+    const callback = (data) => {
+      if(data.status >= 0) {
+        setHeight(data.data.height);
+        setCurWeight(data.data.weight);
+      }else{
+        alert(data.msg);
+      }
+    }
+    mainRecordService.getMainRecord(url, data, callback).then();
+  })
+
+  const [goal, setGoal] = useState();
+
+  useEffect(() => {
+    const data = {user_id: 1};
+    function callback(data){
+      if(data.status > 0){
+        const goals = data.data.goal;
+        for(let i = 0; i < goals.length; ++i){
+          if(goals[i].goalName === "weight_goal"){
+            setGoal(goals[i].goalKey1);
+            break;
+          }
+        }
+      }else{
+        alert(data.msg);
+      }
+    }
+    goalService.getGoals(endpoint + '/goals', data, callback).then();
+  }, [goal]);
+
   function updateGoal(value) {
-    setGoal(value);
-    // console.log(goal);
+    const data = {user_id: 1, goalName: "weight_goal",
+       goalKey1: Number(value)};
+    function callback(data){
+      if(data.status >= 0){
+        setGoal(data.data.goalKey1);
+      }else{
+        alert(data.msg);
+      }
+    }
+    weightService.setWeightGoal(endpoint + '/set_goal', data, callback).then();
   }
 
   //add weight
@@ -148,6 +181,43 @@ const DataWeightAndHeight = () => {
     }
   }
 
+  //add height
+  const [addHeightDate, setAddHeightDate] = useState(dayjs().format(weekFormat));
+  const [addHeight, setAddHeight] = useState();
+
+  function addHeightData(){
+    if(addHeight === undefined || addHeight === null || addHeight === '') {
+      alert("Please input height!");
+    }else{
+      function callback(data){
+        if(data.status > 0){
+          alert("Add height successfully!");
+        }else{
+            alert(data.msg);
+        }
+      }
+      heightService.addHeight(endpoint + '/add_height', {user_id: 1, height: Number(addHeight), date: addHeightDate}, callback).then();
+    }
+  }
+
+  const [bmi, setBmi] = useState(0);
+  const [condition, setCondition] = useState('');
+  const [advice, setAdvice] = useState('');
+  useEffect(() => {
+    const url = endpoint + '/bmi';
+    const data = {user_id: 1};
+    function callback(data) {
+      if(data.status >= 0){
+        setBmi((data.data.bmi).toFixed(2));
+        setCondition(data.data.analysis);
+        setAdvice(data.data.advice);
+      }else{
+        alert(data.msg);
+      }
+    }
+    weightService.getBMI(url, data, callback).then();
+  }, []);
+
 
   return (
     <Grid container spacing={gridSpacing}>
@@ -157,7 +227,7 @@ const DataWeightAndHeight = () => {
             <TotalWeightLineChart
               isLoading={isLoading}
               goal={goal}
-              currentW={currentWeight}
+              currentW={cur_weight}
               weekWeight={weekData}
               monthWeight={monthData}
               startTime={startTime}
@@ -187,12 +257,12 @@ const DataWeightAndHeight = () => {
                     </ListItem>
                   </List>
                   <List sx={{ py: 0 }} style={{ marginRight: '5%' }}>
-                    <Chart {...getBmiChart(17.0)} />
+                    <Chart {...getBmiChart(bmi)} />
                   </List>
                 </MainCard>
               </Grid>
               <Grid item lg={6} xs={12}>
-                <WeightLossCard />
+                <WeightLossCard advice={advice} condition={condition} />
               </Grid>
             </Grid>
           </Grid>
@@ -201,10 +271,16 @@ const DataWeightAndHeight = () => {
       <Grid item lg={4} xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12}>
-            <HeightCard />
+            <HeightCard height={height} />
           </Grid>
+          {/*<Grid item xs={12}>*/}
+          {/*  <WeightConditionCard condition={condition} />*/}
+          {/*</Grid>*/}
           <Grid item xs={12}>
-            <WeightConditionCard />
+            <HeightAddCard date={addHeightDate} setDate={(date) => setAddHeightDate(date)}
+                            height={addHeight} setHeight={(height) => setAddHeight(height)}
+                            addHeight={addHeightData}
+            />
           </Grid>
           <Grid item xs={12}>
             <WeightAddCard date={addWeightDate}
@@ -216,9 +292,9 @@ const DataWeightAndHeight = () => {
           <Grid item xs={12}>
             <WeightGoalSetCard goal={goal} updateGoal={updateGoal} />
           </Grid>
-          <Grid item xs={12}>
-            <SmallTipCard />
-          </Grid>
+          {/*<Grid item xs={12}>*/}
+          {/*  <SmallTipCard advice={advice} />*/}
+          {/*</Grid>*/}
         </Grid>
       </Grid>
     </Grid>
