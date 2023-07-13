@@ -8,7 +8,7 @@ import {DatePicker, Input} from "antd";
 import {MobileDatePicker} from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-const WeightAddCard = (props) => {
+const HeightAddCard = (props) => {
     return (
         <MainCard border={false} content={false}>
             <Box sx={{ p: 2 }}>
@@ -20,7 +20,7 @@ const WeightAddCard = (props) => {
                                 mt: 0.45,
                                 mb: 0.45
                             }}
-                            primary={<Typography variant="h4">添加体重数据</Typography>}
+                            primary={<Typography variant="h4">添加身高数据</Typography>}
                         />
                     </ListItem>
                     <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '3%' }}>
@@ -29,10 +29,10 @@ const WeightAddCard = (props) => {
                             onChange={(date) => props.setDate(date)}
                         />
                         <Input style={{width: "40%", marginLeft: "5%", marginRight: "5%"}}
-                               value={props.weight} onChange={(event) => props.setWeight(event.target.value)} />
+                               value={props.weight} onChange={(event) => props.setHeight(event.target.value)} />
                         <Button variant="outlined"
                                 style={{ height: '4ch', borderColor: '#ffe57f', borderRadius: '5px', color: '#ffc107' }}
-                                onClick={() => props.addWeight()}
+                                onClick={() => props.addHeight()}
                         >
                             确认
                         </Button>
@@ -43,4 +43,4 @@ const WeightAddCard = (props) => {
     );
 };
 
-export default WeightAddCard;
+export default HeightAddCard;

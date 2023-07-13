@@ -1,7 +1,7 @@
 import MainCard from '../../../ui-component/cards/MainCard';
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
-const SmallTipCard = () => {
+const SmallTipCard = (props) => {
   return (
     <MainCard border={false} content={false}>
       <Box sx={{ p: 2 }}>
@@ -13,8 +13,16 @@ const SmallTipCard = () => {
                 mt: 0.45,
                 mb: 0.45
               }}
-              primary={<Typography variant="h3">您可能需要知道的三件事：</Typography>}
+              primary={<Typography variant="h4">建议：</Typography>}
             ></ListItemText>
+              <ListItemText
+                  sx={{
+                      py: 0,
+                      mt: 0.45,
+                      mb: 0.45
+                  }}
+                  primary={<Typography variant="h6">{props.advice}</Typography>}
+              />
           </ListItem>
         </List>
       </Box>

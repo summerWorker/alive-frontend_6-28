@@ -41,14 +41,11 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const HeightCard = ({ isLoading }) => {
+const HeightCard = (props) => {
     const theme = useTheme();
 
     return (
         <>
-            {isLoading ? (
-                <TotalIncomeCard />
-            ) : (
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 2 }}>
                         <List sx={{ py: 0 }}>
@@ -72,7 +69,7 @@ const HeightCard = ({ isLoading }) => {
                                         mt: 0.45,
                                         mb: 0.45
                                     }}
-                                    primary={<Typography variant="h4">180</Typography>}
+                                    primary={<Typography variant="h4">{props.height}m</Typography>}
                                     secondary={
                                         <Typography
                                             variant="subtitle2"
@@ -89,7 +86,6 @@ const HeightCard = ({ isLoading }) => {
                         </List>
                     </Box>
                 </CardWrapper>
-            )}
         </>
     );
 };

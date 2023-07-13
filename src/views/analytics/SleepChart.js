@@ -17,7 +17,7 @@ import SleepChartCard from './SleepChartCard';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
-const SleepChart = () => {
+const SleepChart = (props) => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const { navType } = customization;
@@ -43,6 +43,30 @@ const SleepChart = () => {
     };
     ApexCharts.exec(`support-chart`, 'updateOptions', newSupportChart);
   }, [navType, orangeDark]);
+
+  let deepSleepData = Array(7).fill(null),
+        lightSleepData = Array(7).fill(null),
+        awakeData = Array(7).fill(null),
+      eyeMoveData = Array(7).fill(null);
+  let tmp_data = props.data;
+  // console.log(tmp_data);
+  for(let i = 0; i < tmp_data.length; ++i){
+    const cur_date = new Date(tmp_data[i].date);
+    const today = new Date();
+    const day_of_week = 6 + cur_date.getDay() - today.getDay();
+    const cur_deep_sleep = (tmp_data[i].detailValue.sleep_deep_duration / 60).toFixed(2);
+    const cur_light_sleep = (tmp_data[i].detailValue.sleep_light_duration / 60).toFixed(2);
+    const cur_awake = (tmp_data[i].detailValue.sleep_awake_duration / 60).toFixed(2);
+    const cur_eye_move = (tmp_data[i].detailValue.sleep_rem_duration / 60).toFixed(2);
+    deepSleepData[day_of_week] = cur_deep_sleep;
+    lightSleepData[day_of_week] = cur_light_sleep;
+    awakeData[day_of_week] = cur_awake;
+    eyeMoveData[day_of_week] = cur_eye_move;
+  }
+
+  // console.log(deepSleepData);
+
+
 
   return (
     <MainCard content={false}>
@@ -87,7 +111,7 @@ const SleepChart = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} sx={{ pt: '16px !important' }}>
-            <SleepChartCard />
+            <SleepChartCard deep={deepSleepData} light={lightSleepData} awk={awakeData} eyemove={eyeMoveData} />
           </Grid>
         </Grid>
       </CardContent>

@@ -5,13 +5,13 @@ import { Card, Grid } from '@mui/material';
 import Chart from 'react-apexcharts';
 
 //project imports
-import chartData from './chart-data/circle-chart';
+import chartData, {getCircleChartData} from './chart-data/circle-chart';
 
-const CircleCard = () => {
+const CircleCard = (props) => {
   return (
     <Card>
       <Grid item>
-        <Chart {...chartData} />
+        <Chart {...getCircleChartData(props.calorieConsume, props.sleepTime, props.exerciseTime)} />
       </Grid>
     </Card>
   );

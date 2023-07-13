@@ -39,7 +39,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const HeartRateCard = ({ isLoading }) => {
+const HeartRateCard = ({ isLoading, heartrate }) => {
   const theme = useTheme();
 
   return (
@@ -70,7 +70,7 @@ const HeartRateCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">180</Typography>}
+                  primary={<Typography variant="h4">{heartrate}</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"

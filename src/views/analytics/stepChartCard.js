@@ -18,7 +18,7 @@ import StepChart from './StepChart';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
-const StepChartCard = () => {
+const StepChartCard = (props) => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const { navType } = customization;
@@ -44,6 +44,17 @@ const StepChartCard = () => {
     };
     ApexCharts.exec(`support-chart`, 'updateOptions', newSupportChart);
   }, [navType, orangeDark]);
+
+  let weekData = Array(7).fill(null);
+  let tmp_data = props.data;
+  for(let i = 0; i < tmp_data.length; ++i){
+    const cur_date = new Date(tmp_data[i].date);
+    const today = new Date();
+    // console.log(cur_date.getDay(), today.getDay());
+    const day_of_week = 6 + cur_date.getDay() - today.getDay();
+    const cur_step = tmp_data[i].step;
+    weekData[day_of_week] = cur_step;
+  }
 
   return (
     <MainCard content={false}>
@@ -88,7 +99,7 @@ const StepChartCard = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} sx={{ pt: '16px !important' }}>
-            <StepChart />
+            <StepChart data={weekData} />
           </Grid>
         </Grid>
       </CardContent>
