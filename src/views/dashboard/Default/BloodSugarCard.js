@@ -10,7 +10,6 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
 import { BloodtypeOutlined } from '@mui/icons-material';
-const bloodSugar = 70;
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -41,7 +40,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const BloodSugarCard = ({ isLoading }) => {
+const BloodSugarCard = ({ isLoading, bloodSugar }) => {
   const theme = useTheme();
 
   return (

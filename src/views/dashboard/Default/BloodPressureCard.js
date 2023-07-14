@@ -11,8 +11,6 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
 import { Bloodtype } from '@mui/icons-material';
-const SBP = 122; // 收缩压
-const DBP = 84; // 舒张压
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -43,7 +41,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const BloodSugarCard = ({ isLoading }) => {
+const BloodSugarCard = ({ isLoading, systolicPressure, diastolicPressure }) => {
   const theme = useTheme();
 
   return (
@@ -74,7 +72,7 @@ const BloodSugarCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">{SBP + '/' + DBP + 'mmHg'}</Typography>}
+                  primary={<Typography variant="h4">{systolicPressure + '/' + diastolicPressure + 'mmHg'}</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"

@@ -70,7 +70,7 @@ const HeartRateCard = ({ isLoading, heartrate }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">{heartrate}</Typography>}
+                  primary={<Typography variant="h4">{heartrate + '/min'}</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"

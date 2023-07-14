@@ -14,7 +14,6 @@ import MainCard from 'ui-component/cards/MainCard';
 // assets
 import { Favorite } from '@mui/icons-material';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
-const heartRate = 120;
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#7B4DDC',
@@ -53,7 +52,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 }));
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const HeartRateCard = ({ isLoading }) => {
+const HeartRateCard = ({ isLoading, heartRate }) => {
   const theme = useTheme();
   return (
     <>

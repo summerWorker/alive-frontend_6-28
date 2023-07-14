@@ -15,8 +15,6 @@ import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 // assets
 import { Scale } from '@mui/icons-material';
 
-const weight = 60;
-
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#06DB95',
   color: '#fff',
@@ -61,7 +59,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const WeightCard = ({ isLoading }) => {
+const WeightCard = ({ isLoading, weight }) => {
   const theme = useTheme();
 
   const [timeValue, setTimeValue] = useState(false);
