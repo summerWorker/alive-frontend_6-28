@@ -23,7 +23,7 @@ export const DietList = () => {
     setBreakfastList([]);
     setLunchList([]);
     setDinnerList([]);
-    getDietService(1, time).then((res) => {
+    getDietService(1, time, time).then((res) => {
       if (res && res.status === 1) {
         res.data.diet_list.forEach((item) => {
           if (item.type === 'BREAKFAST') setBreakfastList((prevState) => [...prevState, item]);

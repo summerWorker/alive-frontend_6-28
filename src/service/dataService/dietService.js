@@ -1,8 +1,16 @@
 import { preUrl } from '../constant';
 
-export async function getDietService(userId, date) {
-  return await fetch(preUrl + '/get_diet' + '?user_id=' + userId.toString() + '&date=' + date.toString(), {
-    method: 'GET'
+export async function getDietService(userId, startTime, endTime) {
+  return await fetch(preUrl + '/get_diet', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      user_id: userId,
+      start_date: startTime,
+      end_date: endTime
+    })
   })
     .then((response) => response.json())
     .catch((error) => {
@@ -62,7 +70,7 @@ export async function addFoodService(foodName, picture, userId, calories, carbs,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      userId: userId,
+      user_id: userId,
       name: foodName,
       calorie: calories,
       protein: protein,
