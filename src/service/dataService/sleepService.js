@@ -4,7 +4,8 @@ export async function getSleepData(userId, startTime, endTime) {
   return await fetch(preUrl + '/day_sleep', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'token': `${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
       user_id: userId,

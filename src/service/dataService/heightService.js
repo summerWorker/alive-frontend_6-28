@@ -3,7 +3,8 @@ export const addHeight = async (endpoint, data, callback) => {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'token': `${localStorage.getItem("token")}`
         },
         origin: 'http://localhost:3000',
         body: JSON.stringify(data),

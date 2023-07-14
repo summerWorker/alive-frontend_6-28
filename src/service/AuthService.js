@@ -20,9 +20,27 @@ export const login = (values) => {
             return false;
         } else {
             message.success(data.msg + '欢迎你，' + data.data.userInfo.nickname + '!');
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('token', data.data.token);
             return true;
         }
     };
     return postRequest(url, data, callback);
+}
+
+export  const register = (values) => {
+    const url = endpoint+'/register';
+    const data = {
+        email: values.email,
+    }
+    const callback = (data) => {
+        if (data.status <= 0) {
+            message.error(data.msg);
+            return false;
+        } else {
+            message.success(data.msg);
+            return true;
+        }
+    }
+    return postRequest(url, data, callback);
+    // 检查响应状态码
 }
