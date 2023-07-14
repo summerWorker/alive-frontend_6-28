@@ -5,7 +5,8 @@ export async function getStepsData(userId, startTime, endTime) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'token': `${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
       user_id: userId,
