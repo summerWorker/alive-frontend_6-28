@@ -83,19 +83,75 @@ const AdviceCard = ({ isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="h4" fontWeight="300" color="inherit">
-                          💡尝试每天睡觉8小时
+                          💡均衡饮食
                         </Typography>
                       </Grid>
                     </Grid>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
-                        <Typography variant="subtitle1" fontWeight="400" color="inherit">
-                          xxxxxxxxxxx
+                      <Grid item style={{marginTop: "5%"}}>
+                        <Typography variant="subtitle2" fontWeight="400" color="inherit">
+                          保持均衡的饮食对维持身体健康非常重要。确保每天摄入五种不同颜色的水果和蔬菜，选择高纤维食物（如全谷类、豆类和坚果），限制饱和脂肪和高糖食品的摄入
                         </Typography>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Divider sx={{ my: 1.5 }} />
+                </Grid>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item>
+                        <Typography variant="h4" fontWeight="300" color="inherit">
+                          💡规律作息
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item style={{marginTop: "5%"}}>
+                        <Typography variant="subtitle2" fontWeight="400" color="inherit">
+                          确保每天有足够的睡眠时间，成年人通常需要7到9小时的睡眠。保持规律的作息时间有助于调节身体的生物钟，促进身心健康
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Divider sx={{ my: 1.5 }} />
+                </Grid>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item>
+                        <Typography variant="h4" fontWeight="300" color="inherit">
+                          💡规律运动
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item style={{marginTop: "5%"}}>
+                        <Typography variant="subtitle2" fontWeight="400" color="inherit">
+                          每周进行至少150分钟的中等强度有氧运动，如快步行走、跑步、游泳或骑自行车。同时，进行肌肉强化活动，如举重或瑜伽，以增强肌肉和骨骼
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Divider sx={{ my: 1.5 }} />
+                </Grid>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item>
+                        <Typography variant="h4" fontWeight="300" color="inherit">
+                          💡定期体检
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                      <Grid item style={{marginTop: "5%"}}>
+                        <Typography variant="subtitle2" fontWeight="400" color="inherit">
+                          定期进行身体检查是预防疾病和早期发现问题的关键。与医生建立良好的合作关系，并遵循他们的建议进行必要的筛查和检查
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
