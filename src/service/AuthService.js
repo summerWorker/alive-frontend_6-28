@@ -1,7 +1,7 @@
 import {postRequest} from "./ajax";
 import {endpoint} from "../utils/endpoint";
 import {message} from "antd";
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 import {Encrypt} from "../utils/AESUtils";
 export const login = (values) => {
     const password = values.password;
