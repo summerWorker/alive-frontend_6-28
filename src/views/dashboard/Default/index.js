@@ -16,14 +16,32 @@ import BloodSugarCard from './BloodSugarCard';
 import DataInfoChart from './DataInfoChart';
 import { useNavigate } from 'react-router';
 import CaloriesCard from './CaloriesCard';
+import { getMainRecord } from '../../../service/dataService/mainRecordService';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
   const [infoData, setInfoData] = useState('heartRate');
+  const [weight, setWeight] = useState(60);
+  const [heartRate, setHeartRate] = useState(73);
+  const [steps, setSteps] = useState(12345);
+  const [sleepTime, setSleepTime] = useState(7.63);
+  const [systolicPressure, setSystolicPressure] = useState(122);
+  const [diastolicPressure, setDiastolicPressure] = useState(84);
+  const [bloodSugar, setBloodSugar] = useState(70);
   useEffect(() => {
     setLoading(false);
+    getMainRecord('http://localhost:8081/main_record', { user_id: 1 }, (res) => {
+      console.log(res);
+      setWeight(res.data.weight);
+      setHeartRate(res.data.heartRate);
+      setSteps(res.data.steps);
+      setSleepTime(res.data.sleepTime);
+      setSystolicPressure(res.data.systolicPressure);
+      setDiastolicPressure(res.data.diastolicPressure);
+      setBloodSugar(res.data.bloodSugar);
+    });
   }, []);
   const navigate = useNavigate();
   function handleClickHeartRate() {
@@ -57,28 +75,28 @@ const Dashboard = () => {
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
                   <CardActionArea onClick={handleClickHeartRate}>
-                    <HeartRateCard isLoading={isLoading} />
+                    <HeartRateCard isLoading={isLoading} heartRate={heartRate} />
                   </CardActionArea>
                 </Card>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
                   <CardActionArea onClick={handleClickWeight}>
-                    <WeightCard isLoading={isLoading} />
+                    <WeightCard isLoading={isLoading} weight={weight} />
                   </CardActionArea>
                 </Card>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
                   <CardActionArea onClick={handleClickSteps}>
-                    <StepsCard isLoading={isLoading} />
+                    <StepsCard isLoading={isLoading} steps={steps} />
                   </CardActionArea>
                 </Card>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <Card>
                   <CardActionArea onClick={handleClickSleepTime}>
-                    <SleepTimeCard isLoading={isLoading} />
+                    <SleepTimeCard isLoading={isLoading} sleepTime={sleepTime} />
                   </CardActionArea>
                 </Card>
               </Grid>
@@ -88,12 +106,12 @@ const Dashboard = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item lg={12} md={6} sm={6} xs={12}>
                 <CardActionArea onClick={handleClickBloodPressure}>
-                  <BloodPressureCard isLoading={isLoading} />
+                  <BloodPressureCard isLoading={isLoading} systolicPressure={systolicPressure} diastolicPressure={diastolicPressure} />
                 </CardActionArea>
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>
                 <CardActionArea onClick={handleClickBloodSugar}>
-                  <BloodSugarCard isLoading={isLoading} />
+                  <BloodSugarCard isLoading={isLoading} bloodSugar={bloodSugar} />
                 </CardActionArea>
               </Grid>
               <Grid item lg={12} md={6} sm={6} xs={12}>

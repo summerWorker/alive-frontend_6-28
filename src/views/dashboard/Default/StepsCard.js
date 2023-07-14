@@ -15,8 +15,6 @@ import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 // assets
 import { DirectionsWalk } from '@mui/icons-material';
 
-const steps = 12345;
-
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#4681DB',
   color: '#fff',
@@ -61,7 +59,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const StepsCard = ({ isLoading }) => {
+const StepsCard = ({ isLoading, steps }) => {
   const theme = useTheme();
 
   return (

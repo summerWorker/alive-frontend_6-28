@@ -16,7 +16,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 
 // chart data
-import { heartRateData, weightData, stepsData, sleepTimeData } from './chart-data/total-growth-bar-chart';
+import { heartRateData } from './chart-data/total-growth-bar-chart';
 import dayjs from 'dayjs';
 import { getHeartRateData } from '../../../service/dataService/heartRateService';
 import { desolveHeartRateData } from '../../../utils/heartRateUtils';

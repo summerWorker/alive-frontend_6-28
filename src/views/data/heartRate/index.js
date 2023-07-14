@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import HeartRateChart from './heartRateChart';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import MainCard from '../../../ui-component/cards/MainCard';
 import RestingHeartRateCard from './restingHeartRateCard';
-import HeartRateGoalCard from './heartRateGoalCard';
 import InputCard from './inputCard';
 
 const DataHeartRate = () => {
@@ -27,9 +26,6 @@ const DataHeartRate = () => {
             <MainCard>
               <RestingHeartRateCard isLoading={isLoading} />
             </MainCard>
-          </Grid>
-          <Grid item>
-            <HeartRateGoalCard />
           </Grid>
           <Grid item>
             <InputCard />

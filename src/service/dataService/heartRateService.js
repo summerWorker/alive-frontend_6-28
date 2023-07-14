@@ -17,3 +17,20 @@ export async function getHeartRateData(userId, startTime, endTime) {
       console.log(error);
     });
 }
+export async function addHeartRateData(userId, timeStamp, heartRate) {
+  return await fetch(preUrl + '/add_heartRate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      user_id: userId,
+      timeStamp: timeStamp,
+      heartRate: heartRate
+    })
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.log(error);
+    });
+}

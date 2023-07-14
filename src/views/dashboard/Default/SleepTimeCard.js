@@ -13,7 +13,6 @@ import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/Earning
 import { Bedtime } from '@mui/icons-material';
 import Chart from 'react-apexcharts';
 
-const sleepTime = 7.63;
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: 'rgb(251,198,245)',
   color: '#fff',
@@ -56,7 +55,7 @@ const ChartContainer = styled('div')({
 });
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const SleepTimeCard = ({ isLoading }) => {
+const SleepTimeCard = ({ isLoading, sleepTime }) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
