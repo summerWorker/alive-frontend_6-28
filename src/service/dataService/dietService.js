@@ -47,7 +47,8 @@ export async function addDietService(userId, foodName, amount, type, date) {
   return await fetch(preUrl + '/add_diet', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'token': `${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
       user_id: userId,
@@ -67,7 +68,8 @@ export async function addFoodService(foodName, picture, userId, calories, carbs,
   return await fetch(preUrl + '/add_food', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'token': `${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
       user_id: userId,

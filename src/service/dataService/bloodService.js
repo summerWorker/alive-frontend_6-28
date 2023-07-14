@@ -4,7 +4,8 @@ export const getBloodPressure = async (endpoint, data, callback) => {
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'token': `${localStorage.getItem("token")}`
         },
         origin: 'http://localhost:3000',
     }
@@ -26,7 +27,8 @@ export const addBloodPressure = async (endpoint, data, callback) => {
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'token': `${localStorage.getItem("token")}`
         },
         origin: 'http://localhost:3000',
     }
@@ -48,7 +50,8 @@ export const getBloodSugar = async (endpoint, data, callback) => {
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'token': `${localStorage.getItem("token")}`
         },
         origin: 'http://localhost:3000',
     }
@@ -70,7 +73,8 @@ export const addBloodSugar = async (endpoint, data, callback) => {
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'token': `${localStorage.getItem("token")}`
         },
         origin: 'http://localhost:3000',
     }
