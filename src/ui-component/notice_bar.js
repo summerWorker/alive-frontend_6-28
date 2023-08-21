@@ -14,7 +14,7 @@ class Noticebar extends Component {
 
     componentDidMount() {
         // 创建 WebSocket 连接
-        this.websocket = new WebSocket('ws://localhost:8081/websocket/2'); // 替换为你的 WebSocket 地址
+        this.websocket = new WebSocket(`ws://localhost:8081/websocket/${localStorage.getItem("token")}`); // 替换为你的 WebSocket 地址
 
         // 监听 WebSocket 事件
         this.websocket.onopen = () => {
