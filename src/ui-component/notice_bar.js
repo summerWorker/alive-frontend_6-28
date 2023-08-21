@@ -1,23 +1,10 @@
-import React, {Component, createContext, useState} from 'react';
+import React, {Component} from 'react';
+import { notification } from 'antd';
+const Context = React.createContext({
+    name: 'Default',
+});
 
-// 创建弹窗 Context
-const PopupContext = createContext();
 
-// 创建弹窗提供者组件
-export const PopupProvider = ({ children }) => {
-    const [popupData, setPopupData] = useState({ isOpen: false, message: '' });
-
-    return (
-        <PopupContext.Provider value={{ popupData, setPopupData }}>
-            {children}
-        </PopupContext.Provider>
-    );
-};
-
-// 使用自定义Hook来访问弹窗 Context
-export const usePopup = () => {
-    return useContext(PopupContext);
-};
 class Noticebar extends Component {
     constructor(props) {
         super(props);
@@ -58,10 +45,12 @@ class Noticebar extends Component {
         }
     }
     showPopup(message) {
-        // 使用上下文或Redux来更新弹窗状态
-        // 你可以根据需要自行实现状态更新逻辑
-        // const { setPopupData } = usePopup();
-        // setPopupData({ isOpen: true, message });
+        // 弹窗提示
+        const api = notification;
+        api.info({
+            message: '目标提醒',
+            description: message,
+        });
         console.log(message);
     }
 
