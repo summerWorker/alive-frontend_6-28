@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import { notification } from 'antd';
-const Context = React.createContext({
-    name: 'Default',
-});
+
 
 
 class Noticebar extends Component {
