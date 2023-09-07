@@ -149,12 +149,15 @@ const DataBlood = () => {
 
     function addPressure(){
       if(addPressureSystolic === undefined || addPressureSystolic === null || addPressureDiastolic === undefined || addPressureDiastolic === null || addPressureDate === undefined){
-        alert("Please enter the data");
+        alert("请输入数据");
       }else{
         function callback(data){
           if(data.status >= 0){
-            alert("Add successfully!");
-            window.location.reload();
+            alert("添加成功");
+            setAddPressureDiastolic(null);
+            setAddPressureSystolic(null);
+            setWeekPressureData([...weekPressureData, data.data]);
+            setMonthPressureData([...monthPressureData, data.data])
           }else{
             alert(data.msg);
           }
@@ -177,12 +180,14 @@ const DataBlood = () => {
 
     function addSugar(){
       if(addSugarValue === undefined || addSugarValue === null || addSugarDate === undefined || addSugarTime === undefined) {
-        alert("Please enter the data");
+        alert("请输入数据");
       }else{
         function callback(data){
           if(data.status >= 0){
-            alert("Add successfully!");
-            window.location.reload();
+            alert("添加成功!");
+            setAddSugarValue(null);
+            setWeekSugarData([...weekSugarData, data.data]);
+            setMonthSugarData([...monthSugarData, data.data])
           }else{
             alert(data.msg);
           }
@@ -193,13 +198,11 @@ const DataBlood = () => {
         const month = date.getMonth() + 1; // 月份从0开始，需要加1
         const day = date.getDate();
         const targetDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-        const tt = new Date(addSugarTime);
-        // console.log(addSugarTime);
-        const hour = tt.getHours();
-        const minute = tt.getMinutes();
-        const targetTimeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-        const time = `${targetDateString} ` + `${addSugarTime}`;
-        // console.log(time);
+        const timeParts = addSugarTime.split(':');
+        const hour = timeParts[0].toString().padStart(2, '0');
+        const minute = timeParts[1].toString().padStart(2, '0');
+        const time = `${targetDateString} ${hour}:${minute}`;
+        console.log(time);
         bloodService.addBloodSugar(url, {user_id: 1, blood_sugar: Number(addSugarValue), date: time}, callback).then();
       }
     }
