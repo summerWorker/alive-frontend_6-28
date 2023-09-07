@@ -15,46 +15,44 @@ import React, { useEffect, useState } from 'react';
 
 export function SleepTimeBarChart(props) {
   const [seriesData, setSeriesData] = useState([]);
-
-  let isDataReady = false;
+  const [isDataReady, setIsDataReady] = useState(false);
+  // let isDataReady = false;
 
   useEffect(() => {
     getSleepData(1, props.startTime, props.endTime).then((res) => {
       if (res && res.status === 1) {
         if (res.data.sleep_detail.length === 1) {
-          isDataReady = true;
+          setIsDataReady(true);
+          const detailValue = res.data.sleep_detail[0].detailValue;
+          setSeriesData([
+            {
+              x: '深睡',
+              y: (detailValue.sleep_deep_duration / 60.0).toFixed(2),
+              goals: [{ name: '理想时长', value: 2.5 }],
+              fillColor: primary200
+            },
+            {
+              x: '浅睡',
+              y: (detailValue.sleep_light_duration / 60.0).toFixed(2),
+              goals: [{ name: '理想时长', value: 4.5 }],
+              fillColor: darkLight
+            },
+            {
+              x: '眼动',
+              y: (detailValue.sleep_rem_duration / 60.0).toFixed(2),
+              goals: [{ name: '理想时长', value: 1 }],
+              fillColor: primaryDark
+            },
+            {
+              x: '清醒',
+              y: (detailValue.sleep_awake_duration / 60.0).toFixed(2),
+              goals: [{ name: '理想时长', value: 0.2 }],
+              fillColor: secondaryMain
+            }
+          ]);
         }
       }
-
-      if (isDataReady) {
-        const detailValue = res.data.sleep_detail[0].detailValue;
-        setSeriesData([
-          {
-            x: '深睡',
-            y: (detailValue.sleep_deep_duration / 60.0).toFixed(2),
-            goals: [{ name: '理想时长', value: 2.5 }],
-            fillColor: primary200
-          },
-          {
-            x: '浅睡',
-            y: (detailValue.sleep_light_duration / 60.0).toFixed(2),
-            goals: [{ name: '理想时长', value: 4.5 }],
-            fillColor: darkLight
-          },
-          {
-            x: '眼动',
-            y: (detailValue.sleep_rem_duration / 60.0).toFixed(2),
-            goals: [{ name: '理想时长', value: 1 }],
-            fillColor: primaryDark
-          },
-          {
-            x: '清醒',
-            y: (detailValue.sleep_awake_duration / 60.0).toFixed(2),
-            goals: [{ name: '理想时长', value: 0.2 }],
-            fillColor: secondaryMain
-          }
-        ]);
-      } else {
+      else {
         setSeriesData([
           { x: '深睡', y: 3, goals: [{ name: '理想时长', value: 2.5 }], fillColor: primary200 },
           { x: '浅睡', y: 4, goals: [{ name: '理想时长', value: 4.5 }], fillColor: darkLight },
@@ -62,6 +60,7 @@ export function SleepTimeBarChart(props) {
           { x: '清醒', y: 1, goals: [{ name: '理想时长', value: 0.2 }], fillColor: secondaryMain }
         ]);
       }
+
     });
   }, [props.startTime, props.endTime]);
 
@@ -93,15 +92,17 @@ export function SleepTimeBarChart(props) {
           let idealSleepTime = opt.w.config.series[0].data[opt.dataPointIndex].goals[0].value;
           let sleepTimeRange = sleepTime - idealSleepTime;
           let sleepTimeRangeText = '';
-          if (sleepTimeRange > 10) {
-            sleepTimeRangeText = '过长';
-          }
-          if (sleepTimeRange < 10) {
+          console.log("sleepTime", sleepTime, "idealSleepTime", idealSleepTime, "sleepTimeRange", sleepTimeRange)
+          // if (sleepTimeRange > 10) {
+          //   sleepTimeRangeText = '过长';
+          // }
+          if (sleepTime < idealSleepTime) {
             sleepTimeRangeText = '过短';
           }
-          if (sleepTimeRange === 0) {
-            sleepTimeRangeText = '正常';
-          }
+          else sleepTimeRangeText = '';
+          // if (sleepTimeRange === 0) {
+          //   sleepTimeRangeText = '正常';
+          // }
           return sleepTimeRangeText;
         }
       }
