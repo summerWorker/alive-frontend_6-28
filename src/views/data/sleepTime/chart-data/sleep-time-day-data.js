@@ -23,11 +23,11 @@ export const getDayChartData = (chartData) => {
       let color;
       switch (item.state) {
         case 1:
-          name = '深度睡眠';
+          name = '清醒';
           color = primary200;
           break;
         case 2:
-          name = '眼动';
+          name = '深度睡眠';
           color = primaryDark;
           break;
         case 3:
@@ -35,7 +35,7 @@ export const getDayChartData = (chartData) => {
           color = darkLight;
           break;
         case 4:
-          name = '清醒';
+          name = '快速眼动';
           color = secondaryMain;
           break;
         default:

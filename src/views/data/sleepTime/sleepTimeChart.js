@@ -57,10 +57,10 @@ export function SleepTimeChart(props) {
             <RangePicker
               bordered={false}
               value={[dayjs(props.startTime), dayjs(props.endTime)]}
-              disabled={[true, false]}
+              disabled={[false, true]}
               onChange={(date) => {
-                props.setStartTime(date[1].add(-7, 'd').format(infoFormat));
-                props.setEndTime(date[1].format(infoFormat));
+                props.setStartTime(date[0].format(infoFormat));
+                props.setEndTime(date[0].add(+7, 'd').format(infoFormat));
               }}
             />
             {chartData.length === 0 && <h2>暂无数据，样例数据如下</h2>}
@@ -72,10 +72,10 @@ export function SleepTimeChart(props) {
             <RangePicker
               bordered={false}
               value={[dayjs(props.startTime), dayjs(props.endTime)]}
-              disabled={[true, false]}
+              disabled={[false, true]}
               onChange={(date) => {
-                props.setStartTime(date[1].add(-30, 'd').format(infoFormat));
-                props.setEndTime(date[1].format(infoFormat));
+                props.setEndTime(date[0].add(+30, 'd').format(infoFormat));
+                props.setStartTime(date[0].format(infoFormat));
               }}
             />
             {chartData.length === 0 && <h2>暂无数据，样例数据如下</h2>}

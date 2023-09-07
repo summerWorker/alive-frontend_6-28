@@ -82,7 +82,8 @@ const HeartRateCard = ({ isLoading, heartRate }) => {
                       </Grid>
                       <Grid item>
                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                          {heartRate + '/min'}
+                          {/*{heartRate + '/min'}*/}
+                          {isNaN(heartRate) || heartRate === 0 ? '暂无数据' : heartRate + '/min'}
                         </Typography>
                       </Grid>
                     </Grid>

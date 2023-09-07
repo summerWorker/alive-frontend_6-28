@@ -72,7 +72,9 @@ const BloodSugarCard = ({ isLoading, systolicPressure, diastolicPressure }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">{systolicPressure + '/' + diastolicPressure + 'mmHg'}</Typography>}
+                  primary={<Typography variant="h4">
+                    {diastolicPressure === 0 || systolicPressure === 0 ? '暂无数据' : systolicPressure + '/' + diastolicPressure + 'mmHg'}
+                </Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"

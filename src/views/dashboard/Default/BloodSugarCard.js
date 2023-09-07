@@ -71,7 +71,7 @@ const BloodSugarCard = ({ isLoading, bloodSugar }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">{bloodSugar + 'mg/dL'}</Typography>}
+                  primary={<Typography variant="h4">{bloodSugar === 0 ? '暂无数据' : bloodSugar + 'mg/dL'}</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"
