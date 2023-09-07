@@ -8,7 +8,6 @@ export async function getSleepData(userId, startTime, endTime) {
       'token': `${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
-      user_id: userId,
       start_date: startTime,
       end_date: endTime
     })
@@ -17,4 +16,20 @@ export async function getSleepData(userId, startTime, endTime) {
     .catch((error) => {
       console.log(error);
     });
+}
+export async function getSleepAnalysis( date) {
+  return await fetch(preUrl + '/analyse_sleep', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'token': `${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({
+      date:date
+    })
+  })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log(error);
+      });
 }
