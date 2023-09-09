@@ -51,6 +51,8 @@
 // ]
 
 export const getWeekCaloriesChartData = (dietData, workOutData, startTime, endTime) => {
+  // console.log(dietData);
+  // console.log(workOutData);
   let categries = [];
   let intakeData = [];
   let consumptionData = [];
@@ -95,14 +97,14 @@ export const getWeekCaloriesChartData = (dietData, workOutData, startTime, endTi
       }
       if (data2) {
         if (data2 instanceof Array) {
-          allData2 += data2.map((item) => item.exercise.calorie * item.amount).reduce((a, b) => a + b, 0);
+          allData2 += data2.map((item) => (item.exercise.calorie * item.amount) / 60).reduce((a, b) => a + b, 0);
         } else {
-          allData2 += data2.exercise.calorie * data2.amount;
+          allData2 += (data2.exercise.calorie * data2.amount) / 60;
         }
       }
-      intakeData.push(allData1);
-      consumptionData.push(allData2);
-      netIntakeData.push(allData1 - allData2);
+      intakeData.push(allData1.toFixed(2));
+      consumptionData.push(allData2.toFixed(2));
+      netIntakeData.push((allData1.toFixed(2) - allData2.toFixed(2)).toFixed(2));
     }
     // console.log('intakeData', intakeData);
     // console.log('consumptionData', consumptionData);

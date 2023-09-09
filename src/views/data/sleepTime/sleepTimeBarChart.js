@@ -51,8 +51,7 @@ export function SleepTimeBarChart(props) {
             }
           ]);
         }
-      }
-      else {
+      } else {
         setSeriesData([
           { x: '深睡', y: 3, goals: [{ name: '理想时长', value: 2.5 }], fillColor: primary200 },
           { x: '浅睡', y: 4, goals: [{ name: '理想时长', value: 4.5 }], fillColor: darkLight },
@@ -60,7 +59,6 @@ export function SleepTimeBarChart(props) {
           { x: '清醒', y: 1, goals: [{ name: '理想时长', value: 0.2 }], fillColor: secondaryMain }
         ]);
       }
-
     });
   }, [props.startTime, props.endTime]);
 
@@ -92,14 +90,13 @@ export function SleepTimeBarChart(props) {
           let idealSleepTime = opt.w.config.series[0].data[opt.dataPointIndex].goals[0].value;
           let sleepTimeRange = sleepTime - idealSleepTime;
           let sleepTimeRangeText = '';
-          console.log("sleepTime", sleepTime, "idealSleepTime", idealSleepTime, "sleepTimeRange", sleepTimeRange)
+          // console.log("sleepTime", sleepTime, "idealSleepTime", idealSleepTime, "sleepTimeRange", sleepTimeRange)
           // if (sleepTimeRange > 10) {
           //   sleepTimeRangeText = '过长';
           // }
           if (sleepTime < idealSleepTime) {
             sleepTimeRangeText = '过短';
-          }
-          else sleepTimeRangeText = '';
+          } else sleepTimeRangeText = '';
           // if (sleepTimeRange === 0) {
           //   sleepTimeRangeText = '正常';
           // }

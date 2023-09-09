@@ -167,7 +167,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   );
 };
 
-export const FoodList = () => {
+export const FoodList = (props) => {
   const [data, setData] = useState([]);
   const [foodSelectList, setFoodSelectList] = useState([]);
   useEffect(() => {
@@ -243,7 +243,21 @@ export const FoodList = () => {
     <div style={{ backgroundColor: '#E9FFC2', color: '#1A5D1A', padding: '20px', borderRadius: '10px' }}>
       <Grid container direction={'column'}>
         <Grid item>
-          <h1>食物列表</h1>
+          <Grid container justifyContent={'space-between'}>
+            <Grid item>
+              <h1>食物列表</h1>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={() => {
+                  props.setPageState(0);
+                }}
+              >
+                返回
+              </Button>
+            </Grid>
+          </Grid>
+
           <Grid container justifyContent={'space-between'}>
             <Grid item>
               <Button

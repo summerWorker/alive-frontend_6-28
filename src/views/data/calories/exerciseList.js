@@ -57,7 +57,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   );
 };
 
-export const ExerciseList = () => {
+export const ExerciseList = (props) => {
   // const [data, setData] = useState([
   //   {
   //     id: 1,
@@ -112,7 +112,10 @@ export const ExerciseList = () => {
     console.log('Received values of form: ', values);
     addExerciseService(values.name, '', Number(values.calorie)).then((res) => {
       if (res && res.status === 1) {
-        message.success(res.msg);
+        alert(res.msg);
+        window.location.reload();
+      } else {
+        alert(res.msg);
       }
     });
     setOpen(false);
@@ -123,7 +126,20 @@ export const ExerciseList = () => {
       <div style={{ background: '#ffffff', padding: '20px', borderRadius: '10px' }}>
         <Grid container direction={'column'}>
           <Grid item>
-            <h1>运动列表</h1>
+            <Grid container justifyContent={'space-between'}>
+              <Grid item>
+                <h1>运动列表</h1>
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={() => {
+                    props.setPageState(0);
+                  }}
+                >
+                  返回
+                </Button>
+              </Grid>
+            </Grid>
             <Grid container justifyContent={'space-between'}>
               <Grid item>
                 <Button
