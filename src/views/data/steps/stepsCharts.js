@@ -33,9 +33,24 @@ export function StepsCharts(props) {
         {selectedIndex === 'week' && <Statistic title="日均步数" value={averageSteps} prefix={<DirectionsRunIcon />} />}
         {selectedIndex === 'month' && <Statistic title="日均步数" value={averageSteps} prefix={<DirectionsRunIcon />} />}
 
-        {selectedIndex === 'day' && <Chart {...getDayStepsData(props.data)} />}
-        {selectedIndex === 'week' && <Chart {...getWeekStepsData(props.data, props.startTime, props.endTime)} />}
-        {selectedIndex === 'month' && <Chart {...getMonthStepsData(props.data, props.startTime, props.endTime)} />}
+        {selectedIndex === 'day' && (
+          <>
+            {(props.data === undefined || props.data.length === 0) && <h3>暂无数据，以下是样例数据</h3>}
+            <Chart {...getDayStepsData(props.data)} />
+          </>
+        )}
+        {selectedIndex === 'week' && (
+          <>
+            {(props.data === undefined || props.data.length === 0) && <h3>暂无数据，以下是样例数据</h3>}
+            <Chart {...getWeekStepsData(props.data, props.startTime, props.endTime)} />
+          </>
+        )}
+        {selectedIndex === 'month' && (
+          <>
+            {(props.data === undefined || props.data.length === 0) && <h3>暂无数据，以下是样例数据</h3>}
+            <Chart {...getMonthStepsData(props.data, props.startTime, props.endTime)} />
+          </>
+        )}
       </div>
     </>
   );

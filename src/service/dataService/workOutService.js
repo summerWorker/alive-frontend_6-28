@@ -1,7 +1,7 @@
 import { preUrl } from '../constant';
 
-export async function getDietService(startTime, endTime) {
-  return await fetch(preUrl + '/get_diet', {
+export async function getWorkOutService(startTime, endTime) {
+  return await fetch(preUrl + '/get_workout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -18,8 +18,8 @@ export async function getDietService(startTime, endTime) {
     });
 }
 
-export async function getFoodService() {
-  return await fetch(preUrl + '/get_food', {
+export async function getExerciseService() {
+  return await fetch(preUrl + '/get_exercise', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -33,33 +33,17 @@ export async function getFoodService() {
     });
 }
 
-export async function addDietService(foodName, amount, type, date) {
-  let typeEnum;
-  switch (type) {
-    case 0:
-      typeEnum = 'BREAKFAST';
-      break;
-    case 1:
-      typeEnum = 'LUNCH';
-      break;
-    case 2:
-      typeEnum = 'DINNER';
-      break;
-    case 3:
-      typeEnum = 'SNACK';
-      break;
-  }
-  return await fetch(preUrl + '/add_diet', {
+export async function addWorkoutService(exerciseName, amount, date) {
+  return await fetch(preUrl + '/add_workout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       token: `${localStorage.getItem('token')}`
     },
     body: JSON.stringify({
-      name: foodName,
+      name: exerciseName,
       amount: amount,
-      date: date,
-      type: typeEnum
+      date: date
     })
   })
     .then((response) => response.json())
@@ -68,21 +52,16 @@ export async function addDietService(foodName, amount, type, date) {
     });
 }
 
-export async function addFoodService(foodName, picture, calories, carbs, protein, fat, dietaryFiber, sodium) {
-  return await fetch(preUrl + '/add_food', {
+export async function addExerciseService(exerciseName, picture, calories) {
+  return await fetch(preUrl + '/add_exercise', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       token: `${localStorage.getItem('token')}`
     },
     body: JSON.stringify({
-      name: foodName,
+      name: exerciseName,
       calorie: calories,
-      protein: protein,
-      fat: fat,
-      carbohydrate: carbs,
-      dietaryFiber: dietaryFiber,
-      sodium: sodium,
       picture: picture
     })
   })

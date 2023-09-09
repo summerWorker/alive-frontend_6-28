@@ -171,7 +171,7 @@ export const FoodList = () => {
   const [data, setData] = useState([]);
   const [foodSelectList, setFoodSelectList] = useState([]);
   useEffect(() => {
-    getFoodService(1).then((res) => {
+    getFoodService().then((res) => {
       if (res && res.status === 1) {
         setData(res.data.food);
         res.data.food.forEach((item) => {
@@ -204,7 +204,7 @@ export const FoodList = () => {
     let haveFood = false;
     foodSelectList.forEach((item) => {
       if (item.amount !== 0) {
-        addDietService(1, item.name, item.amount, item.type, item.time).then((res) => {
+        addDietService(item.name, item.amount, item.type, item.time).then((res) => {
           if (res && res.status === 1) {
             message.success('添加成功');
           }
@@ -225,7 +225,6 @@ export const FoodList = () => {
     addFoodService(
       values.name,
       values.picture,
-      1,
       Number(values.calorie),
       Number(values.carbohydrate),
       Number(values.protein),
@@ -279,6 +278,8 @@ export const FoodList = () => {
             itemLayout="vertical"
             size="large"
             dataSource={data}
+            overflow={'auto'}
+            maxHeight={'100%'}
             renderItem={(item) => (
               <List.Item key={item.name}>
                 <>
