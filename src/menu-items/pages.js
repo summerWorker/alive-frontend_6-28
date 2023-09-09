@@ -22,12 +22,12 @@ const pages = {
       children: [
         {
           id: 'login3',
-          title: '登录',
+          title: '退出登录',
           type: 'item',
           url: '/pages/login/login3',
           // target: true,
           onClick: () => {
-            localStorage.removeItem('token')
+            localStorage.removeItem('token');
           }
         },
         {
@@ -37,7 +37,7 @@ const pages = {
           url: '/pages/register/register3',
           // target: true,
           onClick: () => {
-            localStorage.removeItem('token')
+            localStorage.removeItem('token');
           }
         }
       ]
