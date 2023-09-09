@@ -173,6 +173,7 @@ const DataWeightAndHeight = () => {
       function callback(data){
         if(data.status >= 0){
           alert("Add weight successfully!");
+          location.reload();
         }else{
           alert(data.msg);
         }
@@ -192,6 +193,7 @@ const DataWeightAndHeight = () => {
       function callback(data){
         if(data.status > 0){
           alert("Add height successfully!");
+          location.reload();
         }else{
             alert(data.msg);
         }
