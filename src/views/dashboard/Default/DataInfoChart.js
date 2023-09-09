@@ -162,7 +162,7 @@ const DataInfoChart = ({ isLoading, infoData }) => {
         break;
       case 'steps':
         setName('运动步数');
-        getStepsData(1, startDate, endDate).then((res) => {
+        getStepsData(startDate, endDate).then((res) => {
           if (res && res.status === 1) {
             newData = res.data.steps;
             setData(desolveStepsData(dayjs(startDate), dayjs(endDate), newData, value));

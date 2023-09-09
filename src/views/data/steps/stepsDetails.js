@@ -5,7 +5,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { RunningManImage } from './runningManImage';
 
 export function StepsDetails(porps) {
-  console.log('data', porps.data);
+  // console.log('data', porps.data);
   const [distance, setDistance] = useState(189);
   const [calories, setCalories] = useState(1280);
   const [climb, setClimb] = useState(2);

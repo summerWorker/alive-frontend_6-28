@@ -2,8 +2,8 @@ import { Box, Grid } from '@mui/material';
 import { SleepTimeBarChart } from './sleepTimeBarChart';
 import { styled } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
-import {useEffect, useState} from 'react';
-import {getSleepAnalysis, getSleepData} from "../../../service/dataService/sleepService";
+import { useEffect, useState } from 'react';
+import { getSleepAnalysis, getSleepData } from '../../../service/dataService/sleepService';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#348888',
@@ -40,88 +40,83 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-export const SleepTips = ({startTime, endTime}) => {
+export const SleepTips = ({ startTime, endTime }) => {
   const [tip, setTip] = useState([]);
   useEffect(() => {
     getSleepAnalysis(startTime).then((res) => {
       if (res && res.status === 1) {
         setTip(res.data);
+      } else {
+        setTip([]);
       }
     });
   }, [startTime]);
 
-   if (tip.length === 0) {
+  if (tip.length === 0) {
     return (
-        <>
-          <CardWrapper border={false} content={false}>
-            <Box sx={{p: 2.25}}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <h1>睡眠质量</h1>
-                </Grid>
+      <>
+        <CardWrapper border={false} content={false}>
+          <Box sx={{ p: 2.25 }}>
+            <Grid container>
+              <Grid item xs={12}>
+                <h1>睡眠质量</h1>
               </Grid>
-              <hr style={{border: 'none', borderTop: '1px solid #CACACA', margin: '20px 0'}}/>
-              <Grid container>
-                <Grid item xs={12} style={{display: 'flex'}}>
-                  <h1>暂无数据</h1>
-                </Grid>
-                <Grid item xs={12}>
-                  <h4 style={{color: 'ghostwhite'}}>
-                    保持尽可能安静、黑暗的环境，以及适宜的温度和湿度。睡前少用电子产品，因为电子产品发出的蓝光会影响睡眠。
-                  </h4>
-                </Grid>
+            </Grid>
+            <hr style={{ border: 'none', borderTop: '1px solid #CACACA', margin: '20px 0' }} />
+            <Grid container>
+              <Grid item xs={12} style={{ display: 'flex' }}>
+                <h1>暂无数据</h1>
               </Grid>
-              <hr style={{border: 'none', borderTop: '1px solid #CACACA', margin: '15px 0 '}}/>
-              <Grid container>
-                <Grid item xs={12}>
-                  <SleepTimeBarChart startTime={startTime} endTime={endTime}></SleepTimeBarChart>
-                </Grid>
+              <Grid item xs={12}>
+                <h4 style={{ color: 'ghostwhite' }}>
+                  保持尽可能安静、黑暗的环境，以及适宜的温度和湿度。睡前少用电子产品，因为电子产品发出的蓝光会影响睡眠。
+                </h4>
               </Grid>
-            </Box>
-          </CardWrapper>
-        </>
+            </Grid>
+            <hr style={{ border: 'none', borderTop: '1px solid #CACACA', margin: '15px 0 ' }} />
+            <Grid container>
+              <Grid item xs={12}>
+                <SleepTimeBarChart startTime={startTime} endTime={endTime}></SleepTimeBarChart>
+              </Grid>
+            </Grid>
+          </Box>
+        </CardWrapper>
+      </>
     );
   } else {
-     return (
-         <>
-           <CardWrapper border={false} content={false}>
-             <Box sx={{p: 2.25}}>
-               <Grid container>
-                 <Grid item xs={12}>
-                   <h1>睡眠评分: {tip.score.toFixed(1)}</h1>
-                 </Grid>
-               </Grid>
-               <hr style={{border: 'none', borderTop: '1px solid #CACACA', margin: '20px 0'}}/>
-               <Grid container>
-                 <Grid item xs={12}>
-                   <h3>{tip.bedtime.analysis}</h3>
-                   <h4 style={{color: 'ghostwhite'}}>
-                     {tip.bedtime.advice}
-                   </h4>
-                 </Grid>
-                 <Grid item xs={12}>
-                   <h3>{tip.duration.analysis}</h3>
-                   <h4 style={{color: 'ghostwhite'}}>
-                     {tip.duration.advice}
-                   </h4>
-                 </Grid>
-                 <Grid item xs={12}>
-                   <h3>{tip.quality.analysis}</h3>
-                   <h4 style={{color: 'ghostwhite'}}>
-                     {tip.quality.advice}
-                   </h4>
-                 </Grid>
-               </Grid>
-               <hr style={{border: 'none', borderTop: '1px solid #CACACA', margin: '15px 0 '}}/>
-               <Grid container>
-                 <Grid item xs={12}>
-                   <SleepTimeBarChart startTime={startTime} endTime={endTime}></SleepTimeBarChart>
-                 </Grid>
-               </Grid>
-             </Box>
-           </CardWrapper>
-         </>
-     );
+    return (
+      <>
+        <CardWrapper border={false} content={false}>
+          <Box sx={{ p: 2.25 }}>
+            <Grid container>
+              <Grid item xs={12}>
+                <h1>睡眠评分: {tip.score.toFixed(1)}</h1>
+              </Grid>
+            </Grid>
+            <hr style={{ border: 'none', borderTop: '1px solid #CACACA', margin: '20px 0' }} />
+            <Grid container>
+              <Grid item xs={12}>
+                <h3>{tip.bedtime.analysis}</h3>
+                <h4 style={{ color: 'ghostwhite' }}>{tip.bedtime.advice}</h4>
+              </Grid>
+              <Grid item xs={12}>
+                <h3>{tip.duration.analysis}</h3>
+                <h4 style={{ color: 'ghostwhite' }}>{tip.duration.advice}</h4>
+              </Grid>
+              <Grid item xs={12}>
+                <h3>{tip.quality.analysis}</h3>
+                <h4 style={{ color: 'ghostwhite' }}>{tip.quality.advice}</h4>
+              </Grid>
+            </Grid>
+            <hr style={{ border: 'none', borderTop: '1px solid #CACACA', margin: '15px 0 ' }} />
+            <Grid container>
+              <Grid item xs={12}>
+                <SleepTimeBarChart startTime={startTime} endTime={endTime}></SleepTimeBarChart>
+              </Grid>
+            </Grid>
+          </Box>
+        </CardWrapper>
+      </>
+    );
   }
-}
-
+};

@@ -13,12 +13,12 @@ import HeightCard from './heightCard';
 import HeartRateCard from './heartRateCard';
 import CircleCard from './circleCard';
 import StepChartCard from './stepChartCard';
-import dayjs from "dayjs";
-import * as stepsService from "../../service/dataService/stepsService";
-import {getSleepData} from "../../service/dataService/sleepService";
-import * as sleepService from "../../service/dataService/sleepService";
-import * as mainRecordService from "../../service/dataService/mainRecordService";
-import {endpoint} from "../../utils/endpoint";
+import dayjs from 'dayjs';
+import * as stepsService from '../../service/dataService/stepsService';
+import { getSleepData } from '../../service/dataService/sleepService';
+import * as sleepService from '../../service/dataService/sleepService';
+import * as mainRecordService from '../../service/dataService/mainRecordService';
+import { endpoint } from '../../utils/endpoint';
 
 // ==============================|| DATA ANALYTICS ||============================== //
 
@@ -36,18 +36,17 @@ const Analytics = () => {
   const [sleepData, setSleepData] = useState([]);
 
   useEffect(() => {
-    stepsService.getStepsData(1, startTime, endTime).then((data) => {
-          if (data.status >= 0) {
-            if (data.data.steps.length === 0) {
-              setStepData([]);
-            } else {
-              setStepData(data.data.steps);
-            }
-          } else {
-            alert(data.msg);
-          }
+    stepsService.getStepsData(startTime, endTime).then((data) => {
+      if (data.status >= 0) {
+        if (data.data.steps.length === 0) {
+          setStepData([]);
+        } else {
+          setStepData(data.data.steps);
         }
-    )
+      } else {
+        alert(data.msg);
+      }
+    });
   }, []);
 
   const [height, setHeight] = useState();
@@ -58,32 +57,32 @@ const Analytics = () => {
   const [exerciseTime, setExerciseTime] = useState();
   useEffect(() => {
     const url = endpoint + '/main_record';
-    const data = {user_id: 1};
-    function callback(data){
-      if(data.status >= 0){
+    const data = { user_id: 1 };
+    function callback(data) {
+      if (data.status >= 0) {
         setHeight(data.data.height);
         setWeight(data.data.weight);
         setHeartRate(data.data.heartRate);
         setCalorieConsume(data.data.calorieConsume);
         setSleepTime(data.data.sleepTime);
         setExerciseTime(data.data.exerciseTime);
-      }else{
+      } else {
         alert(data.msg);
       }
     }
     mainRecordService.getMainRecord(url, data, callback).then();
-  })
+  });
 
   useEffect(() => {
     sleepService.getSleepData(1, startTime, endTime).then((data) => {
-      if(data.status >= 0){
-        if(data.data.sleep_detail.length === 0){
+      if (data.status >= 0) {
+        if (data.data.sleep_detail.length === 0) {
           setSleepData([]);
-        }else{
+        } else {
           setSleepData(data.data.sleep_detail);
         }
       }
-    })
+    });
   }, []);
 
   return (

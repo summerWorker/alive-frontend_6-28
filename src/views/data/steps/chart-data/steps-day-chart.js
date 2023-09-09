@@ -18,7 +18,11 @@ export const getDayStepsData = (data) => {
     calorie = data[0].calories;
   }
 
-  let seriesData = [(steps * 100.0) / stepsGoal.toFixed(0), (distance * 100.0) / 5, (calorie * 100.0) / 500];
+  let seriesData = [
+    (steps * 100.0) / stepsGoal.toFixed(0),
+    (distance * 100.0) / (stepsGoal / 1000).toFixed(0),
+    (calorie * 100.0) / ((stepsGoal / 1000) * 35).toFixed(0)
+  ];
   if (seriesData > 100) {
     seriesData = 100;
   }

@@ -6,7 +6,11 @@ export const getMonthStepsData = (chartData, startTime, endTime) => {
   const timeDifference = endDate.getTime() - startDate.getTime();
   const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
   let isDataReady = false;
-  if (chartData && chartData.length > 0 && daysDifference === 30) {
+  if (
+    chartData &&
+    chartData.length > 0 &&
+    (daysDifference === 30 || daysDifference === 31 || daysDifference === 29 || daysDifference === 28)
+  ) {
     isDataReady = true;
   }
 
@@ -51,7 +55,7 @@ export const getMonthStepsData = (chartData, startTime, endTime) => {
     ];
   } else {
     let dataArr = [];
-    for (let i = 1; i <= 30; ++i) {
+    for (let i = 1; i <= daysDifference; ++i) {
       const data = chartData.find((item) => new Date(item.date).getTime() - startDate.getTime() === i * 24 * 60 * 60 * 1000);
       if (data) {
         dataArr.push(data.step);
