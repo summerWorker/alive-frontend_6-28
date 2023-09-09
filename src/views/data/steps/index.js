@@ -41,6 +41,7 @@ function DataSteps() {
 
   useEffect(() => {
     getStepsData(startTime, endTime).then((res) => {
+      // console.log(res);
       if (res && res.status === 1) {
         setData(res.data.steps);
       }

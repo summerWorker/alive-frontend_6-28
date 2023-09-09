@@ -1,4 +1,6 @@
 export const getDayStepsData = (data) => {
+  console.log('data', data);
+
   let isReady = false;
   if (data && data.length === 1) {
     isReady = true;
@@ -18,14 +20,29 @@ export const getDayStepsData = (data) => {
     calorie = data[0].calories;
   }
 
-  let seriesData = [
-    (steps * 100.0) / stepsGoal.toFixed(0),
-    (distance * 100.0) / (stepsGoal / 1000).toFixed(0),
-    (calorie * 100.0) / ((stepsGoal / 1000) * 35).toFixed(0)
-  ];
-  if (seriesData > 100) {
-    seriesData = 100;
+  if (stepsGoal === 0 || stepsGoal === null || stepsGoal === undefined || stepsGoal === '' || stepsGoal < 0) {
+    stepsGoal = 1;
   }
+
+  let stepsData = (steps * 100.0) / stepsGoal.toFixed(0);
+  if (stepsData > 100) {
+    stepsData = 100;
+  }
+  let distanceData = distance === 0 ? 0 : (distance * 100.0) / (stepsGoal / 1000).toFixed(0);
+  if (distanceData > 100) {
+    distanceData = 100;
+  }
+  let calorieData = calorie === 0 ? 0 : (calorie * 100.0) / ((stepsGoal / 1000) * 35).toFixed(0);
+  if (calorieData > 100) {
+    calorieData = 100;
+  }
+
+  let seriesData = [stepsData, distanceData, calorieData];
+  // if (seriesData > 100) {
+  //   seriesData = 100;
+  // }
+  console.log('stepsGoal', stepsGoal, 'steps', steps, 'distance', distance, 'calorie', calorie);
+  console.log('seriesData', seriesData);
 
   const dayChartData = {
     type: 'radialBar',
