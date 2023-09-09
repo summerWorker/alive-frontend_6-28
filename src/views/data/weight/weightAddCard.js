@@ -8,6 +8,8 @@ import {DatePicker, Input} from "antd";
 import {MobileDatePicker} from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
+const weekFormat = 'YYYY-MM-DD';
+
 const WeightAddCard = (props) => {
     return (
         <MainCard border={false} content={false}>
@@ -26,7 +28,7 @@ const WeightAddCard = (props) => {
                     <ListItem alignItems="center" sx={{ py: 0 }} style={{ marginTop: '3%' }}>
                         <DatePicker
                             value={dayjs(props.date)}
-                            onChange={(date) => props.setDate(date)}
+                            onChange={(date) => props.setDate(date.format(weekFormat))}
                         />
                         <Input style={{width: "40%", marginLeft: "5%", marginRight: "5%"}}
                                value={props.weight} onChange={(event) => props.setWeight(event.target.value)} />

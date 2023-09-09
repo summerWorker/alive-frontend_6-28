@@ -25,14 +25,20 @@ const pages = {
           title: '登录',
           type: 'item',
           url: '/pages/login/login3',
-          target: true
+          // target: true,
+          onClick: () => {
+            localStorage.removeItem('token')
+          }
         },
         {
           id: 'register3',
           title: '注册',
           type: 'item',
           url: '/pages/register/register3',
-          target: true
+          // target: true,
+          onClick: () => {
+            localStorage.removeItem('token')
+          }
         }
       ]
     }

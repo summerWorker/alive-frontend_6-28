@@ -26,7 +26,7 @@ const DataBlood = () => {
 
   useEffect(() => {
     // get week data
-    const data = { user_id: 1, start_date: startDatePressure, end_date: endDatePressure };
+    const data = { start_date: startDatePressure, end_date: endDatePressure };
     const url_week = endpoint + '/blood_pressure';
     const callback = (data) => {
       if (data.status >= 0) {
@@ -44,7 +44,7 @@ const DataBlood = () => {
 
   useEffect(() => {
     // get month data
-    const data = { user_id: 1, start_date: startDatePressureMonth, end_date: endDatePressure };
+    const data = { start_date: startDatePressureMonth, end_date: endDatePressure };
     const url_month = endpoint + '/blood_pressure';
     const callback = (data) => {
       if (data.status >= 0) {
@@ -71,7 +71,7 @@ const DataBlood = () => {
 
   useEffect(() => {
     // get week data
-    const data = { user_id: 1, start_date: startDateSugar, end_date: endDateSugar };
+    const data = { start_date: startDateSugar, end_date: endDateSugar };
     const url_week = endpoint + '/blood_sugar';
     const callback = (data) => {
       if (data.status >= 0) {
@@ -89,7 +89,7 @@ const DataBlood = () => {
 
   useEffect(() => {
     // get month data
-    const data = { user_id: 1, start_date: startDateSugarMonth, end_date: endDateSugar };
+    const data = { start_date: startDateSugarMonth, end_date: endDateSugar };
     const url_month = endpoint + '/blood_sugar';
     const callback = (data) => {
       if (data.status >= 0) {
@@ -120,7 +120,7 @@ const DataBlood = () => {
   function updatePressureData(timeValue) {
     const url = endpoint + '/blood_pressure';
     const start = (timeValue === true) ? startDatePressure : startDatePressureMonth;
-    const data = { user_id: 1, start_date: start, end_date: endDatePressure };
+    const data = { start_date: start, end_date: endDatePressure };
     bloodService.getBloodPressure(url, data, pressure_callback).then();
   }
 
@@ -139,7 +139,7 @@ const DataBlood = () => {
   function updateSugarDate(timeValue){
     const url = endpoint + '/blood_sugar';
     const start = (timeValue === true) ? startDateSugar : startDateSugarMonth;
-    const data = { user_id: 1, start_date: start, end_date: endDateSugar };
+    const data = { start_date: start, end_date: endDateSugar };
     bloodService.getBloodSugar(url, data, sugar_callback).then();
   }
 
@@ -169,7 +169,7 @@ const DataBlood = () => {
         const day = date.getDate();
 
         const targetDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-        const data = {user_id: 1, date: targetDateString, systolic: Number(addPressureSystolic), diastolic: Number(addPressureDiastolic)};
+        const data = {date: targetDateString, systolic: Number(addPressureSystolic), diastolic: Number(addPressureDiastolic)};
         bloodService.addBloodPressure(url, data, callback).then();
       }
     }
@@ -203,7 +203,7 @@ const DataBlood = () => {
         const minute = timeParts[1].toString().padStart(2, '0');
         const time = `${targetDateString} ${hour}:${minute}`;
         console.log(time);
-        bloodService.addBloodSugar(url, {user_id: 1, blood_sugar: Number(addSugarValue), date: time}, callback).then();
+        bloodService.addBloodSugar(url, {blood_sugar: Number(addSugarValue), date: time}, callback).then();
       }
     }
 

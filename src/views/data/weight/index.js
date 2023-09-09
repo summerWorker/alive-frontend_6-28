@@ -73,7 +73,7 @@ const DataWeightAndHeight = () => {
 
   useEffect((date) => {
     // get week data
-    const data = { user_id: 1, start_date: startTime, end_date: endTime };
+    const data = { start_date: startTime, end_date: endTime };
     const url_week = endpoint + '/period_weight';
     const callback = (data) => {
       // console.log(data.data.weights);
@@ -95,20 +95,20 @@ const DataWeightAndHeight = () => {
   useEffect(() => {
     //get month data
     // const tmp_start = dayjs().subtract(7, 'day').format(weekFormat);
-    const data = { user_id: 1, start_date: monthStartTime, end_date: endTime };
+    const data = { start_date: monthStartTime, end_date: endTime };
     const url_month = endpoint + '/period_weight';
     weightService.getWeight(url_month, data, month_callback).then();
   }, [monthStartTime, endTime]);
 
   function updateMonthData(){
     const url_month = endpoint + '/period_weight';
-    const data = { user_id: 1, start_date: startTime, end_date: endTime };
+    const data = { start_date: startTime, end_date: endTime };
     weightService.getWeight(url_month, data, month_callback).then();
   }
 
   function updateWeekData() {
     const url_week = endpoint + '/period_weight';
-    const data = {user_id: 1, start_date: startTime, end_date: endTime};
+    const data = { start_date: startTime, end_date: endTime};
     weightService.getWeight(url_week, data, week_callback).then();
   }
 
@@ -117,7 +117,7 @@ const DataWeightAndHeight = () => {
   const [cur_weight, setCurWeight] = useState();
   useEffect(() => {
     const url = endpoint + '/main_record';
-    const data = { user_id: 1};
+    const data = {};
     const callback = (data) => {
       if(data.status >= 0) {
         setHeight(data.data.height);
@@ -132,7 +132,7 @@ const DataWeightAndHeight = () => {
   const [goal, setGoal] = useState();
 
   useEffect(() => {
-    const data = {user_id: 1};
+    const data = {};
     function callback(data){
       if(data.status > 0){
         const goals = data.data.goal;
@@ -150,7 +150,7 @@ const DataWeightAndHeight = () => {
   }, [goal]);
 
   function updateGoal(value) {
-    const data = {user_id: 1, goalName: "weight_goal",
+    const data = { goalName: "weight_goal",
        goalKey1: Number(value)};
     function callback(data){
       if(data.status >= 0){
@@ -177,7 +177,7 @@ const DataWeightAndHeight = () => {
           alert(data.msg);
         }
       }
-      weightService.addWeight(endpoint + '/add_weight', {user_id: 1, weight: Number(addWeight), date: addWeightDate}, callback).then();
+      weightService.addWeight(endpoint + '/add_weight', { weight: Number(addWeight), date: addWeightDate}, callback).then();
     }
   }
 
@@ -196,7 +196,7 @@ const DataWeightAndHeight = () => {
             alert(data.msg);
         }
       }
-      heightService.addHeight(endpoint + '/add_height', {user_id: 1, height: Number(addHeight), date: addHeightDate}, callback).then();
+      heightService.addHeight(endpoint + '/add_height', {height: Number(addHeight), date: addHeightDate}, callback).then();
     }
   }
 
@@ -205,14 +205,12 @@ const DataWeightAndHeight = () => {
   const [advice, setAdvice] = useState('');
   useEffect(() => {
     const url = endpoint + '/bmi';
-    const data = {user_id: 1};
+    const data = {};
     function callback(data) {
       if(data.status >= 0){
         setBmi((data.data.bmi).toFixed(2));
         setCondition(data.data.analysis);
         setAdvice(data.data.advice);
-      }else{
-        alert(data.msg);
       }
     }
     weightService.getBMI(url, data, callback).then();
