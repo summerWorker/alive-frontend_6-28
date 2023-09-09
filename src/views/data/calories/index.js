@@ -77,7 +77,7 @@ const DataCalories = () => {
       {pageState === 0 && (
         <>
           <Grid container spacing={3}>
-            <Grid item lg={8}>
+            <Grid item lg={8} sm={12} xs={12}>
               <Grid container spacing={3} direction={'column'}>
                 <Grid item>
                   <div style={{ background: '#ffffff', padding: '20px', borderRadius: '10px' }}>
@@ -167,11 +167,13 @@ const DataCalories = () => {
               </Grid>
             </Grid>
 
-            <Grid item lg={4}>
+            <Grid item lg={4} sm={12} xs={12}>
               <Grid container spacing={3} direction={'column'}>
                 <Grid item>{pageState === 1 && <DietList />}</Grid>
-                <Grid item>{pageState === 0 && <DietaryDistribution state={chooseState} data={dietData} />}</Grid>
-                <Grid item>
+                <Grid item lg={12} sm={6} xs={6}>
+                  {pageState === 0 && <DietaryDistribution state={chooseState} data={dietData} />}
+                </Grid>
+                <Grid item lg={12} sm={6} xs={6}>
                   <DietaryTips />
                 </Grid>
               </Grid>
@@ -182,10 +184,14 @@ const DataCalories = () => {
       {pageState === 1 && (
         <>
           <Grid container spacing={3}>
-            <Grid item lg={6}>
-              <FoodList />
+            <Grid item lg={6} sm={12} xs={12}>
+              <FoodList
+                setPageState={(state) => {
+                  setPageState(state);
+                }}
+              />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} sm={12} xs={12}>
               <DietList />
             </Grid>
           </Grid>
@@ -194,10 +200,14 @@ const DataCalories = () => {
       {pageState === 2 && (
         <>
           <Grid container spacing={3}>
-            <Grid item lg={6}>
-              <ExerciseList />
+            <Grid item lg={6} sm={12} xs={12}>
+              <ExerciseList
+                setPageState={(state) => {
+                  setPageState(state);
+                }}
+              />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} sm={12} xs={12}>
               <WorkOutList />
             </Grid>
           </Grid>

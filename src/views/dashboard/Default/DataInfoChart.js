@@ -144,7 +144,7 @@ const DataInfoChart = ({ isLoading, infoData }) => {
     switch (infoData) {
       case 'heartRate':
         setName('心率');
-        getHeartRateData(1, startDate, endDate).then((res) => {
+        getHeartRateData(startDate, endDate).then((res) => {
           newData = res.data.heartRates;
           setData(desolveHeartRateData(dayjs(startDate), dayjs(endDate), newData, value));
         });

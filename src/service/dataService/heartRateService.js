@@ -1,14 +1,13 @@
 import { preUrl } from '../constant.js';
 
-export async function getHeartRateData(userId, startTime, endTime) {
+export async function getHeartRateData(startTime, endTime) {
   return await fetch(preUrl + '/heartRate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'token': `${localStorage.getItem("token")}`
+      token: `${localStorage.getItem('token')}`
     },
     body: JSON.stringify({
-      user_id: userId,
       start_date: startTime,
       end_date: endTime
     })
@@ -18,14 +17,14 @@ export async function getHeartRateData(userId, startTime, endTime) {
       console.log(error);
     });
 }
-export async function addHeartRateData(userId, timeStamp, heartRate) {
+export async function addHeartRateData(timeStamp, heartRate) {
   return await fetch(preUrl + '/add_heartRate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: `${localStorage.getItem('token')}`
     },
     body: JSON.stringify({
-      user_id: userId,
       timeStamp: timeStamp,
       heartRate: heartRate
     })

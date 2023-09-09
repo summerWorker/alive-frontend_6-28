@@ -43,19 +43,19 @@ const HeartRateChart = ({ isLoading }) => {
     let newData;
     switch (chooseState) {
       case 'day':
-        getHeartRateData(1, nowDate, null).then((res) => {
+        getHeartRateData(nowDate, null).then((res) => {
           newData = res;
           setData(desolveHeartRateData(dayjs(nowDate), dayjs(nowDate).add(1, 'day'), newData.data.heartRates, 'day'));
         });
         break;
       case 'week':
-        getHeartRateData(1, startWeekDate, endWeekDate).then((res) => {
+        getHeartRateData(startWeekDate, endWeekDate).then((res) => {
           newData = res;
           setData(desolveHeartRateData(dayjs(startWeekDate), dayjs(endWeekDate), newData.data.heartRates, 'week'));
         });
         break;
       case 'month':
-        getHeartRateData(1, startMonthDate, endMonthDate).then((res) => {
+        getHeartRateData(startMonthDate, endMonthDate).then((res) => {
           newData = res;
           setData(desolveHeartRateData(dayjs(startMonthDate), dayjs(endMonthDate), newData.data.heartRates, 'month'));
         });

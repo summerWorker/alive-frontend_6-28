@@ -66,9 +66,9 @@ function DataSteps() {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item lg={8}>
+        <Grid item lg={8} sm={12} xs={12}>
           <Grid container spacing={3}>
-            <Grid item lg={12}>
+            <Grid item lg={12} sm={12} xs={12}>
               <div style={{ background: '#ffffff', padding: '20px', borderRadius: '10px' }}>
                 <Grid container spacing={3} justifyContent={'space-between'}>
                   <Grid item></Grid>
@@ -142,7 +142,7 @@ function DataSteps() {
               />
             </Grid>
             {chooseState === 'day' && (
-              <Grid item lg={12}>
+              <Grid item lg={12} sm={12} xs={12}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} lg={6}>
                     <DistanceAddCard />
@@ -155,7 +155,7 @@ function DataSteps() {
             )}
           </Grid>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item lg={4} sm={12} xs={12}>
           {chooseState === 'day' && (
             <Grid container spacing={3} direction={'column'}>
               <Grid item xs={12}>

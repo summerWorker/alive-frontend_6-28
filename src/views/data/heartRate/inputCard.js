@@ -9,7 +9,8 @@ const InputCard = () => {
   const [heartRate, setHeartRate] = useState('');
 
   const handleClick = () => {
-    console.log(addHeartRateData(1, dayjs().valueOf(), heartRate));
+    console.log(addHeartRateData(dayjs().valueOf(), heartRate));
+    window.location.reload();
   };
 
   return (

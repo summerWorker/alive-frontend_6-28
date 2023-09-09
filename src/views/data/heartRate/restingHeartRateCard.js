@@ -67,7 +67,7 @@ const heartRateCard = ({ isLoading }) => {
   const [heartRateMin, setHeartRateMin] = useState(-1);
   const [heartRateMax, setHeartRateMax] = useState(-1);
   useEffect(() => {
-    getHeartRateData(1, dayjs().format('YYYY-MM-DD'), dayjs().add(1, 'day').format('YYYY-MM-DD')).then((res) => {
+    getHeartRateData(dayjs().format('YYYY-MM-DD'), dayjs().add(1, 'day').format('YYYY-MM-DD')).then((res) => {
       const data = res.data.heartRates;
       const max = Math.max(...data.map((item) => item.detailValue));
       const min = Math.min(...data.map((item) => item.detailValue));
