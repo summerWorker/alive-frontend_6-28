@@ -12,7 +12,12 @@ class Noticebar extends Component {
         this.websocket = null;
     }
 
+
+
     componentDidMount() {
+        if (localStorage.getItem("token") === null) {
+            return;
+        }
         // 创建 WebSocket 连接
         this.websocket = new WebSocket(`ws://localhost:8081/websocket/${localStorage.getItem("token")}`); // 替换为你的 WebSocket 地址
 
