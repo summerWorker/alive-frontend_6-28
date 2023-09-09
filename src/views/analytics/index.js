@@ -57,7 +57,7 @@ const Analytics = () => {
   const [exerciseTime, setExerciseTime] = useState();
   useEffect(() => {
     const url = endpoint + '/main_record';
-    const data = { user_id: 1 };
+    const data = {};
     function callback(data) {
       if (data.status >= 0) {
         setHeight(data.data.height);
@@ -74,7 +74,7 @@ const Analytics = () => {
   });
 
   useEffect(() => {
-    sleepService.getSleepData(1, startTime, endTime).then((data) => {
+    sleepService.getSleepData(startTime, endTime).then((data) => {
       if (data.status >= 0) {
         if (data.data.sleep_detail.length === 0) {
           setSleepData([]);
