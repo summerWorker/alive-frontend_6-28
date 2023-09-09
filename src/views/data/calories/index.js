@@ -9,6 +9,10 @@ import { FoodList } from './foodList';
 import { DietList } from './dietList';
 import dayjs from 'dayjs';
 import { getDietService } from '../../../service/dataService/dietService';
+import { ExerciseList } from './exerciseList';
+import { WorkOutList } from './workOutList';
+import { CaloriesChart } from './caloriesChart';
+import { getWorkOutService } from '../../../service/dataService/workOutService';
 
 const { RangePicker } = DatePicker;
 const infoFormat = 'YYYY-MM-DD';
@@ -21,11 +25,13 @@ const DataCalories = () => {
   const distribute = [65, 15, 20];
   const labels = ['碳水化合物', '蛋白质', '脂肪'];
 
-  const [onAdd, setOnAdd] = useState(false);
+  //0表示初始界面，1表示食物数据界面，2表示运动数据界面
+  const [pageState, setPageState] = useState(0);
   const [chooseState, setChooseState] = useState('week');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [data, setData] = useState([]);
+  const [dietData, setDietData] = useState([]);
+  const [workOutData, setWorkOutData] = useState([]);
 
   useEffect(() => {
     setStartTime(dayjs().add(-7, 'd').format(infoFormat));
@@ -35,10 +41,20 @@ const DataCalories = () => {
 
   useEffect(() => {
     if (startTime !== '' && endTime !== '') {
-      getDietService(1, startTime, endTime).then((res) => {
+      getDietService(startTime, endTime).then((res) => {
         console.log(res);
         if (res && res.status === 1 && res.data && res.data.diet_list) {
-          setData(res.data.diet_list);
+          setDietData(res.data.diet_list);
+        } else {
+          setDietData([]);
+        }
+      });
+      getWorkOutService(startTime, endTime).then((res) => {
+        console.log(res);
+        if (res && res.status === 1 && res.data && res.data.workout_list) {
+          setWorkOutData(res.data.workout_list);
+        } else {
+          setDietData([]);
         }
       });
     }
@@ -57,100 +73,137 @@ const DataCalories = () => {
   };
 
   return (
-    <Grid container spacing={3}>
-      <Grid item lg={8}>
-        <Grid container spacing={3} direction={'column'}>
-          <Grid item>
-            <div style={{ background: '#ffffff', padding: '20px', borderRadius: '10px' }}>
-              {onAdd ? (
-                <Button
-                  onClick={() => {
-                    setOnAdd(false);
-                  }}
-                >
-                  返回
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => {
-                    setOnAdd(true);
-                  }}
-                >
-                  添加数据
-                </Button>
-              )}
+    <>
+      {pageState === 0 && (
+        <>
+          <Grid container spacing={3}>
+            <Grid item lg={8}>
               <Grid container spacing={3} direction={'column'}>
                 <Grid item>
-                  {!onAdd && (
-                    <Grid container spacing={3} justifyContent={'space-between'}>
-                      <Grid item></Grid>
-                      <Grid item style={{ flex: '0.5' }}>
-                        <Segmented
-                          block
-                          options={[
-                            { label: '周', value: 'week' },
-                            { label: '月', value: 'month' }
-                          ]}
-                          onChange={(value) => {
-                            handleStateChange(value);
-                          }}
-                        ></Segmented>
+                  <div style={{ background: '#ffffff', padding: '20px', borderRadius: '10px' }}>
+                    <>
+                      <Button
+                        onClick={() => {
+                          setPageState(1);
+                        }}
+                      >
+                        饮食摄入
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setPageState(2);
+                        }}
+                      >
+                        运动消耗
+                      </Button>
+                    </>
+                    <Grid container spacing={3} direction={'column'}>
+                      <Grid item>
+                        <Grid container spacing={3} justifyContent={'space-between'}>
+                          <Grid item></Grid>
+                          <Grid item style={{ flex: '0.5' }}>
+                            <Segmented
+                              block
+                              options={[
+                                { label: '周', value: 'week' },
+                                { label: '月', value: 'month' }
+                              ]}
+                              onChange={(value) => {
+                                handleStateChange(value);
+                              }}
+                            ></Segmented>
+                          </Grid>
+                          <Grid item></Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item></Grid>
+                      <Grid item>
+                        <Grid container spacing={3} justifyContent={'space-between'}>
+                          <Grid item></Grid>
+                          <Grid item style={{ flex: '0.5' }}>
+                            {chooseState === 'week' ? (
+                              <>
+                                <RangePicker
+                                  value={[dayjs(startTime), dayjs(endTime)]}
+                                  onChange={(value) => {
+                                    setStartTime(value[1].add(-7, 'd').format(infoFormat));
+                                    setEndTime(value[1].format(infoFormat));
+                                  }}
+                                  disabled={[true, false]}
+                                ></RangePicker>
+                              </>
+                            ) : (
+                              <>
+                                <RangePicker
+                                  value={[dayjs(startTime), dayjs(endTime)]}
+                                  onChange={(value) => {
+                                    setStartTime(value[1].add(-1, 'm').format(infoFormat));
+                                    setEndTime(value[1].format(infoFormat));
+                                  }}
+                                  disabled={[true, false]}
+                                ></RangePicker>
+                              </>
+                            )}
+                          </Grid>
+                          <Grid item></Grid>
+                        </Grid>
+                      </Grid>
                     </Grid>
+                  </div>
+
+                  {pageState === 1 ? (
+                    <FoodList />
+                  ) : (
+                    <CaloriesChart
+                      chooseState={chooseState}
+                      setChooseState={(state) => setChooseState(state)}
+                      startTime={startTime}
+                      endTime={endTime}
+                      dietData={dietData}
+                      workOutData={workOutData}
+                    />
                   )}
                 </Grid>
+                <Grid item>{pageState === 1 && <RecommendRecipe />}</Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item lg={4}>
+              <Grid container spacing={3} direction={'column'}>
+                <Grid item>{pageState === 1 && <DietList />}</Grid>
+                <Grid item>{pageState === 0 && <DietaryDistribution state={chooseState} data={dietData} />}</Grid>
                 <Grid item>
-                  <Grid container spacing={3} justifyContent={'space-between'}>
-                    <Grid item></Grid>
-                    <Grid item style={{ flex: '0.5' }}>
-                      {!onAdd &&
-                        (chooseState === 'week' ? (
-                          <>
-                            <RangePicker
-                              value={[dayjs(startTime), dayjs(endTime)]}
-                              onChange={(value) => {
-                                setStartTime(value[1].add(-7, 'd').format(infoFormat));
-                                setEndTime(value[1].format(infoFormat));
-                              }}
-                              disabled={[true, false]}
-                            ></RangePicker>
-                          </>
-                        ) : (
-                          <>
-                            <RangePicker
-                              value={[dayjs(startTime), dayjs(endTime)]}
-                              onChange={(value) => {
-                                setStartTime(value[1].add(-1, 'm').format(infoFormat));
-                                setEndTime(value[1].format(infoFormat));
-                              }}
-                              disabled={[true, false]}
-                            ></RangePicker>
-                          </>
-                        ))}
-                    </Grid>
-                    <Grid item></Grid>
-                  </Grid>
+                  <DietaryTips />
                 </Grid>
               </Grid>
-            </div>
-
-            {onAdd ? <FoodList /> : <DetailedCard intakeData={data1} consumptionData={data2} />}
+            </Grid>
           </Grid>
-          <Grid item>{!onAdd && <RecommendRecipe />}</Grid>
-        </Grid>
-      </Grid>
-
-      <Grid item lg={4}>
-        <Grid container spacing={3} direction={'column'}>
-          <Grid item>{onAdd && <DietList />}</Grid>
-          <Grid item>{!onAdd && <DietaryDistribution state={chooseState} data={data} />}</Grid>
-          <Grid item>
-            <DietaryTips />
+        </>
+      )}
+      {pageState === 1 && (
+        <>
+          <Grid container spacing={3}>
+            <Grid item lg={6}>
+              <FoodList />
+            </Grid>
+            <Grid item lg={6}>
+              <DietList />
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+        </>
+      )}
+      {pageState === 2 && (
+        <>
+          <Grid container spacing={3}>
+            <Grid item lg={6}>
+              <ExerciseList />
+            </Grid>
+            <Grid item lg={6}>
+              <WorkOutList />
+            </Grid>
+          </Grid>
+        </>
+      )}
+    </>
   );
 };
 export default DataCalories;
