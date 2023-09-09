@@ -66,11 +66,17 @@ export function StepsGoal(porps) {
               {haveGoal ? (
                 stepsGoal - steps > 0 ? (
                   <>
+                    <h4>
+                      目标{stepsGoal}步，已走{steps}步
+                    </h4>
                     <h4>还差{stepsGoal - steps}步，加油！</h4>
                     <Progress percent={((steps * 100) / stepsGoal).toFixed(2)} style={{ width: '95%' }} />
                   </>
                 ) : (
                   <>
+                    <h4>
+                      目标{stepsGoal}步，已走{steps}步
+                    </h4>
                     <h4>恭喜你完成目标！</h4>
                     <Progress percent={100} status="success" style={{ width: '95%' }} />
                   </>
