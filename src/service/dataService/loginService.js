@@ -22,6 +22,15 @@ export const register = async (url, data, callback) => {
 
 
 export const getcheckcode = async (url, data, callback) => {
+    if(localStorage.getItem("time")!==null){
+        if(Date.now()-localStorage.getItem("time")<60000){
+            callback({status:-1,msg:"请一分钟后再试",data:null});
+            return;
+        }
+
+        localStorage.removeItem("time");
+    }
+    localStorage.setItem("time", Date.now());
     let opts = {
         method: 'POST',
         body: JSON.stringify(data),
