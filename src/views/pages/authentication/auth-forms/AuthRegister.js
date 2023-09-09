@@ -87,9 +87,9 @@ const FirebaseRegister = ({ ...others }) => {
       const data = {email: email};
       function callback(data) {
         if(data.status > 0) {
-          alert('Check Code has been sent to your email');
+          alert('验证码已发送');
         }else {
-          alert('Check Code has not been sent to your email');
+          alert(data.msg);
         }
       }
       loginService.getcheckcode(url, data, callback).then();
@@ -102,7 +102,7 @@ const FirebaseRegister = ({ ...others }) => {
       <Grid container direction="column" justifyContent="center" spacing={2}>
         <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">Sign up with Email address</Typography>
+            <Typography variant="subtitle1">请用邮箱注册</Typography>
           </Box>
         </Grid>
       </Grid>
@@ -117,35 +117,35 @@ const FirebaseRegister = ({ ...others }) => {
           checkCode: ''
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string().email('请输入合法的邮箱账号').max(255).required('请输入邮箱账号'),
+          password: Yup.string().max(255).required('请输入密码'),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             if(values.password !== values.confirmPassword) {
-              setErrors({submit: 'Password and Confirm Password must be the same'});
+              setErrors({submit: '两次输入的密码不一致'});
               setSubmitting(false);
-              alert('Password and Confirm Password must be the same');
+              alert('两次输入的密码不一致');
             }else if(values.userName === '') {
-              alert('Please input your user name');
+              alert('请输入昵称');
             }else if(values.email === ""){
-              alert('Please input your email address');
+              alert('请输入邮箱账号');
             }else if(values.checkCode === "") {
-                alert('Please input your check code');
+                alert('请输入验证码');
             }else if(values.password === "") {
-                alert('Please input your password');
+                alert('请输入密码');
             }else if(values.confirmPassword === "") {
-                alert('Please input your confirm password');
+                alert('请确认密码');
             }else{
               const url = endpoint + '/register';
               const data = {username: values.userName, password: values.password, email: values.email, check_code: values.checkCode};
               function callback(data) {
                 if(data.status > 0) {
-                    alert('Register Success');
+                    alert('注册成功');
                     // jump to login page
                     window.location.href = '/pages/login/login3';
                 }else {
-                    alert('Register Failed');
+                    alert('注册失败，请重试');
                 }
               }
                 loginService.register(url, data, callback).then();
@@ -168,7 +168,7 @@ const FirebaseRegister = ({ ...others }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.userName && errors.userName)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">User Name</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-register">昵称</InputLabel>
               <OutlinedInput
                   id="outlined-adornment-password-register"
                   type="text"
@@ -190,7 +190,7 @@ const FirebaseRegister = ({ ...others }) => {
             <Grid container spacing={matchDownSM ? 0 : 2}>
               <Grid item lg={9}>
             <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-email-register">邮箱账号</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-email-register"
                 type="email"
@@ -219,7 +219,7 @@ const FirebaseRegister = ({ ...others }) => {
               </Grid>
             </Grid>
             <FormControl fullWidth error={Boolean(touched.checkCode && errors.checkCode)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">checkCode</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-register">验证码</InputLabel>
               <OutlinedInput
                   id="outlined-adornment-password-register"
                   type="text"
@@ -240,7 +240,7 @@ const FirebaseRegister = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-register">密码</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-register"
                 type={showPassword ? 'text' : 'password'}
@@ -292,7 +292,7 @@ const FirebaseRegister = ({ ...others }) => {
             )}
 
             <FormControl fullWidth error={Boolean(touched.confirmPassword && errors.confirmPassword)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Confirm Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-register">确认密码</InputLabel>
               <OutlinedInput
                   id="outlined-adornment-password-register"
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -333,10 +333,10 @@ const FirebaseRegister = ({ ...others }) => {
                   }
                   label={
                     <Typography variant="subtitle1">
-                      Agree with &nbsp;
-                      <Typography variant="subtitle1" component={Link} to="#">
-                        Terms & Condition.
-                      </Typography>
+                      同意 &nbsp;
+                      <a href="https://my-h5news.app.xinhuanet.com/h5/privacy.html" target="_blank" rel="noopener noreferrer">
+                        隐私条款
+                      </a>
                     </Typography>
                   }
                 />
@@ -351,7 +351,7 @@ const FirebaseRegister = ({ ...others }) => {
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
-                  Sign up
+                  注册账号
                 </Button>
               </AnimateButton>
             </Box>
