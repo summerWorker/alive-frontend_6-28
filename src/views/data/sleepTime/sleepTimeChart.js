@@ -24,7 +24,7 @@ export function SleepTimeChart(props) {
 
   useEffect(() => {
     if (props.startTime !== '' && props.endTime !== '') {
-      getSleepData(1, props.startTime, props.endTime).then((res) => {
+      getSleepData(props.startTime, props.endTime).then((res) => {
         if (res && res.status === 1) {
           const data = res.data.sleep_detail.map((item) =>
             Date(item.date) >= Date(props.startTime) && Date(item.date) <= Date(props.endTime) ? item : null

@@ -3,9 +3,9 @@ import { gridSpacing } from 'store/constant';
 import { styled, useTheme } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
 import { FileAddFilled } from '@ant-design/icons';
-import {Button, Form, Input, Modal, TimePicker} from "antd";
-import React, {useState} from "react";
-import dayjs from "dayjs";
+import { Button, Form, Input, Modal, TimePicker } from 'antd';
+import React, { useState } from 'react';
+import dayjs from 'dayjs';
 
 const format = 'HH:mm';
 
@@ -65,9 +65,7 @@ export function SleepGoalCard(props) {
             </Grid>
             <Grid item>
               <ChartContainer>
-                <Button onClick={props.updateGoal}>
-                  提交
-                </Button>
+                <Button onClick={props.updateGoal}>提交</Button>
               </ChartContainer>
             </Grid>
           </Grid>
@@ -76,13 +74,22 @@ export function SleepGoalCard(props) {
             <Grid item xs={6}>
               <h4 style={{ color: '#164C45' }}>就寝</h4>
               {/*<h1 style={{ color: '#164C45' }}>{props.bedTime}</h1>*/}
-              <TimePicker value={dayjs(props.bedTime, format)}
-                          onChange={(time) => props.updateBedTime(time)} format={format} />
+              <TimePicker
+                value={dayjs(props.bedTime, format)}
+                onChange={(time) => {
+                  props.updateBedTime(dayjs(time).format(format));
+                }}
+                format={format}
+              />
             </Grid>
             <Grid item xs={6}>
               <h4 style={{ color: '#164C45' }}>起床</h4>
               {/*<h1 style={{ color: '#164C45' }}>{props.getUpTime}</h1>*/}
-              <TimePicker value={dayjs(props.getUpTime, format)} format={format} onChange={(time) => props.updateGetUpTime(time)}/>
+              <TimePicker
+                value={dayjs(props.getUpTime, format)}
+                format={format}
+                onChange={(time) => props.updateGetUpTime(dayjs(time).format(format))}
+              />
             </Grid>
           </Grid>
         </Box>

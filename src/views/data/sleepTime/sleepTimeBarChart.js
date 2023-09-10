@@ -19,7 +19,7 @@ export function SleepTimeBarChart(props) {
   // let isDataReady = false;
 
   useEffect(() => {
-    getSleepData(1, props.startTime, props.endTime).then((res) => {
+    getSleepData(props.startTime, props.endTime).then((res) => {
       if (res && res.status === 1) {
         if (res.data.sleep_detail.length === 1) {
           setIsDataReady(true);
