@@ -40,6 +40,8 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 }));
 
 export function StepsGoal(porps) {
+  console.log('datatata', porps.data);
+
   const [stepsGoal, setStepsGoal] = useState(10000);
   const [steps, setSteps] = useState(1212);
   const [haveGoal, setHaveGoal] = useState(false);
@@ -50,7 +52,11 @@ export function StepsGoal(porps) {
       if (porps.data[0].goal !== 0) {
         setStepsGoal(porps.data[0].goal);
         setHaveGoal(true);
+      } else {
+        setHaveGoal(false);
       }
+    } else {
+      setHaveGoal(false);
     }
   }, [porps.data]);
 
