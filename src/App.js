@@ -11,7 +11,8 @@ import themes from 'themes';
 
 // project imports
 import NavigationScroll from 'layout/NavigationScroll';
-import Noticebar from "./ui-component/notice_bar";
+import Noticebar from './ui-component/notice_bar';
+import { MessageProvider } from './ui-component/MessageContext';
 // ==============================|| APP ||============================== //
 
 const App = () => {
@@ -21,11 +22,14 @@ const App = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes(customization)}>
         <CssBaseline />
+        <MessageProvider>
+          {/* 在这里包裹MessageProvider */}
           {/* 添加 WebSocketManager 组件 */}
           <Noticebar />
-        <NavigationScroll>
-          <Routes />
-        </NavigationScroll>
+          <NavigationScroll>
+            <Routes />
+          </NavigationScroll>
+        </MessageProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );
