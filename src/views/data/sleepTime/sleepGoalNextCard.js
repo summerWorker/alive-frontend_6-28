@@ -38,7 +38,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-export function SleepGoalNextCard() {
+export function SleepGoalNextCard(props) {
   const theme = useTheme();
 
   return (
@@ -50,11 +50,11 @@ export function SleepGoalNextCard() {
           <Grid container spacing={gridSpacing}>
             <Grid item xs={6}>
               <h4 style={{ color: '#008F8C' }}>就寝</h4>
-              <h1 style={{ color: '#008F8C' }}>23:00</h1>
+              <h1 style={{ color: '#008F8C' }}>{props.bedTime}</h1>
             </Grid>
             <Grid item xs={6}>
               <h4 style={{ color: '#008F8C' }}>起床</h4>
-              <h1 style={{ color: '#008F8C' }}>07:00</h1>
+              <h1 style={{ color: '#008F8C' }}>{props.getUpTime}</h1>
             </Grid>
           </Grid>
         </Box>
