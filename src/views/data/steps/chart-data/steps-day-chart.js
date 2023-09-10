@@ -1,5 +1,5 @@
 export const getDayStepsData = (data) => {
-  console.log('data', data);
+  // console.log('data', data);
 
   let isReady = false;
   if (data && data.length === 1) {
@@ -41,8 +41,8 @@ export const getDayStepsData = (data) => {
   // if (seriesData > 100) {
   //   seriesData = 100;
   // }
-  console.log('stepsGoal', stepsGoal, 'steps', steps, 'distance', distance, 'calorie', calorie);
-  console.log('seriesData', seriesData);
+  // console.log('stepsGoal', stepsGoal, 'steps', steps, 'distance', distance, 'calorie', calorie);
+  // console.log('seriesData', seriesData);
 
   const dayChartData = {
     type: 'radialBar',
