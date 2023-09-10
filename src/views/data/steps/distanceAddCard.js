@@ -18,19 +18,32 @@ const DistanceAddCard = () => {
   const addDistance = () => {
     if (distance === undefined || distance === null || distance === '') {
       alert('请输入公里数!');
-    } else if (distance < 0 || isNaN(Number(distance)) || distance === Infinity || distance === -Infinity) {
-      alert('公里数不符合规范!');
-    } else {
-      addStepDistanceData(distance, distanceDate).then((res) => {
-        if (res.status === 1) {
-          alert('公里数添加成功!');
-          //刷新页面
-          window.location.reload();
-        } else {
-          alert(res.msg);
-        }
-      });
+      return;
     }
+    if (distance < 0 || isNaN(Number(distance)) || distance === Infinity || distance === -Infinity) {
+      alert('公里数不符合规范!');
+      return;
+    }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(distanceDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert('日期不能是未来日期');
+      return;
+    }
+    addStepDistanceData(distance, distanceDate).then((res) => {
+      if (res.status === 1) {
+        alert('公里数添加成功!');
+        //刷新页面
+        window.location.reload();
+      } else {
+        alert(res.msg);
+      }
+    });
   };
 
   return (

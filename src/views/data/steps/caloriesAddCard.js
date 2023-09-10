@@ -18,19 +18,32 @@ const CaloriesAddCard = () => {
   const addCalories = () => {
     if (calories === undefined || calories === null || calories === '') {
       alert('请输入卡路里!');
-    } else if (calories < 0 || isNaN(Number(calories)) || calories === Infinity || calories === -Infinity) {
-      alert('卡路里不符合规范!');
-    } else {
-      addStepCaloriesData(calories, caloriesDate).then((res) => {
-        if (res.status === 1) {
-          alert('卡路里添加成功！');
-          //刷新页面
-          window.location.reload();
-        } else {
-          alert(res.msg);
-        }
-      });
+      return;
     }
+    if (calories < 0 || isNaN(Number(calories)) || calories === Infinity || calories === -Infinity) {
+      alert('卡路里不符合规范!');
+      return;
+    }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(caloriesDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert('日期不能是未来日期');
+      return;
+    }
+    addStepCaloriesData(calories, caloriesDate).then((res) => {
+      if (res.status === 1) {
+        alert('卡路里添加成功！');
+        //刷新页面
+        window.location.reload();
+      } else {
+        alert(res.msg);
+      }
+    });
   };
 
   return (

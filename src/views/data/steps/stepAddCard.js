@@ -16,13 +16,14 @@ const StepAddCard = () => {
   }, []);
 
   const addStep = () => {
-    console.log(stepDate, typeof stepDate);
+    // console.log(stepDate, typeof stepDate);
     if (step === undefined || step === null || step === '') {
       alert('请输入步数!');
       return;
     }
     if (step < 0 || isNaN(Number(step)) || step === Infinity || step === -Infinity) {
       alert('步数不符合规范!');
+      return;
     }
     // 获取当前日期和时间
     const currentDate = new Date();
@@ -32,19 +33,18 @@ const StepAddCard = () => {
 
     // 检查日期是否为未来日期
     if (userDate > currentDate) {
-      alert("日期不能是未来日期");
+      alert('日期不能是未来日期');
       return;
     }
 
-      addStepData(step, stepDate).then((res) => {
-        if (res.status === 1) {
-          alert('步数添加成功!');
-          window.location.reload();
-        } else {
-          alert(res.msg);
-        }
-      });
-
+    addStepData(step, stepDate).then((res) => {
+      if (res.status === 1) {
+        alert('步数添加成功!');
+        window.location.reload();
+      } else {
+        alert(res.msg);
+      }
+    });
   };
 
   return (

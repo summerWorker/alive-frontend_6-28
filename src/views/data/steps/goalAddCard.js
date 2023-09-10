@@ -18,18 +18,32 @@ const GoalAddCard = () => {
   const addGoal = () => {
     if (goal === undefined || goal === null || goal === '') {
       alert('请输入目标!');
-    } else if (goal < 0 || isNaN(Number(goal)) || goal === Infinity || goal === -Infinity) {
-      alert('目标不符合规范!');
-    } else {
-      addStepGoalData(goal, goalDate).then((res) => {
-        if (res.status > 0) {
-          alert('目标添加成功!');
-          window.location.reload();
-        } else {
-          alert(res.msg);
-        }
-      });
+      return;
     }
+    if (goal < 0 || isNaN(Number(goal)) || goal === Infinity || goal === -Infinity) {
+      alert('目标不符合规范!');
+      return;
+    }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(goalDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert('日期不能是未来日期');
+      return;
+    }
+
+    addStepGoalData(goal, goalDate).then((res) => {
+      if (res.status > 0) {
+        alert('目标添加成功!');
+        window.location.reload();
+      } else {
+        alert(res.msg);
+      }
+    });
   };
 
   return (
