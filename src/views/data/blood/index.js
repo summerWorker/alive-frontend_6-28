@@ -150,7 +150,19 @@ const DataBlood = () => {
     function addPressure(){
       if(addPressureSystolic === undefined || addPressureSystolic === null || addPressureDiastolic === undefined || addPressureDiastolic === null || addPressureDate === undefined){
         alert("请输入数据");
-      }else{
+        return;
+      }
+      // 获取当前日期和时间
+      const currentDate = new Date();
+
+      // 将用户输入的日期和时间转换为 Date 对象
+      const userDate = new Date(addPressureDate);
+
+      // 检查日期是否为未来日期
+      if (userDate > currentDate) {
+        alert("日期不能是未来日期");
+        return;
+      }
         function callback(data){
           if(data.status >= 0){
             alert("添加成功");
@@ -171,7 +183,7 @@ const DataBlood = () => {
         const targetDateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
         const data = {date: targetDateString, systolic: Number(addPressureSystolic), diastolic: Number(addPressureDiastolic)};
         bloodService.addBloodPressure(url, data, callback).then();
-      }
+
     }
 
     const [addSugarDate, setAddSugarDate] = useState(dayjs().format(infoFormat));
@@ -181,7 +193,26 @@ const DataBlood = () => {
     function addSugar(){
       if(addSugarValue === undefined || addSugarValue === null || addSugarDate === undefined || addSugarTime === undefined) {
         alert("请输入数据");
-      }else{
+        return;
+      }
+      // 获取当前日期和时间
+      const currentDate = new Date();
+
+// 将用户输入的日期和时间转换为 Date 对象
+      const userDate = new Date(addSugarDate);
+      const userTime = new Date(`1970-01-01T${addSugarTime}:00`);
+
+// 检查日期是否为未来日期
+      if (userDate > currentDate) {
+        alert("日期不能是未来日期");
+        return;
+      }
+        // 检查时间是否为未来时间
+        if (userDate.getTime() === currentDate.getTime() && userTime > currentDate) {
+          alert("时间不能是未来时间");
+          return;
+        }
+
         function callback(data){
           if(data.status >= 0){
             alert("添加成功!");
@@ -204,7 +235,7 @@ const DataBlood = () => {
         const time = `${targetDateString} ${hour}:${minute}`;
         console.log(time);
         bloodService.addBloodSugar(url, {blood_sugar: Number(addSugarValue), date: time}, callback).then();
-      }
+
     }
 
   return (

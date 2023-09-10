@@ -172,10 +172,24 @@ const DataWeightAndHeight = () => {
     // console.log(addWeightDate, addWeight, Number(addWeight));
     if (addWeight === undefined || addWeight === null || addWeight === '') {
       alert('请输入体重!');
-    } else {
-      if (addWeight < 0 || Number(addWeight) === null || Number(addWeight) === undefined || isNaN(Number(addWeight))) {
-        alert('体重格式不正确!');
-      } else {
+      return;
+    }
+
+      if (addWeight < 0 || addWeight > 300 || Number(addWeight) === null || Number(addWeight) === undefined || isNaN(Number(addWeight))) {
+        alert('请输入合理的体重值!');
+        return;
+      }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(addWeightDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert("日期不能是未来日期");
+      return;
+    }
         function callback(data) {
           if (data.status >= 0) {
             alert('体重添加成功!');
@@ -185,8 +199,8 @@ const DataWeightAndHeight = () => {
           }
         }
         weightService.addWeight(endpoint + '/add_weight', { weight: Number(addWeight), date: addWeightDate }, callback).then();
-      }
-    }
+
+
   }
 
   //add height
@@ -196,9 +210,23 @@ const DataWeightAndHeight = () => {
   function addHeightData() {
     if (addHeight === undefined || addHeight === null || addHeight === '') {
       alert('请输入身高!');
-    } else if (addHeight < 0 || Number(addHeight) === null || Number(addHeight) === undefined || isNaN(Number(addHeight))) {
-      alert('身高格式不正确!');
-    } else {
+      return;
+    }
+    if (addHeight < 0 ||addHeight > 3|| Number(addHeight) === null || Number(addHeight) === undefined || isNaN(Number(addHeight))) {
+      alert('请输入合理的身高数据!');
+      return;
+    }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(addHeightDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert("日期不能是未来日期");
+      return;
+    }
       function callback(data) {
         if (data.status > 0) {
           alert('身高添加成功!');
@@ -208,7 +236,7 @@ const DataWeightAndHeight = () => {
         }
       }
       heightService.addHeight(endpoint + '/add_height', { height: Number(addHeight), date: addHeightDate }, callback).then();
-    }
+
   }
 
   const [bmi, setBmi] = useState(0);
