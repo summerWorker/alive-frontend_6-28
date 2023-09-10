@@ -46,7 +46,7 @@ export function SleepGoalNextCard(props) {
       <CardWrapper border={false} content={false}>
         <Box sx={{ p: 2.25 }}>
           <h2 style={{ color: '#008F8C' }}>下一次</h2>
-          <h4 style={{ color: '#008F8C' }}>周五</h4>
+          <h4 style={{ color: '#008F8C' }}>今晚</h4>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={6}>
               <h4 style={{ color: '#008F8C' }}>就寝</h4>

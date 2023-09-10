@@ -9,8 +9,8 @@ import { Dropdown } from 'antd';
 import { FileAddFilled } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import {endpoint} from "../../../utils/endpoint";
-import * as sleepService from "../../../service/dataService/sleepService";
+import { endpoint } from '../../../utils/endpoint';
+import * as sleepService from '../../../service/dataService/sleepService';
 
 const dateFormat = 'YYYY-MM-DD';
 const weekFormat = 'YYYY-MM-DD';
@@ -23,6 +23,8 @@ function DataSleepTime() {
   const [endTime, setEndTime] = useState('');
   const [bedTime, setBedTime] = useState(dayjs().format(timeFormat));
   const [getUpTime, setGetUpTime] = useState(dayjs().format(timeFormat));
+  const [bedTimeGoal, setBedTimeGoal] = useState(dayjs().format(timeFormat));
+  const [getUpTimeGoal, setGetUpTimeGoal] = useState(dayjs().format(timeFormat));
 
   useEffect(() => {
     setStartTime(dayjs().format(dateFormat));
@@ -33,23 +35,25 @@ function DataSleepTime() {
     setChooseState(0);
     const url = endpoint + '/goals';
     function callback(data) {
-      if(data.status >= 0){
+      if (data.status >= 0) {
         const goals = data.data.goal;
         let length = 0;
         let curBedTime;
-        for(let i = 0; i < goals.length; ++i){
+        for (let i = 0; i < goals.length; ++i) {
           const cur_goal = goals[i];
-          if(cur_goal.goalName === "bedtime_goal"){
+          if (cur_goal.goalName === 'bedtime_goal') {
             curBedTime = cur_goal.goalKey2;
             setBedTime(cur_goal.goalKey2);
+            setBedTimeGoal(cur_goal.goalKey2);
           }
-          if(cur_goal.goalName === "sleep_length_goal"){
+          if (cur_goal.goalName === 'sleep_length_goal') {
             length = cur_goal.goalKey1;
           }
         }
         const getUpTimeGoal = dayjs(curBedTime, timeFormat).add(length, 'minute').format(timeFormat);
         setGetUpTime(getUpTimeGoal);
-      }else{
+        setGetUpTimeGoal(getUpTimeGoal);
+      } else {
         alert(data.msg);
       }
     }
@@ -79,24 +83,25 @@ function DataSleepTime() {
     }
   ];
 
-  function updateGoal(){
+  function updateGoal() {
     function callback(data) {
-      if(data.status >= 0){
+      if (data.status >= 0) {
         // alert("修改睡眠定时成功！");
-        // setBedTime(newBedTime);
-        // setGetUpTime(newGetUpTime);
-      }else{
+        setBedTime(bedTimeGoal);
+        setGetUpTime(getUpTimeGoal);
+      } else {
         alert(data.msg);
       }
     }
     const url = endpoint + '/set_goal';
-    const bedTimeFormat = bedTime.format(timeFormat);
-    const data = {goalKey2: bedTimeFormat, goalName: "bedtime_goal"};
-    sleepService.setSleepGoal(url,data, callback).then();
-    const sleep_length = (dayjs(getUpTime, timeFormat).hour() + 24 - dayjs(bedTime, timeFormat).hour()) * 60 + (dayjs(getUpTime, timeFormat).minute() - dayjs(bedTime, timeFormat).minute());
-    const data2 = {goalKey1: sleep_length, goalName: "sleep_length_goal"};
+    const data = { goalKey2: bedTimeGoal, goalName: 'bedtime_goal' };
+    sleepService.setSleepGoal(url, data, callback).then();
+    const sleep_length =
+      (dayjs(getUpTimeGoal, timeFormat).hour() + 24 - dayjs(bedTimeGoal, timeFormat).hour()) * 60 +
+      (dayjs(getUpTimeGoal, timeFormat).minute() - dayjs(bedTimeGoal, timeFormat).minute());
+    const data2 = { goalKey1: sleep_length, goalName: 'sleep_length_goal' };
     sleepService.setSleepGoal(url, data2, callback).then();
-    alert("修改睡眠定时成功！");
+    alert('修改睡眠定时成功！');
   }
 
   return (
@@ -117,17 +122,17 @@ function DataSleepTime() {
                     </Tabs>
                   </Grid>
                   <Grid item xm={3}>
-                    <Dropdown
-                      menu={{
-                        items,
-                        selectable: true,
-                        defaultSelectedKeys: ['3']
-                      }}
-                    >
-                      <IconButton>
-                        <FileAddFilled />
-                      </IconButton>
-                    </Dropdown>
+                    {/*  <Dropdown*/}
+                    {/*    menu={{*/}
+                    {/*      items,*/}
+                    {/*      selectable: true,*/}
+                    {/*      defaultSelectedKeys: ['3']*/}
+                    {/*    }}*/}
+                    {/*  >*/}
+                    {/*    <IconButton>*/}
+                    {/*      <FileAddFilled />*/}
+                    {/*    </IconButton>*/}
+                    {/*  </Dropdown>*/}
                   </Grid>
                 </Grid>
               </div>
@@ -142,9 +147,12 @@ function DataSleepTime() {
             <Grid item>
               <Grid container spacing={gridSpacing}>
                 <Grid item lg={6} sm={6}>
-                  <SleepGoalCard bedTime={bedTime} getUpTime={getUpTime}
-                                 updateBedTime={(time) => setBedTime(time)} updateGetUpTime={(time) => setGetUpTime(time)}
-                                    updateGoal={updateGoal}
+                  <SleepGoalCard
+                    bedTime={bedTimeGoal}
+                    getUpTime={getUpTimeGoal}
+                    updateBedTime={(time) => setBedTimeGoal(time)}
+                    updateGetUpTime={(time) => setGetUpTimeGoal(time)}
+                    updateGoal={updateGoal}
                   />
                 </Grid>
                 <Grid item lg={6} sm={6}>

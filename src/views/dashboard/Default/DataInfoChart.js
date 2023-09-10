@@ -171,7 +171,7 @@ const DataInfoChart = ({ isLoading, infoData }) => {
         break;
       case 'sleepTime':
         setName('睡眠时间');
-        getSleepData(1, startDate, endDate).then((res) => {
+        getSleepData(startDate, endDate).then((res) => {
           if (res && res.status === 1) {
             newData = res.data.sleep_detail;
             setData(desolveSleepTimeData(dayjs(startDate), dayjs(endDate), newData, value));
