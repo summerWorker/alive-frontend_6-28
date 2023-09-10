@@ -16,16 +16,16 @@ import { endpoint } from '../../../utils/endpoint';
 import * as weightService from '../../../service/dataService/weightService';
 import Chart from 'react-apexcharts';
 import MainCard from '../../../ui-component/cards/MainCard';
-import dayjs from "dayjs";
-import HeightCard from "./HeightCard";
-import WeightAddCard from "./weightAddCard";
-import {integerPropType} from "@mui/utils";
-import {getBMI, setWeightGoal} from "../../../service/dataService/weightService";
-import {getMainRecord} from "../../../service/dataService/mainRecordService";
-import * as mainRecordService from "../../../service/dataService/mainRecordService";
-import * as goalService from "../../../service/dataService/goalService";
-import HeightAddCard from "./heightAddCard";
-import * as heightService from "../../../service/dataService/heightService";
+import dayjs from 'dayjs';
+import HeightCard from './HeightCard';
+import WeightAddCard from './weightAddCard';
+import { integerPropType } from '@mui/utils';
+import { getBMI, setWeightGoal } from '../../../service/dataService/weightService';
+import { getMainRecord } from '../../../service/dataService/mainRecordService';
+import * as mainRecordService from '../../../service/dataService/mainRecordService';
+import * as goalService from '../../../service/dataService/goalService';
+import HeightAddCard from './heightAddCard';
+import * as heightService from '../../../service/dataService/heightService';
 
 const weekFormat = 'YYYY-MM-DD';
 
@@ -45,9 +45,9 @@ const DataWeightAndHeight = () => {
   const month_callback = (data) => {
     // console.log(data);
     if (data.status >= 0) {
-      if(data.data.weights.length === 0){
+      if (data.data.weights.length === 0) {
         setMonthData([]);
-      }else {
+      } else {
         // const items = data.data.weight[0].detailValue;
         // console.log(items['items']);
         setMonthData(data.data.weights);
@@ -59,9 +59,9 @@ const DataWeightAndHeight = () => {
 
   const week_callback = (data) => {
     if (data.status >= 0) {
-      if(data.data.weights.length === 0){
+      if (data.data.weights.length === 0) {
         setWeekData([]);
-      }else {
+      } else {
         // const items = data.data.weight[0].detailValue;
         // console.log(items['items']);
         setWeekData(data.data.weights);
@@ -69,28 +69,31 @@ const DataWeightAndHeight = () => {
     } else {
       alert(data.msg);
     }
-  }
+  };
 
-  useEffect((date) => {
-    // get week data
-    const data = { start_date: startTime, end_date: endTime };
-    const url_week = endpoint + '/period_weight';
-    const callback = (data) => {
-      // console.log(data.data.weights);
-      if (data.status >= 0) {
-        if(data.data.weights.length === 0){
-          setWeekData([]);
-        }else {
-          // const items = data.data.weights[0].detailValue;
-          // console.log(items);
-          setWeekData(data.data.weights);
+  useEffect(
+    (date) => {
+      // get week data
+      const data = { start_date: startTime, end_date: endTime };
+      const url_week = endpoint + '/period_weight';
+      const callback = (data) => {
+        // console.log(data.data.weights);
+        if (data.status >= 0) {
+          if (data.data.weights.length === 0) {
+            setWeekData([]);
+          } else {
+            // const items = data.data.weights[0].detailValue;
+            // console.log(items);
+            setWeekData(data.data.weights);
+          }
+        } else {
+          alert(data.msg);
         }
-      } else {
-        alert(data.msg);
-      }
-    };
-    weightService.getWeight(url_week, data, callback).then();
-  }, [startTime, endTime]);
+      };
+      weightService.getWeight(url_week, data, callback).then();
+    },
+    [startTime, endTime]
+  );
 
   useEffect(() => {
     //get month data
@@ -100,7 +103,7 @@ const DataWeightAndHeight = () => {
     weightService.getWeight(url_month, data, month_callback).then();
   }, [monthStartTime, endTime]);
 
-  function updateMonthData(){
+  function updateMonthData() {
     const url_month = endpoint + '/period_weight';
     const data = { start_date: startTime, end_date: endTime };
     weightService.getWeight(url_month, data, month_callback).then();
@@ -108,7 +111,7 @@ const DataWeightAndHeight = () => {
 
   function updateWeekData() {
     const url_week = endpoint + '/period_weight';
-    const data = { start_date: startTime, end_date: endTime};
+    const data = { start_date: startTime, end_date: endTime };
     weightService.getWeight(url_week, data, week_callback).then();
   }
 
@@ -119,30 +122,30 @@ const DataWeightAndHeight = () => {
     const url = endpoint + '/main_record';
     const data = {};
     const callback = (data) => {
-      if(data.status >= 0) {
+      if (data.status >= 0) {
         setHeight(data.data.height);
         setCurWeight(data.data.weight);
-      }else{
+      } else {
         alert(data.msg);
       }
-    }
+    };
     mainRecordService.getMainRecord(url, data, callback).then();
-  })
+  });
 
   const [goal, setGoal] = useState();
 
   useEffect(() => {
     const data = {};
-    function callback(data){
-      if(data.status > 0){
+    function callback(data) {
+      if (data.status > 0) {
         const goals = data.data.goal;
-        for(let i = 0; i < goals.length; ++i){
-          if(goals[i].goalName === "weight_goal"){
+        for (let i = 0; i < goals.length; ++i) {
+          if (goals[i].goalName === 'weight_goal') {
             setGoal(goals[i].goalKey1);
             break;
           }
         }
-      }else{
+      } else {
         alert(data.msg);
       }
     }
@@ -150,12 +153,11 @@ const DataWeightAndHeight = () => {
   }, [goal]);
 
   function updateGoal(value) {
-    const data = { goalName: "weight_goal",
-       goalKey1: Number(value)};
-    function callback(data){
-      if(data.status >= 0){
+    const data = { goalName: 'weight_goal', goalKey1: Number(value) };
+    function callback(data) {
+      if (data.status >= 0) {
         setGoal(data.data.goalKey1);
-      }else{
+      } else {
         alert(data.msg);
       }
     }
@@ -166,19 +168,24 @@ const DataWeightAndHeight = () => {
   const [addWeightDate, setAddWeightDate] = useState(dayjs().format(weekFormat));
   const [addWeight, setAddWeight] = useState();
 
-  function addWeightData(){
-    if(addWeight === undefined || addWeight === null || addWeight === ''){
-        alert("Please input weight!");
-    }else{
-      function callback(data){
-        if(data.status >= 0){
-          alert("Add weight successfully!");
-          location.reload();
-        }else{
-          alert(data.msg);
+  function addWeightData() {
+    // console.log(addWeightDate, addWeight, Number(addWeight));
+    if (addWeight === undefined || addWeight === null || addWeight === '') {
+      alert('请输入体重!');
+    } else {
+      if (addWeight < 0 || Number(addWeight) === null || Number(addWeight) === undefined || isNaN(Number(addWeight))) {
+        alert('体重格式不正确!');
+      } else {
+        function callback(data) {
+          if (data.status >= 0) {
+            alert('体重添加成功!');
+            location.reload();
+          } else {
+            alert(data.msg);
+          }
         }
+        weightService.addWeight(endpoint + '/add_weight', { weight: Number(addWeight), date: addWeightDate }, callback).then();
       }
-      weightService.addWeight(endpoint + '/add_weight', { weight: Number(addWeight), date: addWeightDate}, callback).then();
     }
   }
 
@@ -186,19 +193,21 @@ const DataWeightAndHeight = () => {
   const [addHeightDate, setAddHeightDate] = useState(dayjs().format(weekFormat));
   const [addHeight, setAddHeight] = useState();
 
-  function addHeightData(){
-    if(addHeight === undefined || addHeight === null || addHeight === '') {
-      alert("Please input height!");
-    }else{
-      function callback(data){
-        if(data.status > 0){
-          alert("Add height successfully!");
+  function addHeightData() {
+    if (addHeight === undefined || addHeight === null || addHeight === '') {
+      alert('请输入身高!');
+    } else if (addHeight < 0 || Number(addHeight) === null || Number(addHeight) === undefined || isNaN(Number(addHeight))) {
+      alert('身高格式不正确!');
+    } else {
+      function callback(data) {
+        if (data.status > 0) {
+          alert('身高添加成功!');
           location.reload();
-        }else{
-            alert(data.msg);
+        } else {
+          alert(data.msg);
         }
       }
-      heightService.addHeight(endpoint + '/add_height', {height: Number(addHeight), date: addHeightDate}, callback).then();
+      heightService.addHeight(endpoint + '/add_height', { height: Number(addHeight), date: addHeightDate }, callback).then();
     }
   }
 
@@ -209,15 +218,14 @@ const DataWeightAndHeight = () => {
     const url = endpoint + '/bmi';
     const data = {};
     function callback(data) {
-      if(data.status >= 0){
-        setBmi((data.data.bmi).toFixed(2));
+      if (data.status >= 0) {
+        setBmi(data.data.bmi.toFixed(2));
         setCondition(data.data.analysis);
         setAdvice(data.data.advice);
       }
     }
     weightService.getBMI(url, data, callback).then();
   }, []);
-
 
   return (
     <Grid container spacing={gridSpacing}>
@@ -277,16 +285,21 @@ const DataWeightAndHeight = () => {
           {/*  <WeightConditionCard condition={condition} />*/}
           {/*</Grid>*/}
           <Grid item xs={12}>
-            <HeightAddCard date={addHeightDate} setDate={(date) => setAddHeightDate(date)}
-                            height={addHeight} setHeight={(height) => setAddHeight(height)}
-                            addHeight={addHeightData}
+            <HeightAddCard
+              date={addHeightDate}
+              setDate={(date) => setAddHeightDate(date)}
+              height={addHeight}
+              setHeight={(height) => setAddHeight(height)}
+              addHeight={addHeightData}
             />
           </Grid>
           <Grid item xs={12}>
-            <WeightAddCard date={addWeightDate}
+            <WeightAddCard
+              date={addWeightDate}
               setDate={(date) => setAddWeightDate(date)}
-                weight={addWeight} setWeight={(weight) => setAddWeight(weight)}
-                           addWeight={addWeightData}
+              weight={addWeight}
+              setWeight={(weight) => setAddWeight(weight)}
+              addWeight={addWeightData}
             />
           </Grid>
           <Grid item xs={12}>

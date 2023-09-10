@@ -343,6 +343,7 @@ export const FoodList = (props) => {
                                         })
                                       );
                                     }}
+                                    addonAfter={'份'}
                                   />
                                 </Grid>
                                 <Grid item>

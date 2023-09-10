@@ -217,6 +217,7 @@ export const ExerciseList = (props) => {
                                         })
                                       );
                                     }}
+                                    addonAfter={'分钟'}
                                   />
                                 </Grid>
                                 <Grid item>
