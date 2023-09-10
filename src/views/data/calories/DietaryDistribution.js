@@ -53,7 +53,7 @@ const DietaryDistribution = (props) => {
         totalProteinCalories += element.food.protein * element.amount;
         totalFatCalories += element.food.fat * element.amount;
       });
-      setAverageCalories(Number((totalCalories / props.data.length).toFixed(0)));
+      setAverageCalories(Number((totalCalories / 7).toFixed(0)));
       setCarbohydrateCalories(Number(totalCarbohydrateCalories.toFixed(0)));
       setProteinCalories(Number(totalProteinCalories.toFixed(0)));
       setFatCalories(Number(totalFatCalories.toFixed(0)));
