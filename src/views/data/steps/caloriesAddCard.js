@@ -17,7 +17,9 @@ const CaloriesAddCard = () => {
 
   const addCalories = () => {
     if (calories === undefined || calories === null || calories === '') {
-      alert('Please input your calories!');
+      alert('请输入卡路里!');
+    } else if (calories < 0 || isNaN(Number(calories)) || calories === Infinity || calories === -Infinity) {
+      alert('卡路里不符合规范!');
     } else {
       addStepCaloriesData(calories, caloriesDate).then((res) => {
         if (res.status === 1) {
