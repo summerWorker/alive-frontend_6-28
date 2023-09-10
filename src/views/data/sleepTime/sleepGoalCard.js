@@ -3,6 +3,12 @@ import { gridSpacing } from 'store/constant';
 import { styled, useTheme } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
 import { FileAddFilled } from '@ant-design/icons';
+import {Button, Form, Input, Modal, TimePicker} from "antd";
+import React, {useState} from "react";
+import dayjs from "dayjs";
+
+const format = 'HH:mm';
+
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: '#B4CF66',
   color: '#146152',
@@ -44,8 +50,9 @@ const ChartContainer = styled('div')({
   zIndex: 1
 });
 
-export function SleepGoalCard() {
+export function SleepGoalCard(props) {
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -53,22 +60,14 @@ export function SleepGoalCard() {
         <Box sx={{ p: 2.25 }}>
           <Grid container spacing={gridSpacing} justifyContent={'space-between'}>
             <Grid item>
-              <h2 style={{ color: '#164C45' }}>所有定时</h2>
-              <h4 style={{ color: '#164C45' }}>每天</h4>
+              <h2 style={{ color: '#164C45' }}>设置定时</h2>
+              <h4 style={{ color: '#164C45' }}>今天</h4>
             </Grid>
             <Grid item>
               <ChartContainer>
-                <Avatar
-                  variant="rounded"
-                  sx={{
-                    ...theme.typography.commonAvatar,
-                    ...theme.typography.largeAvatar,
-                    backgroundColor: '#E3C75F',
-                    mt: 1
-                  }}
-                >
-                  <FileAddFilled />
-                </Avatar>
+                <Button onClick={props.updateGoal}>
+                  提交
+                </Button>
               </ChartContainer>
             </Grid>
           </Grid>
@@ -76,11 +75,14 @@ export function SleepGoalCard() {
           <Grid container spacing={gridSpacing}>
             <Grid item xs={6}>
               <h4 style={{ color: '#164C45' }}>就寝</h4>
-              <h1 style={{ color: '#164C45' }}>23:00</h1>
+              {/*<h1 style={{ color: '#164C45' }}>{props.bedTime}</h1>*/}
+              <TimePicker value={dayjs(props.bedTime, format)}
+                          onChange={(time) => props.updateBedTime(time)} format={format} />
             </Grid>
             <Grid item xs={6}>
               <h4 style={{ color: '#164C45' }}>起床</h4>
-              <h1 style={{ color: '#164C45' }}>07:00</h1>
+              {/*<h1 style={{ color: '#164C45' }}>{props.getUpTime}</h1>*/}
+              <TimePicker value={dayjs(props.getUpTime, format)} format={format} onChange={(time) => props.updateGetUpTime(time)}/>
             </Grid>
           </Grid>
         </Box>
