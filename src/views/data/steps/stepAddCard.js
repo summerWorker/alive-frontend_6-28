@@ -19,7 +19,19 @@ const StepAddCard = () => {
     console.log(stepDate, typeof stepDate);
     if (step === undefined || step === null || step === '') {
       alert('Please input your step!');
-    } else {
+      return;
+    }
+    // 获取当前日期和时间
+    const currentDate = new Date();
+
+    // 将用户输入的日期和时间转换为 Date 对象
+    const userDate = new Date(stepDate);
+
+    // 检查日期是否为未来日期
+    if (userDate > currentDate) {
+      alert("日期不能是未来日期");
+      return;
+    }
       addStepData(step, stepDate).then((res) => {
         if (res.status === 1) {
           alert('步数添加成功!');
@@ -28,7 +40,7 @@ const StepAddCard = () => {
           alert(res.msg);
         }
       });
-    }
+
   };
 
   return (
