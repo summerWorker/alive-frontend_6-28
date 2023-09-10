@@ -17,11 +17,13 @@ const DistanceAddCard = () => {
 
   const addDistance = () => {
     if (distance === undefined || distance === null || distance === '') {
-      alert('Please input your distance!');
+      alert('请输入公里数!');
+    } else if (distance < 0 || isNaN(Number(distance)) || distance === Infinity || distance === -Infinity) {
+      alert('公里数不符合规范!');
     } else {
       addStepDistanceData(distance, distanceDate).then((res) => {
         if (res.status === 1) {
-          alert('公里添加成功!');
+          alert('公里数添加成功!');
           //刷新页面
           window.location.reload();
         } else {

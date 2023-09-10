@@ -17,7 +17,9 @@ const GoalAddCard = () => {
 
   const addGoal = () => {
     if (goal === undefined || goal === null || goal === '') {
-      alert('Please input your goal!');
+      alert('请输入目标!');
+    } else if (goal < 0 || isNaN(Number(goal)) || goal === Infinity || goal === -Infinity) {
+      alert('目标不符合规范!');
     } else {
       addStepGoalData(goal, goalDate).then((res) => {
         if (res.status > 0) {
